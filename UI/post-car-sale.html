@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="A web application marketplace for car">
+	  <meta name="keywords" content="car, buy, sell, toyota, benz,">
+    <meta name="author" content="Zack Aminu">
+    <link rel="stylesheet" href="styles/form.css">
+    <title>AutoMart | Post car sale AD</title>
+  </head>
+
+  <body>
+
+  	<div class="form-page">
+  		<div class="form-wrapper">
+
+  			<img class="image-logo" src="images/am-logo.svg" alt="logo" />
+
+          <div class="form-group">
+            <label for="state">Car State</label>
+            <select id="car-state">
+              <option value="New"> New </option>
+              <option value="Used"> Used </option>
+            </select>
+            </div>
+            
+<!--             
+          <div class="form-group">
+                <input name="year" type="text" id="year" class="form-control" required>
+                <label class="form-control-placeholder" for="manufucture">Year</label>
+              </div> -->
+          <div class="form-group">
+            <input name="make" type="text" id="make" class="form-control" required>
+            <label class="form-control-placeholder" for="manufucture">Make</label>
+          </div>
+	        <div class="form-group">
+		        <input name="model" type="text" id="model" class="form-control" required>
+		        <label class="form-control-placeholder" for="model">Model</label>
+	        </div>
+	        <div class="form-group">
+		        <input name="body-type" type="text" id="body-type" class="form-control" required>
+		        <label class="form-control-placeholder" for="body-type">Body Type</label>
+	        </div>
+          <!-- <div class="form-group">
+            <label for="state">Fuel</label>
+            <select id="car-state">
+              <option value="New"> Petrol </option>
+              <option value="Used"> Disel </option>
+            </select>
+          </div> -->
+	        <div class="form-group">
+		        <input name="engine-size" type="text" id="engine-size" class="form-control" required>
+		        <label class="form-control-placeholder" for="engine-size">Engine Size e.g 2000cc</label>
+	        </div>
+          <div class="form-group">
+            <input name="price" type="text" id="price" class="form-control" required>
+            <label class="form-control-placeholder" for="confirm-password">Price in $</label>
+          </div>
+          <div class="form-group">
+            <label for="pic">Image of the car</label>
+            <input name="pic" type="file" id="pic" class="form-control" accept="image/*">
+          </div>
+
+  			<div class="text-center">
+  				<button class="sign-btn"> POST AD</button>
+  			</div>
+
+  		</div>
+  	</div>
+
+  </body>
+</html>
