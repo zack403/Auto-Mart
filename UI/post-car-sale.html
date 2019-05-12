@@ -46,28 +46,10 @@
             required
           />
         </div>
+      
+
         <div class="form-group">
-          <label for="body-type">Body Type</label>
-          <input
-            name="body-type"
-            type="text"
-            id="body-type"
-            class="form-control"
-            required
-          />
-        </div>
-        <div class="form-group">
-          <label for="engine-size">Engine Size e.g 2000cc</label>
-          <input
-            name="engine-size"
-            type="text"
-            id="engine-size"
-            class="form-control"
-            required
-          />
-        </div>
-        <div class="form-group">
-          <label for="price">Price in $</label>
+          <label for="price">Price<small>($)</small></label>
           <input
             name="price"
             type="text"
@@ -77,6 +59,16 @@
           />
         </div>
         <div class="form-group">
+                <label for="price">Color</label>
+                <input
+                  name="color"
+                  type="text"
+                  id="color"
+                  class="form-control"
+                  required
+                />
+              </div>
+        <div class="form-group">
           <label for="pic">Image of the car</label>
           <input
             name="pic"
@@ -85,11 +77,23 @@
             accept="image/*"
           />
         </div>
+        <div class="form-group">
+                <label for="">Seller Name</label>
+                <input type="text" id="name" name="name" class="form-control" required>
+        </div>
 
+        <div class="form-group">
+                <label for="">Email</label>
+                <input type="email" id="email" name="email" class="form-control" required>
+        </div>
+        <div class="form-group">
+                <label for="">Phone</label>
+                <input type="text" id="phone" name="phone" class="form-control" required>
+              </div>
     
       </form>
       <div class="form-group text-center">
-        <button class="btn btn-primary full-width">POST AD</button>
+        <button class="btn btn-primary full-width">SUBMIT AD</button>
       </div>
     </div>
   </body>
