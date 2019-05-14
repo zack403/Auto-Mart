@@ -15,6 +15,11 @@ a {
   color: #333;
   text-decoration: none;
 }
+#user-image {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
 
 ul {
   list-style: none;
@@ -22,6 +27,16 @@ ul {
 
 img {
   width: 100%;
+}
+
+.purchase-order {
+  display: flex;
+  flex-direction: row;
+}
+
+.shift-footer {
+  min-height: calc(100vh - 305px);
+
 }
 
 /* Footer */
