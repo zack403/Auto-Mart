@@ -4428,6 +4428,14 @@ img {
     }
   }
   
+  @media (min-width: 320px) and (max-width: 700px) {
+    #main-footer {
+      display: none;
+    }
+  }
+
+
+
   @media (max-width: 991.98px) {
     .navbar-expand-lg > .container,
     .navbar-expand-lg > .container-fluid {
