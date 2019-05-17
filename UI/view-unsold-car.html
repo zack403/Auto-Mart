@@ -13,248 +13,256 @@
   <body>
     <div class="shift-footer">
       <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light">
-          <div class="container">
-              <a  class="navbar-brand pl-5 " href="../index.html"><img src="images/am-logo.svg" alt="AutoMart logo"></a>
-            
-                <div  id="navbarNav">
-                  <ul class="navbar-nav ml-auto">
-                    <li class="nav-item active">
-                      <a class="nav-link" href="../index.html">Home</a>
-                    </li>
-                    <li class="nav-item active ">
-                      <a class="nav-link" href="sign-in.html">Login</a>
-                    </li>
-                    <li class="nav-item active ">
-                      <a class="nav-link" href="post-car-sale.html">Post Ad</a>
-                    </li>
-                    <li class="nav-item active">
-                      <a class="nav-link" href="view-a-car.html">View A car</a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="view-unsold-car.html">View All Unsold Cars</a>
-                      </li>
-                      <li class="nav-item active">
-                          <a class="nav-link" href="purchase-order.html">Make A Purchase</a>
-                        </li>
-                        <li class="nav-item active">
-                            <a class="nav-link" href="admin-right.html">Admin</a>
-                          </li>
-                          <li class="nav-item dropdown active">
-                              <a class="nav-link" href=""><img id="user-image" src="images/user-image.jpg" alt="user image"></a>
-                              <div class="dropdown-content">
-                                      <a href="my-ad.html">My Ads</a>
-                                      <a href="my-po.html">My PO</a>
-                                      <a href="#">Logout</a>
-                                    </div>
-                            </li>
-                  </ul>
-                </div>
-          </div>
-              
-              </nav>
+        <div class="container">
+          <a class="navbar-brand pl-5 " href="../index.html"><img src="images/am-logo.svg" alt="AutoMart logo"/></a>
 
-              <div class="container mt-5">
-                  <div class="row">
-                      <div class="col-md-3">
-                          <p>Filters...</p>
-          <form>
-              <div class="form-group">
-                  <label for="state">Car State</label>
-                  <select id="car-state" class="form-control" required>
-                    <option value="New"> New </option>
-                    <option value="Used"> Used </option>
-                  </select>
+          <div id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item active">
+                <a class="nav-link" href="../index.html">Home</a>
+              </li>
+              <li class="nav-item active ">
+                <a class="nav-link" href="sign-in.html">Login</a>
+              </li>
+              <li class="nav-item active ">
+                <a class="nav-link" href="post-car-sale.html">Post Ad</a>
+              </li>
+              <li class="nav-item active">
+                <a class="nav-link" href="view-a-car.html">View A car</a>
+              </li>
+              <li class="nav-item active">
+                <a class="nav-link" href="view-unsold-car.html">View All Unsold Cars</a>
+              </li>
+              <li class="nav-item active">
+                <a class="nav-link" href="purchase-order.html">Make A Purchase</a>
+              </li>
+              <li class="nav-item active">
+                <a class="nav-link" href="admin-right.html">Admin</a>
+              </li>
+              <li class="nav-item dropdown active">
+                <a class="nav-link" href=""><img id="user-image" src="images/user-image.jpg" alt="user image"/></a>
+                <div class="dropdown-content">
+                  <a href="my-ad.html">My Ads</a>
+                  <a href="my-po.html">My PO</a>
+                  <a href="#">Logout</a>
                 </div>
-              
-        <div class="form-group">
-            <label for="manufucture">Make</label>
-            <select required class="form-control" name="makes" id="make">
-              <option value="acura">Acura</option>
-              <option value="acura">Toyota</option>
-              <option value="acura">Honda</option>
-              <option value="acura">Alfa Romeo</option>
-              <option value="acura">Aston Martin</option>
-              <option value="acura">Audi</option>
-              <option value="acura">BMW</option>
-              <option value="acura">Buick</option>
-              <option value="acura">Cadillac</option>
-              <option value="acura">Chevrolet</option>
-              <option value="acura">Chrysler</option>
-            </select>
+              </li>
+            </ul>
           </div>
-          <div class="form-group">
-              <label for="state">Min Price</label>
-              <select id="car-state" class="form-control" required>
-                <option value="New">&#8358;100,000 </option>
-                <option value="Used">&#8358;200,000</option>
-                <option value="Used">&#8358;300,000</option>
-                <option value="Used">&#8358;400,000</option>
-                <option value="Used">&#8358;500,000</option>
-                <option value="Used">&#8358;600,000</option>
-                <option value="Used">&#8358;700,000</option>
-              </select>
-            </div>
-             
-            <div class="form-group">
-                <label for="state">Max Price</label>
+        </div>
+      </nav>
+
+      <div class="container mt-5">
+        <div class="row">
+          <div class="col-md-3">
+            <p>Filters...</p>
+            <form>
+              <div class="form-group">
+                <label for="state">Car State</label>
                 <select id="car-state" class="form-control" required>
-                    <option value="New">&#8358;1,000,000 </option>
-                    <option value="Used">&#8358;2,000,000</option>
-                    <option value="Used">&#8358;3,000,000</option>
-                    <option value="Used">&#8358;4,000,000</option>
-                    <option value="Used">&#8358;5,000,000</option>
-                    <option value="Used">&#8358;6,000,000</option>
-                    <option value="Used">&#8358;7,000,000</option>
+                  <option value="New"> New </option>
+                  <option value="Used"> Used </option>
                 </select>
               </div>
-            
+
+              <div class="form-group">
+                <label for="manufucture">Make</label>
+                <select required class="form-control" name="makes" id="make">
+                  <option value="acura">Acura</option>
+                  <option value="acura">Toyota</option>
+                  <option value="acura">Honda</option>
+                  <option value="acura">Alfa Romeo</option>
+                  <option value="acura">Aston Martin</option>
+                  <option value="acura">Audi</option>
+                  <option value="acura">BMW</option>
+                  <option value="acura">Buick</option>
+                  <option value="acura">Cadillac</option>
+                  <option value="acura">Chevrolet</option>
+                  <option value="acura">Chrysler</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="state">Min Price</label>
+                <select id="car-state" class="form-control" required>
+                  <option value="New">&#8358;100,000 </option>
+                  <option value="Used">&#8358;200,000</option>
+                  <option value="Used">&#8358;300,000</option>
+                  <option value="Used">&#8358;400,000</option>
+                  <option value="Used">&#8358;500,000</option>
+                  <option value="Used">&#8358;600,000</option>
+                  <option value="Used">&#8358;700,000</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="state">Max Price</label>
+                <select id="car-state" class="form-control" required>
+                  <option value="New">&#8358;1,000,000 </option>
+                  <option value="Used">&#8358;2,000,000</option>
+                  <option value="Used">&#8358;3,000,000</option>
+                  <option value="Used">&#8358;4,000,000</option>
+                  <option value="Used">&#8358;5,000,000</option>
+                  <option value="Used">&#8358;6,000,000</option>
+                  <option value="Used">&#8358;7,000,000</option>
+                </select>
+              </div>
             </form>
             <div class="form-group text-center">
-                  <button class="btn btn-primary full-width">APPLY FILTERS</button>
-            </div>
-        </div>
-                      <div class="col-md-9">
-                        <p>Showing All Unsold Cars</p>
-                          <div class="card-deck mt-5">
-                              <div class="card">
-                              <a href="make-purchase.html"><img class="card-img-top" src="images/honda.jpg" alt="Card image cap"></a>
-                                <div class="card-body">
-                                  <h5 class="card-title">Honda 2019</h5>
-                                  <p class="card-text text-right badge badge-warning">Available</p>
-                                </div>
-                                <div class="card-footer">
-                                    <p class="text-primary">Price: &#8358;13,000000</p>
-                                  </div>
-                              </div>
-                              <div class="card">
-                              <a href="make-purchase.html"><img class="card-img-top" src="images/toyota.jpg" alt="Card image cap"></a>
-                                <div class="card-body">
-                                  <h5 class="card-title">Toyota 2019</h5>
-                                  <p class="card-text text-right badge badge-warning">Available</p>
-                                </div>
-                                <div class="card-footer">
-                                    <p class="text-primary">Price: &#8358;13,000000</p>
-                      
-                                  </div>
-                              </div>
-                              <div class="card">
-                              <a href="make-purchase.html"><img class="card-img-top" src="images/honda.jpg" alt="Card image cap"></a>
-                                <div class="card-body">
-                                  <h5 class="card-title">Honda 2019</h5>
-                                  <p class="card-text text-right badge badge-warning">Available</p>
-                                </div>
-                                <div class="card-footer">
-                                    <p class="text-primary">Price: &#8358;13,000000</p>
-                                  </div>
-                              </div>
-                            </div>
-                            <div class="card-deck mt-4">
-                                <div class="card">
-                                 <a href="make-purchase.html"><img class="card-img-top" src="images/honda.jpg" alt="Card image cap"></a>
-                                  <div class="card-body">
-                                    <h5 class="card-title">Honda 2019</h5>
-                                    <p class="card-text text-right badge badge-warning">Available</p>
-                                  </div>
-                                  <div class="card-footer">
-                                      <p class="text-primary">Price: &#8358;13,000000</p>
-                                  </div>
-                                </div>
-                                <div class="card">
-                                <a href="make-purchase.html"><img class="card-img-top" src="images/toyota.jpg" alt="Card image cap"></a> 
-                                  <div class="card-body">
-                                    <h5 class="card-title">Toyota 2019</h5>
-                                    <p class="card-text text-right badge badge-warning">Available</p>
-                                  </div>
-                                  <div class="card-footer">
-                                      <p class="text-primary">Price: &#8358;13,000000</p>
-                                  </div>
-                                </div>
-                                <div class="card">
-                                 <a href="make-purchase.html"><img class="card-img-top" src="images/honda.jpg" alt="Card image cap"></a>
-                                  <div class="card-body">
-                                    <h5 class="card-title">Honda 2019</h5>
-                                    <p class="card-text text-right badge badge-warning">Available</p>
-                                  </div>
-                                  <div class="card-footer">
-                                      <p class="text-primary">Price: &#8358;13,000000</p>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="card-deck mt-4">
-                                  <div class="card">
-                                   <a href="make-purchase.html"><img class="card-img-top" src="images/honda.jpg" alt="Card image cap"></a>
-                                    <div class="card-body">
-                                      <h5 class="card-title">Honda 2019</h5>
-                                      <p class="card-text text-right badge badge-warning">Available</p>
-                                    </div>
-                                    <div class="card-footer">
-                                        <p class="text-primary">Price: &#8358;13,000000</p>
-                                      </div>
-                                  </div>
-                                  <div class="card">
-                                    <a href="make-purchase.html"> <img class="card-img-top" src="images/toyota.jpg" alt="Card image cap"></a>
-                                    <div class="card-body">
-                                      <h5 class="card-title">Toyota 2019</h5>
-                                      <p class="card-text text-right badge badge-warning">Available</p>
-                                    </div>
-                                    <div class="card-footer">
-                                        <p class="text-primary">Price: &#8358;13,000000</p>
-                                      </div>
-                                  </div>
-                                  <div class="card">
-                                   <a href="make-purchase.html"><img class="card-img-top" src="images/honda.jpg" alt="Card image cap"></a>
-                                    <div class="card-body">
-                                      <h5 class="card-title">Honda 2019</h5>
-                                      <p class="card-text text-right badge badge-warning">Available</p>
-                                    </div>
-                                    <div class="card-footer">
-                                      <p class="text-primary">Price: &#8358;13,000000</p>
-                                    </div>
-                                  </div>
-                                </div>  
-                        </div>
-                            
-                  </div>
-              </div> 
-
-      
-    </div>
-      <footer id="main-footer" class="mt-4 py-2">
-          <div class="container footer-container">
-            <div>
-              <img src="images/am-logo.svg" alt="NewsGrid">
-              <p>
-                  Auto Mart is an online marketplace for automobiles of diverse makes, 
-                  model or body type. With Auto Mart, 
-                  users can sell their cars or buy from trusted dealerships or private sellers.
-              </p>
-            </div>
-            <div>
-                <h2>Links</h2>
-                 <a href="#"><p>About Us</p></a> 
-                 <a href="#"><p>Contact</p></a> 
-                 <a href="#"><p>Help & Support</p></a> 
-      
-      
-              </div>
-           
-            <div>
-              <h2>Join Our Blog</h2>
-              <p>Join our blog to meet other car enthusiast</p>
-              <a href="#" class="btn btn-primary">Join Now</a>
-            </div>
-            <div>
-                <h2>Follow Us</h2>
-                 <a href="https://twitter.com"><p>Twitter</p></a> 
-                 <a href="https://linkedin.com"><p>LinkedIn</p></a> 
-      
-              </div>
-            <div>
-              <p>
-                Copyright &copy; 2019 AutoMart Ltd. All rights reserved
-              </p>
+              <button class="btn btn-primary full-width">APPLY FILTERS</button>
             </div>
           </div>
-        </footer>
+          <div class="col-md-9">
+            <p>Showing All Unsold Cars</p>
+            <div class="card-deck mt-5">
+              <div class="card">
+                <a href="make-purchase.html"><img class="card-img-top" src="images/honda.jpg" alt="Card image cap"/></a>
+                <div class="card-body">
+                  <h5 class="card-title">Honda 2019</h5>
+                  <p class="card-text text-right badge badge-warning">
+                    Available
+                  </p>
+                </div>
+                <div class="card-footer">
+                  <p class="text-primary">Price: &#8358;13,000000</p>
+                </div>
+              </div>
+              <div class="card">
+                <a href="make-purchase.html"><img class="card-img-top" src="images/toyota.jpg" alt="Card image cap"/></a>
+                <div class="card-body">
+                  <h5 class="card-title">Toyota 2019</h5>
+                  <p class="card-text text-right badge badge-warning">
+                    Available
+                  </p>
+                </div>
+                <div class="card-footer">
+                  <p class="text-primary">Price: &#8358;13,000000</p>
+                </div>
+              </div>
+              <div class="card">
+                <a href="make-purchase.html"><img class="card-img-top" src="images/honda.jpg" alt="Card image cap"/></a>
+                <div class="card-body">
+                  <h5 class="card-title">Honda 2019</h5>
+                  <p class="card-text text-right badge badge-warning">
+                    Available
+                  </p>
+                </div>
+                <div class="card-footer">
+                  <p class="text-primary">Price: &#8358;13,000000</p>
+                </div>
+              </div>
+            </div>
+            <div class="card-deck mt-4">
+              <div class="card">
+                <a href="make-purchase.html"><img class="card-img-top" src="images/honda.jpg" alt="Card image cap"/></a>
+                <div class="card-body">
+                  <h5 class="card-title">Honda 2019</h5>
+                  <p class="card-text text-right badge badge-warning">
+                    Available
+                  </p>
+                </div>
+                <div class="card-footer">
+                  <p class="text-primary">Price: &#8358;13,000000</p>
+                </div>
+              </div>
+              <div class="card">
+                <a href="make-purchase.html"><img class="card-img-top" src="images/toyota.jpg" alt="Card image cap"/></a>
+                <div class="card-body">
+                  <h5 class="card-title">Toyota 2019</h5>
+                  <p class="card-text text-right badge badge-warning">
+                    Available
+                  </p>
+                </div>
+                <div class="card-footer">
+                  <p class="text-primary">Price: &#8358;13,000000</p>
+                </div>
+              </div>
+              <div class="card">
+                <a href="make-purchase.html"><img class="card-img-top" src="images/honda.jpg" alt="Card image cap"/></a>
+                <div class="card-body">
+                  <h5 class="card-title">Honda 2019</h5>
+                  <p class="card-text text-right badge badge-warning">
+                    Available
+                  </p>
+                </div>
+                <div class="card-footer">
+                  <p class="text-primary">Price: &#8358;13,000000</p>
+                </div>
+              </div>
+            </div>
+            <div class="card-deck mt-4">
+              <div class="card">
+                <a href="make-purchase.html"><img class="card-img-top" src="images/honda.jpg" alt="Card image cap"/></a>
+                <div class="card-body">
+                  <h5 class="card-title">Honda 2019</h5>
+                  <p class="card-text text-right badge badge-warning">
+                    Available
+                  </p>
+                </div>
+                <div class="card-footer">
+                  <p class="text-primary">Price: &#8358;13,000000</p>
+                </div>
+              </div>
+              <div class="card">
+                <a href="make-purchase.html"> <img class="card-img-top" src="images/toyota.jpg" alt="Card image cap"/></a>
+                <div class="card-body">
+                  <h5 class="card-title">Toyota 2019</h5>
+                  <p class="card-text text-right badge badge-warning">
+                    Available
+                  </p>
+                </div>
+                <div class="card-footer">
+                  <p class="text-primary">Price: &#8358;13,000000</p>
+                </div>
+              </div>
+              <div class="card">
+                <a href="make-purchase.html"><img class="card-img-top" src="images/honda.jpg" alt="Card image cap"/></a>
+                <div class="card-body">
+                  <h5 class="card-title">Honda 2019</h5>
+                  <p class="card-text text-right badge badge-warning">
+                    Available
+                  </p>
+                </div>
+                <div class="card-footer">
+                  <p class="text-primary">Price: &#8358;13,000000</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer id="main-footer" class="mt-4 py-2">
+      <div class="container footer-container">
+        <div>
+          <img src="images/am-logo.svg" alt="NewsGrid" />
+          <p>
+            Auto Mart is an online marketplace for automobiles of diverse makes, model or body type. With Auto Mart, users can sell their cars or buy
+            from trusted dealerships or private sellers.
+          </p>
+        </div>
+        <div>
+          <h2>Links</h2>
+          <a href="#"><p>About Us</p></a>
+          <a href="#"><p>Contact</p></a>
+          <a href="#"><p>Help & Support</p></a>
+        </div>
+
+        <div>
+          <h2>Join Our Blog</h2>
+          <p>Join our blog to meet other car enthusiast</p>
+          <a href="#" class="btn btn-primary">Join Now</a>
+        </div>
+        <div>
+          <h2>Follow Us</h2>
+          <a href="https://twitter.com"><p>Twitter</p></a>
+          <a href="https://linkedin.com"><p>LinkedIn</p></a>
+        </div>
+        <div>
+          <p>
+            Copyright &copy; 2019 AutoMart Ltd. All rights reserved
+          </p>
+        </div>
+      </div>
+    </footer>
   </body>
 </html>
