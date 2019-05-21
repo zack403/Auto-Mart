@@ -1,11 +1,20 @@
-const express = require('express');
-
+// const winston = require("winston");
+const express = require("express");
+// const config = require("config");
 const app = express();
 
-
-const server = app.listen(3000, () => {
-    console.log("Server is listening on port 3000");
+app.get("/:id", (req, res) => {
+    res.send(req.params.id);
 })
 
+require("./startup/cors")(app);
+require("./startup/routes")(app);
+
+
+const port = process.env.PORT || 3000;
+const server = app.listen(port, () =>
+console.log(`Listening on port ${port}...`)
+//   winston.info(`Listening on port ${port}...`)
+);
 
 module.exports = server;
