@@ -5,7 +5,7 @@ const users = require('../routes/user');
 
 module.exports = function(app) {
   app.use(express.json());
-  app.use('/auth/signup', users);
+  app.use('/api/v1/auth/signup', users);
 //   app.use('/auth/sigin', auth);
 //   app.use(error);
 }
