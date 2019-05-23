@@ -3,8 +3,6 @@ let server;
 
 
 
-
-
 describe('/api/v1/auth/signin', () => {
     beforeEach(() => {server = require('../../../index'); })
     afterEach(() => {server.close();});

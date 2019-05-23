@@ -22,11 +22,9 @@ router.get('/:id',  async ({ params: { id } }, res) => {
 router.post('/', async (req, res) => {
     const {error} = validate(req.body);
     if (error) return res.status(400).send(error.details[0].message);
-    const isEmailExist = await User.find(e => e.email === req.body.email);
-    if (isEmailExist) {
-        res.status(400).send(`This email ${req.body.email} is already taken`);
-        return;
-    }
+    const user = await User.find(e => e.email === req.body.email);
+    if (user) return res.status(400).send(`This email ${req.body.email} is already taken`);
+    
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(req.body.password, salt);
     const userToCreate = {
@@ -36,7 +34,6 @@ router.post('/', async (req, res) => {
          email : req.body.email,
          password : hashedPassword,
          created_at : moment().format('MMM Do YYYY, h:mm:ss a'),
-         is_admin : false
       };
 
       try {
