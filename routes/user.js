@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
 const {User, validate} = require('../models/user');
-const moment = require('moment');
+
 const jwt = require('jsonwebtoken');
 
 
@@ -35,7 +35,7 @@ router.post('/', async (req, res) => {
          last_name : req.body.last_name,
          email : req.body.email,
          password : hashedPassword,
-         created_at : moment().format('MMM Do YYYY, h:mm:ss a'),
+        
          is_admin : false
       };
 
@@ -58,7 +58,7 @@ router.post('/', async (req, res) => {
                   first_name: userToCreate.first_name,
                   last_name : userToCreate.last_name,
                   email: userToCreate.email,
-                  created_at : userToCreate.created_at
+                 
               }
             });
         }
