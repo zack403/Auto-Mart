@@ -3,9 +3,7 @@ const express = require("express");
 // const config = require("config");
 const app = express();
 
-app.get("/:id", (req, res) => {
-    res.send(req.params.id);
-})
+
 
 require("./startup/cors")(app);
 require("./startup/routes")(app);
