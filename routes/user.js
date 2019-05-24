@@ -34,6 +34,7 @@ router.post('/', async (req, res) => {
          email : req.body.email,
          password : hashedPassword,
          created_at : moment().format('MMM Do YYYY, h:mm:ss a'),
+     
       };
 
       try {
@@ -56,6 +57,7 @@ router.post('/', async (req, res) => {
                   last_name : userToCreate.last_name,
                   email: userToCreate.email,
                   created_at : userToCreate.created_at
+                 
               }
             });
         }
