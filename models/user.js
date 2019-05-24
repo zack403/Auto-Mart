@@ -4,7 +4,7 @@ const userSchema = [
  
 ]
 
-function validateUser(user) {
+const validateUser = user => {
     const schema = {
       first_name: Joi.string()
         .min(2)
