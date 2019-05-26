@@ -6,8 +6,11 @@ const moment = require('../helper/moment');
 
 
 //getcars
-router.get("/", async (req, res) => {
-    res.send(Cars);
+router.get("/", auth, async (req, res) => {
+    res.status(200).send({
+        status: 200,
+        data: Cars
+    })
 })
 
 
