@@ -70,10 +70,22 @@ describe('/api/v1/car/', () => {
         Cars = [];
     });
 
+    describe('GET /api/v1/car', () => {
+        it('should return all cars', async () => {
+        
+          const res = await request(server).get('/api/v1/car')
+          .set('Authorization', token);
+          
+          expect(res.status).toBe(200);
+          expect(res.body).not.toBeNull;
+        });
+      });
+
+
     describe('POST /api/v1/car', () => {
 
         
-        it('should return 401 if client is not logged in', async () => {
+        it('should return 401 if user is not logged in', async () => {
             token = '';
         
             const res = await exec();
@@ -81,7 +93,7 @@ describe('/api/v1/car/', () => {
             expect(res.status).toBe(401);
           });
 
-        it('should return 400 if sate is not provided', async () => {
+        it('should return 400 if state is not provided', async () => {
             state = ''; 
             
             const res = await exec();
