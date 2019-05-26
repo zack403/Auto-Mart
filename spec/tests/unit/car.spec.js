@@ -52,7 +52,7 @@ describe('/api/v1/car/', () => {
         })
 
         Cars.push({
-            id: carID,
+            id: 1,
             owner : User.forEach(elem => elem.id),
             state: "used",
             status : "sold",
@@ -71,6 +71,14 @@ describe('/api/v1/car/', () => {
     });
 
     describe('GET /api/v1/car', () => {
+
+        it('should return 401 if no token is provided', async () => {
+        
+            const res = await request(server).get('/api/v1/car')
+            
+            expect(res.status).toBe(401);
+          });
+
         it('should return all cars', async () => {
         
           const res = await request(server).get('/api/v1/car')
@@ -80,6 +88,44 @@ describe('/api/v1/car/', () => {
           expect(res.body).not.toBeNull;
         });
       });
+
+      
+  describe('GET /:car_id', () => {
+    it('should return 401 if no token is provided', async () => {
+        
+        const res = await request(server).get('/api/v1/car/1')
+        
+        expect(res.status).toBe(401);
+      });
+
+    it('should return 404 if invalid id is passed', async () => {
+      const res = await request(server).get('/api/v1/car/10')
+      .set('Authorization', token);
+
+      expect(res.status).toBe(404);
+    });
+
+
+    it('should return a car if valid id is passed', async () => {
+    
+
+      const res = await request(server).get('/api/v1/car/1')
+      .set('Authorization', token);
+
+      expect(res.status).toBe(200);
+      expect(res.body).not.toBeNull();     
+    });
+
+    
+
+    // it('should return 404 if no car with the given id exists', async () => {
+    //   const id = mongoose.Types.ObjectId();
+    //   const res = await request(server).get('/api/v1/car/' + id);
+
+    //   expect(res.status).toBe(404);
+    // });
+  });
+
 
 
     describe('POST /api/v1/car', () => {
