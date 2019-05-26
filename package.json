@@ -4,15 +4,16 @@
   "description": "Auto Mart is an online marketplace for automobiles of diverse makes, model or body type. With Auto Mart, users can sell their cars or buy from trusted dealerships or private sellers.",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "test": "jasmine"
+    "start": "nodemon index.js",
+    "test": "jasmine",
+    "build": "node build/build.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/zack403/Auto-Mart.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Zack Aminu",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/zack403/Auto-Mart/issues"
