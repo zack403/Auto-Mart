@@ -2,6 +2,9 @@ language: node_js
 node_js: 
   - "stable"
 
+env:
+  - automart_jwtPrivateKey="mysecureKey"
+
 install:
   - npm install
 
