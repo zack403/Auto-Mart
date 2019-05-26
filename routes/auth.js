@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt');
 const Joi = require('joi');
 const jwt = require('jsonwebtoken');
 const {User} = require('../models/user');
+const config = require('config');
 
 
 
@@ -24,7 +25,7 @@ router.post('/', async (req, res) => {
         first_name: userEmail.first_name, 
         last_name: userEmail.last_name,
         email: userEmail.email
-     }, 'jwtPrivateKey');
+     }, config.get('jwtPrivateKey'));
 
      res.status(200).send({
         status : 200,

@@ -4,6 +4,7 @@ const userSchema = [
  
 ]
 
+
 const validateUser = user => {
     const schema = {
       first_name: Joi.string()
