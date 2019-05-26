@@ -2,13 +2,14 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
 const {User, validate} = require('../models/user');
-const moment = require('moment');
+const moment = require('../helper/moment');
 const jwt = require('jsonwebtoken');
+const config = require('config');
 
 
 
 //signup endpoint
-router.post('/', async (req, res) => {
+router.post('/', async (req, res, next) => {
   const {error} = validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
   const user = await User.find(e => e.email === req.body.email);
@@ -22,20 +23,19 @@ router.post('/', async (req, res) => {
        last_name : req.body.last_name,
        email : req.body.email,
        password : hashedPassword,
-       created_at : moment().format('MMM Do YYYY, h:mm:ss a'),
+       created_at : moment()
    
     };
 
-    try {
       const result = await User.push(userToCreate);
       if ( result ) {
         const token = jwt.sign(
           {
             id: userToCreate.id,
             first_name: req.body.first_name,
-            last_name: req.body.last_name
+            email : req.body.email
           },
-          "jwtPrivateKey"
+          config.get('jwtPrivateKey')
         );
           res.status(200).send({
             status : 200,
@@ -50,13 +50,6 @@ router.post('/', async (req, res) => {
             }
           });
       }
-    } catch (err) {
-      res.send({
-        status : 500,
-        error: err.message          
-      });
-    }
-    
 });
 
 
