@@ -33,7 +33,8 @@ describe('/api/v1/car/', () => {
         token = jwt.sign({
             id: userID,
             first_name : User.find(val => val.id === userID),
-            email : User.find(el => el.id === userID)
+            email : User.find(el => el.id === userID),
+            is_admin : false
         }, config.get('jwtPrivateKey'));
 
         state = Cars.find(c => c.state);
@@ -48,12 +49,13 @@ describe('/api/v1/car/', () => {
             first_name : "afenifo",
             last_name : "okaraga",
             email :  "ok@yahoo.com",
-            passowrd : 1234567
+            password : 1234567,
+            is_admin : false
         })
 
         Cars.push({
             id: 1,
-            owner : User.forEach(elem => elem.id),
+            owner : User.find(elem => elem.id),
             state: "used",
             status : "sold",
             manufacturer : "honda",
@@ -98,7 +100,7 @@ describe('/api/v1/car/', () => {
         expect(res.status).toBe(401);
       });
 
-    it('should return 404 if invalid id is passed', async () => {
+    it('should return 404 if no car with the given id exists', async () => {
       const res = await request(server).get('/api/v1/car/10')
       .set('Authorization', token);
 
@@ -115,15 +117,6 @@ describe('/api/v1/car/', () => {
       expect(res.status).toBe(200);
       expect(res.body).not.toBeNull();     
     });
-
-    
-
-    // it('should return 404 if no car with the given id exists', async () => {
-    //   const id = mongoose.Types.ObjectId();
-    //   const res = await request(server).get('/api/v1/car/' + id);
-
-    //   expect(res.status).toBe(404);
-    // });
   });
 
 
@@ -168,10 +161,68 @@ describe('/api/v1/car/', () => {
                 })
             
                 expect(res.status).toBe(200);
-
         })
-
-         
-        
     })
+
+    describe('DELETE Car/:id', () => {
+      
+      let id;
+      const exec = async () => {
+        return await request(server)
+          .delete('/api/v1/car/' + id)
+          .set('Authorization', token)
+          .send();
+      }
+  
+      it('should return 401 if user is not logged in', async () => {
+        token = ''; 
+        
+        const res = await exec();
+  
+        expect(res.status).toBe(401);
+      });
+  
+      it('should return 403 if the user is not an admin', async () => {
+        
+        const res = await exec();
+        expect(res.status).toBe(403);
+
+      });
+  
+      it('should return 404 if id is invalid', async () => {
+        id = 50; 
+        let tok = jwt.sign({
+          id: userID,
+          first_name : User.find(val => val.id === userID),
+          email : User.find(el => el.id === userID),
+          is_admin : true
+        }, config.get('jwtPrivateKey'));
+
+       const res = await request(server)
+          .delete('/api/v1/car/' + id)
+          .set('Authorization', tok)
+          .send();
+        
+        expect(res.status).toBe(404);
+      });
+  
+      
+      it('should delete the car if input is valid', async () => {
+       id = 1;
+       let tok = jwt.sign({
+        id: userID,
+        first_name : User.find(val => val.id === userID),
+        email : User.find(el => el.id === userID),
+        is_admin : true
+      }, config.get('jwtPrivateKey'));
+       const res = await request(server)
+       .delete('/api/v1/car/' + id)
+       .set('Authorization', tok)
+       .send();
+  
+  
+        expect(res.status).toBe(200);
+      });
+  
+    }); 
 })
