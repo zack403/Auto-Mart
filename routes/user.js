@@ -23,7 +23,8 @@ router.post('/', async (req, res, next) => {
        last_name : req.body.last_name,
        email : req.body.email,
        password : hashedPassword,
-       created_at : moment()
+       created_at : moment(),
+       is_admin : false
    
     };
 
@@ -33,7 +34,8 @@ router.post('/', async (req, res, next) => {
           {
             id: userToCreate.id,
             first_name: req.body.first_name,
-            email : req.body.email
+            email : req.body.email,
+            is_admin : userToCreate.is_admin
           },
           config.get('jwtPrivateKey')
         );

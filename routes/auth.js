@@ -23,8 +23,8 @@ router.post('/', async (req, res) => {
     const token = jwt.sign({
         id : userEmail.id, 
         first_name: userEmail.first_name, 
-        last_name: userEmail.last_name,
-        email: userEmail.email
+        email: userEmail.email,
+        is_admin: userEmail.is_admin
      }, config.get('jwtPrivateKey'));
 
      res.status(200).send({

@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const {Cars, validate} = require('../models/car');
 const auth = require('../middleware/auth');
+const admin = require("../middleware/admin");
 const moment = require('../helper/moment');
 
 
@@ -15,7 +16,7 @@ router.get("/", auth, async (req, res) => {
 
   //get carby id
   router.get("/:car_id", auth, async (req, res) => {
-     const { id} = req.user;
+    const { id} = req.user;
     const car = await Cars.find(car => car.id === parseInt(req.params.car_id));
     if(!car) return res.status(404).send("Car with the given Id could not be found");
         
@@ -31,6 +32,22 @@ router.get("/", auth, async (req, res) => {
         body_type : car.body_type
     });
 })
+
+//delete a car
+router.delete("/:id", [auth, admin], async (req, res) => {
+    console.log(req.user);
+    const car = await Cars.find(car => car.id === parseInt(req.params.id));
+    if(!car) return res.status(404).send("Car with the given Id could not be found");
+    const index = Cars.indexOf(car);
+    const result = Cars.splice(index, 1);
+    if(result) {
+        res.status(200).send({
+            status :200 ,
+            data  : "Car Ad successfully deleted"
+      })   
+    }
+})
+
 
 //post a car ad endpoint
 router.post('/', auth, async (req, res, next) => {
