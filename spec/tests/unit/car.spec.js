@@ -57,7 +57,7 @@ describe('/api/v1/car/', () => {
             id: 1,
             owner : User.find(elem => elem.id),
             state: "used",
-            status : "sold",
+            status : "available",
             manufacturer : "honda",
             body_type : "big",
             model : "hd56",
@@ -152,7 +152,7 @@ describe('/api/v1/car/', () => {
             const res = await request(server).post('/api/v1/car')
                .set('Authorization', token)
                .send({
-                state : "new",
+                state : "used",
                 status : "available",
                 price : 35,
                 manufacturer : "Toyota",
@@ -248,10 +248,20 @@ describe('/api/v1/car/', () => {
       it("should return 404 if query does not match", async () => {
 
         const res = await request(server)
-          .get('/api/v1/car?status=avaie&state=use')
+          .get('/api/v1/car?status=avaie&min_price=28&max_price=1')
           .set('Authorization', token);
 
           expect(res.status).toBe(404);
+
+      })
+
+      it("should return 200 if query matches", async () => {
+
+        const res = await request(server)
+          .get('/api/v1/car?status=available&min_price=2&max_price=24')
+          .set('Authorization', token);
+
+          expect(res.status).toBe(200);
 
       })
 
