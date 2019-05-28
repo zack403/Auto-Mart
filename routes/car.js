@@ -8,6 +8,14 @@ const moment = require('../helper/moment');
 
 //getcars
 router.get("/", auth, async (req, res) => {
+    if(req.query.status) {
+        const carsByQuery = await Cars.filter(car => car.status === req.query.status && car.price === req.query.state);
+        if(carsByQuery.length === 0) return res.status(404).send("Query returns no result");
+        return res.status(200).send({
+            status: 200,
+            data: carsByQuery
+        })
+    }
     res.status(200).send({
         status: 200,
         data: Cars
@@ -35,7 +43,6 @@ router.get("/", auth, async (req, res) => {
 
 //delete a car
 router.delete("/:id", [auth, admin], async (req, res) => {
-    console.log(req.user);
     const car = await Cars.find(car => car.id === parseInt(req.params.id));
     if(!car) return res.status(404).send("Car with the given Id could not be found");
     const index = Cars.indexOf(car);
