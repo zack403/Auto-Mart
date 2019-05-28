@@ -225,4 +225,35 @@ describe('/api/v1/car/', () => {
       });
   
     }); 
+
+    describe('GET /car?status=available&min_price=xxx&max_price=xxx', () => {
+
+      let id;
+      const exec = async () => {
+        return await request(server)
+          .get('/api/v1/car?status=available&state=used')
+          .set('Authorization', token);
+
+
+      }
+      
+      it('should return 401 if user is not logged in', async () => {
+        token = ''; 
+        
+        const res = await exec();
+  
+        expect(res.status).toBe(401);
+      });
+
+      it("should return 404 if query does not match", async () => {
+
+        const res = await request(server)
+          .get('/api/v1/car?status=avaie&state=use')
+          .set('Authorization', token);
+
+          expect(res.status).toBe(404);
+
+      })
+
+  })
 })
