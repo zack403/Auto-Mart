@@ -8,19 +8,20 @@ const moment = require('../helper/moment');
 
 //getcars
 router.get("/", auth, async (req, res) => {
-    if(req.query.status) {
-        const {status, max_price, min_price} = req.query;
-        const carsByQuery = await Cars.filter(car => car.status === status && 
+    const {status, max_price, min_price} = req.query;
+    let cars = Cars;
+    if(status && max_price && min_price) {
+        cars = await cars.filter(car => car.status === status && 
             car.price <= max_price && car.price >= min_price);
-        if(carsByQuery.length === 0) return res.status(404).send("Query returns no result");
-        return res.status(200).send({
-            status: 200,
-            data: carsByQuery
-        })
+        if(cars.length === 0) return res.status(404).send("Query returns no result");
+    }
+    else if(status  && !(max_price || min_price) ) {
+        cars = cars.filter(car => car.status === status);
+        if(cars.length === 0) return res.status(404).send("search returns no result");
     }
     res.status(200).send({
         status: 200,
-        data: Cars
+        data: cars
     })
 })
 
