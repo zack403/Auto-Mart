@@ -1,9 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const {Cars, validate} = require('../models/car');
+const Joi = require('joi');
 const auth = require('../middleware/auth');
 const admin = require("../middleware/admin");
 const moment = require('../helper/moment');
+const response = require('../helper/response');
 
 
 //getcars
@@ -15,7 +17,7 @@ router.get("/", auth, async (req, res) => {
             car.price <= max_price && car.price >= min_price);
         if(cars.length === 0) return res.status(404).send("Query returns no result");
     }
-    else if(status  && !(max_price || min_price) ) {
+    else if(status && !(max_price || min_price) ) {
         cars = cars.filter(car => car.status === status);
         if(cars.length === 0) return res.status(404).send("search returns no result");
     }
@@ -59,6 +61,23 @@ router.delete("/:id", [auth, admin], async (req, res) => {
 })
 
 
+router.patch("/:car_id", auth, async (req, res) => {
+     //get the email and id of the logged in user
+    const {email} = req.user;
+
+    const {error} = validatePrice(req.body);
+    if(error) return res.status(400).send(error.details[0].message);
+
+    const car = await Cars.find(car => car.id === parseInt(req.params.car_id));
+    if(!car) return res.status(404).send("Car with the given Id could not be found");
+
+    car.price = req.body.price;
+    const message = response(car, email);
+    if(message) {
+        res.status(200).send(message);
+    }
+})
+
 //post a car ad endpoint
 router.post('/', auth, async (req, res, next) => {
     //get the email and id of the logged in user
@@ -84,20 +103,18 @@ router.post('/', auth, async (req, res, next) => {
 
         const createdCar = await Cars.push(carObj);
         if (createdCar) {
-            res.status(200).send({
-                status : 200,
-                data : {
-                    id : carObj.id,
-                    email : email,
-                    created_on : carObj.created_on,
-                    manufacturer : carObj.manufacturer,
-                    model : carObj.model,
-                    price: carObj.price,
-                    state: carObj.state,
-                    status: carObj.status
-                }
-            })
+            const message = response(carObj, email);
+            if(message){
+                res.status(200).send(message);
+            }
         }
 });
+
+const validatePrice = req => {
+    const schema = {
+        price : Joi.number().required()
+    }
+    return Joi.validate(req, schema);
+}
 
 module.exports = router;
