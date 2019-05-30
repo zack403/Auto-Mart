@@ -110,12 +110,11 @@ describe('/api/v1/car/', () => {
 
     it('should return a car if valid id is passed', async () => {
     
-
       const res = await request(server).get('/api/v1/car/1')
       .set('Authorization', token);
 
-      expect(res.status).toBe(200);
-      expect(res.body).not.toBeNull();     
+        expect(res.status).toBe(200);
+        expect(res.body).not.toBeNull();     
     });
   });
 
@@ -231,7 +230,7 @@ describe('/api/v1/car/', () => {
       let id;
       const exec = async () => {
         return await request(server)
-          .get('/api/v1/car?status=available&state=used')
+          .get('/api/v1/car?status=available&min_price=2&max_price=24')
           .set('Authorization', token);
 
 
@@ -258,7 +257,7 @@ describe('/api/v1/car/', () => {
       it("should return 200 if query matches", async () => {
 
         const res = await request(server)
-          .get('/api/v1/car?status=available&min_price=2&max_price=24')
+          .get('/api/v1/car?status=available&min_price=10&max_price=50')
           .set('Authorization', token);
 
           expect(res.status).toBe(200);
@@ -306,5 +305,50 @@ describe('/api/v1/car/', () => {
 
     })
 
-})
+  })
+
+  
+  describe('PATCH /api/v1/car/1', () => {
+
+    let id;
+    const exec = async () => {
+      return await request(server)
+        .patch('/api/v1/car/1')
+        .set('Authorization', token);
+
+
+    }
+    
+    it('should return 401 if user is not logged in', async () => {
+      token = ''; 
+      
+      const res = await exec();
+
+      expect(res.status).toBe(401);
+    });
+
+    it("should return 404 if car was not found", async () => {
+
+      const res = await request(server)
+        .patch('/api/v1/car/78')
+        .set('Authorization', token)
+        .send({price : 200});
+
+        expect(res.status).toBe(404);
+
+    })
+
+    it("should return 200 if successful", async () => {
+
+      const res = await request(server)
+        .patch('/api/v1/car/1')
+        .set('Authorization', token)
+        .send({price: 200});
+
+        expect(res.status).toBe(200);
+
+    })
+
+  })
+
 })
