@@ -24,7 +24,7 @@ router.post('/', async (req, res, next) => {
        email : req.body.email,
        password : hashedPassword,
        created_at : moment(),
-       is_admin : false
+       is_admin : req.body.is_admin ? req.body.is_admin : false
    
     };
 
@@ -58,14 +58,13 @@ router.post('/', async (req, res, next) => {
 
 //get all users
 router.get('/getUsers', async (req, res) => {
-  const users = User.map(({id, first_name, last_name, email, is_admin, created_at}) => 
-  ({id, first_name, last_name, email, is_admin, created_at}) );
-  res.send(users);
+  res.status(200).send(User)
 })
 
 //get a single user
 router.get('/:id',  async ({ params: { id } }, res) => {
-  const user = await User.find(val => val.id === id);
+  const user = await User.find(user => user.id === parseInt(id));
+  if(!user) return res.status(404).send("User with the given Id could not be found");
   res.send(user);
 });
 

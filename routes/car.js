@@ -15,11 +15,11 @@ router.get("/", auth, async (req, res) => {
     if(status && max_price && min_price) {
         cars = await cars.filter(car => car.status === status && 
             car.price <= max_price && car.price >= min_price);
-        if(cars.length === 0) return res.status(404).send("Query returns no result");
+        if(cars.length === 0) return res.status(404).send(`Car with the ${status} status and price range between ${min_price} and ${max_price} returns no result`);
     }
     else if(status && !(max_price || min_price) ) {
         cars = cars.filter(car => car.status === status);
-        if(cars.length === 0) return res.status(404).send("search returns no result");
+        if(cars.length === 0) return res.status(404).send(`Car with the ${status} status returns no result`);
     }
     res.status(200).send({
         status: 200,
@@ -61,10 +61,10 @@ router.delete("/:id", [auth, admin], async (req, res) => {
 })
 
 
-router.patch("/:car_id", auth, async (req, res) => {
+router.patch("/:car_id/price", auth, async (req, res) => {
      //get the email and id of the logged in user
     const {email} = req.user;
-
+   
     const {error} = validatePrice(req.body);
     if(error) return res.status(400).send(error.details[0].message);
 
@@ -76,6 +76,20 @@ router.patch("/:car_id", auth, async (req, res) => {
     if(message) {
         res.status(200).send(message);
     }
+})
+
+
+router.patch("/:car_id/status", auth, async (req, res) => {
+    //get the email and id of the logged in user
+   const {email} = req.user;
+   const car = await Cars.find(car => car.id === parseInt(req.params.car_id));
+   if(!car) return res.status(404).send("Car with the given Id could not be found");
+
+   car.status = "sold";
+   const message = response(car, email);
+   if(message) {
+       res.status(200).send(message);
+   }
 })
 
 //post a car ad endpoint

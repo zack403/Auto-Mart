@@ -68,8 +68,8 @@ describe('/api/v1/car/', () => {
     })
     afterEach(() => {
         server.close();
-        User = [];
-        Cars = [];
+        // User = [];
+        // Cars = [];
     });
 
     describe('GET /api/v1/car', () => {
@@ -308,12 +308,12 @@ describe('/api/v1/car/', () => {
   })
 
   
-  describe('PATCH /api/v1/car/1', () => {
+  describe('PATCH /api/v1/car/1/price', () => {
 
     let id;
     const exec = async () => {
       return await request(server)
-        .patch('/api/v1/car/1')
+        .patch('/api/v1/car/1/price')
         .set('Authorization', token);
 
 
@@ -330,7 +330,7 @@ describe('/api/v1/car/', () => {
     it("should return 404 if car was not found", async () => {
 
       const res = await request(server)
-        .patch('/api/v1/car/78')
+        .patch('/api/v1/car/78/price')
         .set('Authorization', token)
         .send({price : 200});
 
@@ -341,9 +341,51 @@ describe('/api/v1/car/', () => {
     it("should return 200 if successful", async () => {
 
       const res = await request(server)
-        .patch('/api/v1/car/1')
+        .patch('/api/v1/car/1/price')
         .set('Authorization', token)
         .send({price: 200});
+
+        expect(res.status).toBe(200);
+
+    })
+
+  })
+
+  describe('PATCH /api/v1/car/1/status', () => {
+
+    let id;
+    const exec = async () => {
+      return await request(server)
+        .patch('/api/v1/car/1/status')
+        .set('Authorization', token);
+
+
+    }
+    
+    it('should return 401 if user is not logged in', async () => {
+      token = ''; 
+      
+      const res = await exec();
+
+      expect(res.status).toBe(401);
+    });
+
+    it("should return 404 if car was not found", async () => {
+
+      const res = await request(server)
+        .patch('/api/v1/car/78/status')
+        .set('Authorization', token);
+
+        expect(res.status).toBe(404);
+
+    })
+
+    it("should return 200 if successful", async () => {
+
+      const res = await request(server)
+        .patch('/api/v1/car/1/status')
+        .set('Authorization', token);
+       
 
         expect(res.status).toBe(200);
 
