@@ -7,6 +7,7 @@ const admin = require("../middleware/admin");
 const moment = require('../helper/moment');
 const response = require('../helper/response');
 
+let updatedMessage = "Successfully updated";
 
 //getcars
 router.get("/", auth, async (req, res) => {
@@ -72,7 +73,7 @@ router.patch("/:car_id/price", auth, async (req, res) => {
     if(!car) return res.status(404).send("Car with the given Id could not be found");
 
     car.price = req.body.price;
-    const message = response(car, email);
+    const message = response(car, email, updatedMessage);
     if(message) {
         res.status(200).send(message);
     }
@@ -86,7 +87,7 @@ router.patch("/:car_id/status", auth, async (req, res) => {
    if(!car) return res.status(404).send("Car with the given Id could not be found");
 
    car.status = "sold";
-   const message = response(car, email);
+   const message = response(car, email, updatedMessage);
    if(message) {
        res.status(200).send(message);
    }
@@ -108,7 +109,7 @@ router.post('/', auth, async (req, res, next) => {
        owner : id, //which is the user id of the logged in user
        created_on : moment(),
        state : state,
-       status : status,
+       status : status ? status : 'Available',
        price : price,
        manufacturer : manufacturer,
        model : model,
@@ -117,7 +118,8 @@ router.post('/', auth, async (req, res, next) => {
 
         const createdCar = await Cars.push(carObj);
         if (createdCar) {
-            const message = response(carObj, email);
+            let createdMessage = "Ad successfully posted";
+            const message = response(carObj, email, createdMessage);
             if(message){
                 res.status(200).send(message);
             }

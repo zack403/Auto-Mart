@@ -2,6 +2,7 @@ const express = require('express');
 const users = require('../routes/user');
 const auth = require('../routes/auth');
 const car = require('../routes/car');
+const order = require('../routes/order');
 const errorHandler = require('../middleware/error');
 
 module.exports = function(app) {
@@ -9,5 +10,6 @@ module.exports = function(app) {
   app.use('/api/v1/auth/signup', users);
   app.use('/api/v1/auth/signin', auth);
   app.use('/api/v1/car', car);
-   app.use(errorHandler);
+  app.use('/api/v1/order', order);
+  app.use(errorHandler);
 }
