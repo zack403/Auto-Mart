@@ -43,6 +43,7 @@ router.post('/', async (req, res, next) => {
             status : 200,
             data : {
                 token : token,
+                message: "Account successfully created",
                 id : userToCreate.id,
                 first_name: userToCreate.first_name,
                 last_name : userToCreate.last_name,
