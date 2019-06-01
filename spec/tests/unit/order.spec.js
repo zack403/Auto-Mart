@@ -3,10 +3,11 @@ const jwt = require('jsonwebtoken');
 let {User} = require('../../../models/user');
 let {Cars} = require('../../../models/car');
 const config = require('config');
-const {Orders} = require('../../../models/order')
+let {Orders} = require('../../../models/order')
 
 let server;
 let userID;
+let status;
 let carID;
 let token;
 let buyer;
@@ -23,7 +24,6 @@ describe('/api/v1/order', () => {
     beforeEach(() => {
         server = require('../../../index');
 
-        
         userID = User.length + 1;
         carID = Cars.length + 1;
         token = jwt.sign({
@@ -34,6 +34,14 @@ describe('/api/v1/order', () => {
         }, config.get('jwtPrivateKey'));
         buyer = 1;
         amount = 36;
+
+        Orders.push({
+            id: Orders.length + 1,
+            buyer: 1,
+            car_id : 1,
+            amount : 100,
+            status :  "Pending"
+        })
 
         User.push({
             id: userID,
@@ -100,5 +108,60 @@ describe('/api/v1/order', () => {
                 expect(res.status).toBe(200);
         })
     })
+
+     
+  describe('PATCH /api/v1/order/1/price', () => {
+
+    let id;
+    const exec = async () => {
+      return await request(server)
+        .patch('/api/v1/order/1/price')
+        .set('Authorization', token);
+
+
+    }
+    
+    it('should return 401 if user is not logged in', async () => {
+      token = ''; 
+      
+      const res = await exec();
+
+      expect(res.status).toBe(401);
+    });
+
+    it("should return 404 if order was not found", async () => {
+
+      const res = await request(server)
+        .patch('/api/v1/order/78/price')
+        .set('Authorization', token)
+        .send({new_price : 200});
+        
+        expect(res.status).toBe(404);
+
+    })
+
+    it("should return 400 if order is not pending", async () => {
+        Orders.find(s => s.status = "Accepted");
+        const res = await request(server)
+          .patch('/api/v1/order/1/price')
+          .set('Authorization', token)
+          .send({new_price : 200});
+          
+          expect(res.status).toBe(400);
+  
+      })
+
+    it("should return 200 if successful", async () => {
+        Orders.find(s => s.status = "Pending");
+      const res = await request(server)
+        .patch('/api/v1/order/1/price')
+        .set('Authorization', token)
+        .send({new_price: 200});
+
+         expect(res.status).toBe(200);
+
+    })
+
+  })
 
 })
