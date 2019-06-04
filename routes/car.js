@@ -11,7 +11,7 @@ let updatedMessage = "Successfully updated";
 
 //getcars
 router.get("/", auth, async (req, res) => {
-    const {status, max_price, min_price, state } = req.query;
+    const {status, max_price, min_price, state, manufacturer } = req.query;
     let cars = Cars;
     if(status && max_price && min_price) {
         cars = await cars.filter(car => car.status === status && 
@@ -23,6 +23,11 @@ router.get("/", auth, async (req, res) => {
         cars = await cars.filter(car => car.status === status && 
             car.state === filteredState);
         if(cars.length === 0) return res.status(404).send(`Car with the ${status} status and state ${state} returns no result`);
+    }
+    else if (status && manufacturer) {
+        cars = await cars.filter(car => car.status === status && 
+            car.manufacturer === manufacturer);
+        if(cars.length === 0) return res.status(404).send(`Car with the ${status} status and make ${manufacturer} returns no result`);
     }
     else if(status && !(max_price || min_price) ) {
         cars = cars.filter(car => car.status === status);
