@@ -266,7 +266,7 @@ describe('/api/v1/car/', () => {
 
   })
 
-  describe('GET /car?status=available&state=new', () => {
+  describe('GET /car?status=available', () => {
 
     let id;
     const exec = async () => {
@@ -299,6 +299,48 @@ describe('/api/v1/car/', () => {
 
       const res = await request(server)
         .get('/api/v1/car?status=available')
+        .set('Authorization', token);
+
+        expect(res.status).toBe(200);
+
+    })
+
+  })
+
+  
+  describe('GET /car?body_type=big', () => {
+
+    let id;
+    const exec = async () => {
+      return await request(server)
+        .get('/api/v1/car?body_type=big')
+        .set('Authorization', token);
+
+
+    }
+    
+    it('should return 401 if user is not logged in', async () => {
+      token = ''; 
+      
+      const res = await exec();
+
+      expect(res.status).toBe(401);
+    });
+
+    it("should return 404 if query does not match", async () => {
+
+      const res = await request(server)
+        .get('/api/v1/car?body_type=bg')
+        .set('Authorization', token);
+
+        expect(res.status).toBe(404);
+
+    })
+
+    it("should return 200 if query matches", async () => {
+
+      const res = await request(server)
+        .get('/api/v1/car?body_type=big')
         .set('Authorization', token);
 
         expect(res.status).toBe(200);
