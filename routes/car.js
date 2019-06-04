@@ -19,8 +19,9 @@ router.get("/", auth, async (req, res) => {
         if(cars.length === 0) return res.status(404).send(`Car with the ${status} status and price range between ${min_price} and ${max_price} returns no result`);
     }
     else if (status && state) {
+        const filteredState = state === "used" ? "used" : "new";
         cars = await cars.filter(car => car.status === status && 
-            car.state === state);
+            car.state === filteredState);
         if(cars.length === 0) return res.status(404).send(`Car with the ${status} status and state ${state} returns no result`);
     }
     else if(status && !(max_price || min_price) ) {
