@@ -389,12 +389,12 @@ describe('/api/v1/car/', () => {
 
   })
 
-  describe('GET /car?status=available&manufacturer=Toyota', () => {
+  describe('GET /car?status=available&manufacturer=honda', () => {
 
     let id;
     const exec = async () => {
       return await request(server)
-        .get('/api/v1/car?status=available&manufacturer=Toyota')
+        .get('/api/v1/car?status=available&manufacturer=honda')
         .set('Authorization', token);
 
 
@@ -420,7 +420,7 @@ describe('/api/v1/car/', () => {
 
     it("should return 200 if query matches", async () => {
       const res = await request(server)
-        .get('/api/v1/car?status=available&manufacturer=Toyota')
+        .get('/api/v1/car?status=available&manufacturer=honda')
         .set('Authorization', token);
 
         expect(res.status).toBe(200);
