@@ -3,9 +3,9 @@ node_js:
   - "stable"
 
 env:
-  - automart_jwtPrivateKey="mysecureKey",
-  - cloud_name='hjdhdhsh',
-  - api_key='56678878',
+  - automart_jwtPrivateKey="mysecureKey"
+  - cloud_name='hjdhdhsh'
+  - api_key='56678878'
   - api_secret='54555665'
 
 install:
