@@ -8,10 +8,16 @@ const cloudinary = require('cloudinary');
 require("./config/cloudinaryConfig");
 
 
-app.post("/upload", upload.single('image'), async (req, res) => {
+app.post("/api/v1/user/upload", upload.single('image'), async (req, res) => {
   console.log("file", req.file);
   const result = await cloudinary.v2.uploader.upload(req.file.path);
-  res.send(result);
+  const image = result.url;
+  res.status(200).json({
+    message: 'Your image has been uploaded successfully to cloudinary',
+    data: {
+       image
+      }  
+  });
   
 });
 
