@@ -2,9 +2,10 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
 const Joi = require('joi');
-const jwt = require('jsonwebtoken');
 const {User} = require('../models/user');
-const config = require('config');
+const generateAuthToken = require('../helper/generateAuthToken');
+
+
 
 
 
@@ -15,18 +16,13 @@ router.post('/', async (req, res) => {
     if(error) return res.status(400).send(error.details[0].message);
         
     const userEmail = await User.find(e => e.email === req.body.email);
-    if (!userEmail) return res.status(400).send('Login Failed, invalid email or password.');
+    if (!userEmail) return res.status(400).send('Login Failed, invalid email or password.'); 
 
     const userPassword = await bcrypt.compare(req.body.password, userEmail.password);
-    if (!userPassword) return res.status(400).send("Login Failed, invalid email or password");
-    
-    const token = jwt.sign({
-        id : userEmail.id, 
-        first_name: userEmail.first_name, 
-        email: userEmail.email,
-        is_admin: userEmail.is_admin
-     }, config.get('jwtPrivateKey'));
+    if (!userPassword) return res.status(400).send('Login Failed, invalid email or password.'); 
 
+    const {id, email, first_name, is_admin} = userEmail;
+    const token = generateAuthToken(id, email, first_name, is_admin);
      res.status(200).send({
         status : 200,
         data : {
@@ -43,8 +39,8 @@ router.post('/', async (req, res) => {
 
 const validateUser = req => {
     const schema = {
-        email : Joi.string().required().min(5).max(255).email(),
-        password: Joi.string().required().min(5).max(255)
+        email : Joi.string().required().email(),
+        password: Joi.string().required().min(7).max(255)
     }
     return Joi.validate(req, schema);
 }

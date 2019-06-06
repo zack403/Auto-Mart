@@ -28,6 +28,10 @@ const carSchema = [];
 
 const validateCarObj = car => {
     const schema = {
+        seller_name: Joi.string()
+           .required(),
+        phone_no : Joi.number()
+           .required(),
         state: Joi.string()
           .required(),
         status: Joi.string()

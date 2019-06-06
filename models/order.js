@@ -5,8 +5,9 @@ const orders = [];
 
 const validateOrders = car => {
     const schema = {
-        buyer: Joi.number(),
+        buyer: Joi.number().integer(),
         car_id: Joi.number()
+          .integer()
           .required(),
         amount: Joi.number()
           .required(),

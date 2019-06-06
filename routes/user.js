@@ -3,8 +3,8 @@ const router = express.Router();
 const bcrypt = require('bcrypt');
 const {User, validate} = require('../models/user');
 const moment = require('../helper/moment');
-const jwt = require('jsonwebtoken');
-const config = require('config');
+const errorResponse = require('../helper/errorResponse')
+const generateAuthToken = require('../helper/generateAuthToken');
 
 
 
@@ -13,8 +13,10 @@ router.post('/', async (req, res, next) => {
   const {error} = validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
   const user = await User.find(e => e.email === req.body.email);
-  if (user) return res.status(400).send(`This email ${req.body.email} is already taken`);
-  
+  if (user) {
+    const userError = errorResponse(400, `An account with email ${req.body.email} already exist`);
+    return res.status(400).send(userError);
+  } 
   const salt = await bcrypt.genSalt(10);
   const hashedPassword = await bcrypt.hash(req.body.password, salt);
   const userToCreate = {
@@ -23,6 +25,7 @@ router.post('/', async (req, res, next) => {
        last_name : req.body.last_name,
        email : req.body.email,
        password : hashedPassword,
+       confirm_password : hashedPassword,
        created_at : moment(),
        is_admin : req.body.is_admin ? req.body.is_admin : false
    
@@ -30,17 +33,10 @@ router.post('/', async (req, res, next) => {
 
       const result = await User.push(userToCreate);
       if ( result ) {
-        const token = jwt.sign(
-          {
-            id: userToCreate.id,
-            first_name: req.body.first_name,
-            email : req.body.email,
-            is_admin : userToCreate.is_admin
-          },
-          config.get('jwtPrivateKey')
-        );
-          res.status(200).send({
-            status : 200,
+        const {id, is_admin} = userToCreate;
+        const token = generateAuthToken(id, req.body.email, req.body.first_name, is_admin) 
+          res.status(201).send({
+            status : 201,
             data : {
                 token : token,
                 message: "Account successfully created",
@@ -59,7 +55,10 @@ router.post('/', async (req, res, next) => {
 
 //get all users
 router.get('/getUsers', async (req, res) => {
-  res.status(200).send(User)
+  res.status(200).send({
+    status: 200,
+    data: User.length ? User : 'No Users...'
+   })
 })
 
 //get a single user
