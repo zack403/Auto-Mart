@@ -6,7 +6,12 @@ const app = express();
 const upload = require('./middleware/multer');
 const cloudinary = require('cloudinary');
 require("./config/cloudinaryConfig");
+const morgan = require('morgan');
 
+if(app.get('env') === 'development') {
+  app.use(morgan('combined'));
+  winston.info('Morgan Enabled');
+}
 
 app.post("/api/v1/user/upload", upload.single('image'), async (req, res) => {
   console.log("file", req.file);

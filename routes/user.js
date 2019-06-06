@@ -27,6 +27,7 @@ router.post('/', async (req, res, next) => {
        email : req.body.email,
        password : hashedPassword,
        confirm_password : hashedPassword,
+       address : req.body.address,
        created_at : moment(),
        is_admin : req.body.is_admin ? req.body.is_admin : false
    
