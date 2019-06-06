@@ -56,7 +56,7 @@ describe('/api/v1/car/', () => {
         Cars.push({
             id: 1,
             owner : User.find(elem => elem.id),
-            state: "used",
+            state: "new",
             status : "available",
             manufacturer : "honda",
             body_type : "big",
@@ -387,7 +387,6 @@ describe('/api/v1/car/', () => {
       const res = await request(server)
         .get('/api/v1/car?status=available&state=new')
         .set('Authorization', token);
-
         expect(res.status).toBe(200);
 
     })
