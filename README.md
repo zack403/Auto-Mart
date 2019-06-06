@@ -1,7 +1,8 @@
 [![Build Status](https://travis-ci.org/zack403/Auto-Mart.svg?branch=develop)](https://travis-ci.org/zack403/Auto-Mart) 
 [![Coverage Status](https://coveralls.io/repos/github/zack403/Auto-Mart/badge.svg?branch=develop)](https://coveralls.io/github/zack403/Auto-Mart?branch=develop) 
 [![Maintainability](https://api.codeclimate.com/v1/badges/8670f7db5047626ca096/maintainability)](https://codeclimate.com/github/zack403/Auto-Mart/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/8670f7db5047626ca096/test_coverage)](https://codeclimate.com/github/zack403/Auto-Mart/test_coverage)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/8670f7db5047626ca096/test_coverage)]
+(https://codeclimate.com/github/zack403/Auto-Mart/test_coverage)
 
 
 
