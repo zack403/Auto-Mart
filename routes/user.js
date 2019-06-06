@@ -3,7 +3,8 @@ const router = express.Router();
 const bcrypt = require('bcrypt');
 const {User, validate} = require('../models/user');
 const moment = require('../helper/moment');
-const errorResponse = require('../helper/errorResponse')
+const errorResponse = require('../helper/errorResponse');
+const resourceResponse = require('../helper/getAllResourceResponse');
 const generateAuthToken = require('../helper/generateAuthToken');
 
 
@@ -55,10 +56,8 @@ router.post('/', async (req, res, next) => {
 
 //get all users
 router.get('/getUsers', async (req, res) => {
-  res.status(200).send({
-    status: 200,
-    data: User.length ? User : 'No Users...'
-   })
+  const resource = resourceResponse(User);
+  res.status(200).send(resource);
 })
 
 //get a single user

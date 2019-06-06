@@ -10,9 +10,9 @@ Auto Mart is an online marketplace for automobiles of diverse makes, model or bo
 
 
 ## Motivation
-I was been motivated by the super talented company ANDELA to undertake this project which is an Andela Developer Challenge(ADC) in preparation for the two weeks Bootcamp.
+I was motivated by the super talented company ANDELA to undertake this project which is an Andela Developer Challenge(ADC) in preparation for the two weeks Bootcamp.
 
-##Tech/framework used
+## Tech/framework used
 
 **Built with**
    - Node/Express
@@ -45,7 +45,7 @@ I was been motivated by the super talented company ANDELA to undertake this proj
     - User can view all used unsold cars.
     - User can view all new unsold cars.
 
-##Installation
+## Installation
    - You must have node/npm installed. Download Node [here](https://nodejs.org) and follow the        onscreen instructions for instalation.
    - Clone this repository by running this on your terminal: git clone https://github.com/zack403/Auto-Mart.git
    - Navigate to the project's directory with this command cd Auto-MArt
@@ -53,7 +53,7 @@ I was been motivated by the super talented company ANDELA to undertake this proj
    - Run npm start to start the server
    - Test the routes with Postman See the Api Docs [Here]()
 
-##Tests
+## Tests
 This project uses Jasmine for testing. To test, run npm test.
 
 ## API

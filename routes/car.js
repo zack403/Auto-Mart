@@ -6,17 +6,16 @@ const auth = require('../middleware/auth');
 const admin = require("../middleware/admin");
 const moment = require('../helper/moment');
 const response = require('../helper/response');
-const getCars = require('../helper/getcars');
+const resourceResponse = require('../helper/getAllResourceResponse');
+const getCars = require('../middleware/getcars');
 
 
 let updatedMessage = "Successfully updated";
 
 //getcars
 router.get("/", [auth, getCars], async (req, res) => {
-    res.status(200).send({
-        status: 200,
-        data: Cars.length ? Cars : 'No posted cars yet...'
-    })
+    const resource = resourceResponse(Cars);
+    return res.status(200).send(resource);
 })
 
   //get carby id

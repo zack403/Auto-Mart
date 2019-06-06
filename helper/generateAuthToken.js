@@ -12,6 +12,5 @@ module.exports = function genereateAuthToken(id, email, firstName, isAdmin) {
         },
         config.get('jwtPrivateKey'), {expiresIn: '1h'}
       );
-
       return token;
 }
