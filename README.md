@@ -46,13 +46,14 @@ I was motivated by the super talented company ANDELA to undertake this project w
     - User can view all new unsold cars.
 
 ## Installation
-   - You must have node/npm installed. Download Node [here](https://nodejs.org) and follow the        onscreen instructions for instalation.
+   - You must have node/npm installed. Download Node [Here](https://nodejs.org) and follow the        onscreen instructions for instalation.
    - Clone this repository by running this on your terminal: git clone https://github.com/zack403/Auto-Mart.git
    - Navigate to the project's directory with this command cd Auto-Mart
    - Run npm install to install dependencies
    - Run npm start to start the server but before then run npm install nodemon 
      if you dont have it installed already.
    - Test the routes with Postman, See the Api Docs [Here]() for all the available endpoints and      specification.
+   - On your local machine, you can see the Api Docs [Here](localhost:3000/api/v1/api-doc)
 
 ## Tests
 This project uses Jasmine for testing. To test, run npm test.

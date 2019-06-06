@@ -7,11 +7,23 @@ const upload = require('./middleware/multer');
 const cloudinary = require('cloudinary');
 require("./config/cloudinaryConfig");
 const morgan = require('morgan');
+const swaggerDocument = require('./swagger.json');
+const swaggerUi = require('swagger-ui-express');
+
+
 
 if(app.get('env') === 'development') {
   app.use(morgan('combined'));
   winston.info('Morgan Enabled');
 }
+
+const options = {
+  explorer: true,
+  customCss: '.swagger-ui .topbar { background-color: lavender }'
+};
+
+app.use('/api/v1/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, options));
+
 
 app.post("/api/v1/user/upload", upload.single('image'), async (req, res) => {
   console.log("file", req.file);

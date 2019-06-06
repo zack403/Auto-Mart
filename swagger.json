@@ -1,0 +1,729 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "version": "1.0.0",
+      "title": "Auto-Mart API",
+      "description": "An Auto-Mart API describing the specififcations and various endpoint available for consumptions",
+      "contact": {
+        "email": "aminuzack7@gmail.com"
+      }
+    },
+    "host": "localhost:3000",
+    "basePath": "/api/v1",
+    "tags": [
+      {
+        "name": "Auth",
+        "description": "API for users to signup and sigin into the system"
+      },
+      {
+        "name": "Cars",
+        "description": "Everything about cars, post a car advert, get all cars and search cars by a make and status e.t.c"
+      },
+      {
+        "name": "Orders",
+        "description": "Place an order for a car"
+      },
+      {
+        "name": "Flag/Report",
+        "description": "Flag/report a posted AD as fraudulent"
+
+      }
+    ],
+    "schemes": [
+      "http"
+    ],
+    "paths": {
+      "/api/v1/auth/signup": {
+        "post": {
+          "tags": [
+            "Auth"
+          ],
+          "summary": "Create new user in system",
+          "description": "",
+          "operationId": "addUsers",
+          "consumes": [
+            "application/json"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "body",
+              "in": "body",
+              "description": "User object that needs to be created",
+              "schema": {
+                "$ref": "#/definitions/User"
+              }
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "New user is created",
+              "schema": {
+                "$ref": "#/definitions/User"
+              }
+            }
+          },
+          "security": {
+            "api_key": {
+              "type": "apiKey",
+              "name": "Authorization",
+              "in": "header"
+            }
+          }
+        }      
+      },
+      "/api/v1/signup/getUsers": {
+        "get": {
+            "tags": [
+              "Auth"
+            ],
+            "summary": "Get all users in system",
+            "description": "",
+            "operationId": "getUsers",
+            "consumes": [
+              "application/json"
+            ],
+            "produces": [
+              "application/json"
+            ],
+            "responses": {
+              "200": {
+                "description": "OK",
+                "schema": {
+                  "$ref": "#/definitions/User"
+                }
+              }
+            },
+            "security": {
+              "api_key": {
+                "type": "apiKey",
+                "name": "Authorization",
+                "in": "header"
+              }
+            }
+          }
+    },
+    "/api/v1/user/upload": {
+        "post": {
+          "tags": [
+            "Cars"
+          ],
+          "summary": "uploads an image",
+          "description": "",
+          "operationId": "uploadFile",
+          "consumes": [
+            "multipart/form-data"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "additionalMetadata",
+              "in": "formData",
+              "description": "Additional data to pass to server",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "name": "file",
+              "in": "formData",
+              "description": "file to upload",
+              "required": false,
+              "type": "file"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "successful operation",
+              "schema": {
+                "$ref": "#/definitions/ApiResponse"
+              }
+            }
+          },
+          "security": {
+            "api_key": {
+              "type": "apiKey",
+              "name": "Authorization",
+              "in": "header"
+            }
+          }
+        }
+      }, 
+      "/api/v1/auth/signup/{id}": {
+        "get": {
+            "tags": [
+              "Auth"
+            ],
+            "summary": "Get user with given ID",
+            "description": "Returns a single pet",
+            "operationId": "getCarById",
+            "produces": [
+            "application/json"
+            ],
+            "parameters": [
+                {
+                  "name": "carId",
+                  "in": "path",
+                  "description": "ID of user to return",
+                  "required": true,
+                  "type": "integer"
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "successful operation",
+                  "schema": {
+                    "$ref": "#/definitions/User"
+                  }
+                },
+                "400": {
+                  "description": "Invalid ID supplied"
+                },
+                "404": {
+                  "description": "User not found"
+                }
+              },
+              "security": {
+                "api_key": {
+                  "type": "apiKey",
+                  "name": "Authorization",
+                  "in": "header"
+                }
+              }
+          }
+      },
+      "/api/v1/auth/signin": {
+        "get": {
+          "tags": [
+            "Auth"
+          ],
+          "summary": "Logs user into the system",
+          "description": "",
+          "operationId": "loginUser",
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "email",
+              "in": "query",
+              "description": "The email for login",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "password",
+              "in": "query",
+              "description": "The password for login in clear text",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "successful operation",
+              "schema": {
+                "type": "string"
+              }
+            },
+            "400": {
+              "description": "Invalid email/password supplied"
+            }
+          },
+          "security": {
+            "api_key": {
+              "type": "apiKey",
+              "name": "Authorization",
+              "in": "header"
+            }
+          }
+        }
+      },
+      "/api/v1/car/": {
+        "get": {
+          "tags": [
+            "Cars"
+          ],
+          "summary": "Returns all cars",
+          "description": "",
+          "operationId": "getCars",
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            
+          ],
+          "responses": {
+            "200": {
+              "description": "successful operation",
+              "schema": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "integer"
+                }
+              }
+            }
+          },
+          "security": {
+            "api_key": {
+              "type": "apiKey",
+              "name": "Authorization",
+              "in": "header"
+            }
+          }
+        }
+      },
+      "/api/v1/car": {
+        "post": {
+          "tags": [
+            "Cars"
+          ],
+          "summary": "Create a card AD",
+          "description": "",
+          "operationId": "createAD",
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "description": "AD placed for Cars",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/Cars"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "successful operation",
+              "schema": {
+                "$ref": "#/definitions/Cars"
+              }
+            },
+            "400": {
+              "description": "Invalid"
+            }
+          },
+          "security": {
+            "api_key": {
+              "type": "apiKey",
+              "name": "Authorization",
+              "in": "header"
+            }
+          }
+        }
+      },
+      "/api/v1/car/{car_id}": {
+        "get": {
+          "tags": [
+            "Cars"
+          ],
+          "summary": "Find Car by ID",
+          "description": "For valid response provide a token in the request header and try integer IDs with value >= 1. Other values will generated exceptions",
+          "operationId": "getCarsById",
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "car_id",
+              "in": "path",
+              "description": "ID of car that needs to be fetched",
+              "required": true,
+              "type": "integer"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "successful operation",
+              "schema": {
+                "$ref": "#/definitions/Cars"
+              }
+            },
+            "400": {
+              "description": "Invalid ID supplied"
+            },
+            "headers": {
+                "Authorization": {
+                  "type": "integer",
+                  "description": "token"
+                }
+              },
+            "404": {
+              "description": "Car not found"
+            }
+          },
+          "security": {
+            "api_key": {
+              "type": "apiKey",
+              "name": "Authorization",
+              "in": "header"
+            }
+          }
+        }
+      },
+      "/api/v1/car/{id}": {
+        "delete": {
+            "tags": [
+              "Cars"
+            ],
+            "summary": "Delete Car order by ID, must be an admin user",
+            "description": "For valid response provide a token in the request header and try integer IDs with positive integer value. Negative or non-integer values will generate API errors",
+            "operationId": "deleteCar",
+            "produces": [
+              "application/json"
+            ],
+            "parameters": [
+              {
+                "name": "car_id",
+                "in": "path",
+                "description": "ID of the car that needs to be deleted",
+                "required": true,
+                "type": "integer"
+              }
+            ],
+            "responses": {
+              "400": {
+                "description": "Invalid ID supplied"
+              },
+              "404": {
+                "description": "Car not found"
+              }
+            },
+            "security": {
+              "api_key": {
+                "type": "apiKey",
+                "name": "Authorization",
+                "in": "header"
+              }
+            }
+          }
+      },
+        "/api/v1/car/{car_id}/price": {
+            "put": {
+                "tags": [
+                  "Cars"
+                ],
+                "summary": "Update the price of a car",
+                "description": "This can only be done by the logged in user.",
+                "operationId": "updateCarPrice",
+                "produces": [
+                  "application/json"
+                ],
+                "parameters": [
+                  {
+                    "name": "price",
+                    "in": "path",
+                    "description": "price that need to be updated",
+                    "required": true,
+                    "type": "number"
+                  },
+                  {
+                    "in": "body",
+                    "name": "body",
+                    "description": "Updated car object",
+                    "required": true,
+                    "schema": {
+                      "$ref": "#/definitions/Cars"
+                    }
+                  }
+                ],
+                "responses": {
+                  "400": {
+                    "description": "Invalid data supplied"
+                  },
+                  "404": {
+                    "description": "Car not found"
+                }
+            },
+            "security": {
+              "api_key": {
+                "type": "apiKey",
+                "name": "Authorization",
+                "in": "header"
+              }
+            }
+         }
+    },
+    "/api/v1/car/{car_id}/status": {
+        "put": {
+            "tags": [
+              "Cars"
+            ],
+            "summary": "Update the status of a car",
+            "description": "This can only be done by the logged in user.",
+            "operationId": "updateCarStatus",
+            "produces": [
+              "application/json"
+            ],
+            "parameters": [
+              {
+                "name": "status",
+                "in": "path",
+                "description": "status that need to be updated",
+                "required": true,
+                "type": "string"
+              },
+              {
+                "in": "body",
+                "name": "body",
+                "description": "Updated car object",
+                "required": true,
+                "schema": {
+                  "$ref": "#/definitions/Cars"
+                }
+              }
+            ],
+            "responses": {
+              "400": {
+                "description": "Invalid data supplied"
+              },
+              "404": {
+                "description": "Car not found"
+            }
+        },
+        "security": {
+          "api_key": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header"
+          }
+        }
+     }
+  },
+  "/api/v1/order": {
+    "post": {
+      "tags": [
+        "Orders"
+      ],
+      "summary": "Place an order for a car",
+      "description": "",
+      "operationId": "placeOrder",
+      "produces": [
+        "application/json"
+      ],
+      "parameters": [
+        {
+          "in": "body",
+          "name": "body",
+          "description": "order placed for purchasing the car",
+          "required": true,
+          "schema": {
+            "$ref": "#/definitions/Orders"
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "successful operation",
+          "schema": {
+            "$ref": "#/definitions/Orders"
+          }
+        },
+        "400": {
+          "description": "Invalid Order"
+        }
+      },
+      "security": {
+        "api_key": {
+          "type": "apiKey",
+          "name": "Authorization",
+          "in": "header"
+        }
+      }
+    }
+  },
+  "/api/v1/order/{order_id}/price": {
+    "put": {
+      "tags": [
+        "Orders"
+      ],
+      "summary": "Find purchase order by ID",
+      "description": "For valid response provide a token and try integer IDs with value >= 1 . Other values will generated exceptions",
+      "operationId": "getOrderById",
+      "produces": [
+        "application/json"
+      ],
+      "parameters": [
+        {
+          "name": "orderId",
+          "in": "path",
+          "description": "ID of Order that needs to be fetched",
+          "required": true,
+          "type": "integer"
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "successful operation",
+          "schema": {
+            "$ref": "#/definitions/Orders"
+          }
+        },
+        "400": {
+          "description": "Invalid ID supplied"
+        },
+        "404": {
+          "description": "Order not found"
+        }
+      },
+      "security": {
+        "api_key": {
+          "type": "apiKey",
+          "name": "Authorization",
+          "in": "header"
+        }
+      }
+    }
+  },
+  "/api/v1/flag": {
+    "post": {
+      "tags": [
+        "Flag/Report"
+      ],
+      "summary": "Report an AD",
+      "description": "",
+      "operationId": "flag/report ad",
+      "produces": [
+        "application/json"
+      ],
+      "parameters": [
+        {
+          "in": "body",
+          "name": "body",
+          "description": "A car reported either fraudulent or...",
+          "required": true,
+          "schema": {
+            "$ref": "#/definitions/Flag"
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "successful operation",
+          "schema": {
+            "$ref": "#/definitions/Flag"
+          }
+        },
+        "400": {
+          "description": "Invalid"
+        }
+      },
+      "security": {
+        "api_key": {
+          "type": "apiKey",
+          "name": "Authorization",
+          "in": "header"
+        }
+      }
+    }
+  }
+    
+},
+"securityDefinitions": {
+    "api_key": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header"
+    }
+  },
+"definitions": {
+    "User": {
+      "type": "object",
+      "properties": {
+        "confirm_password": {
+          "type": "string"
+        },
+        "first_name": {
+          "type": "string"
+        },
+        "last_name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
+    "ApiResponse": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "type": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "Cars" : {
+        "type": "object",
+      "properties": {
+        "seller_name": {
+          "type": "string"
+        },
+        "phone_no": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "state": {
+          "type": "string"
+        },
+        "price": {
+          "type": "string"
+        },
+        "body_type": {
+            "type": "string"
+        },
+        "model": {
+            "type": "string"
+          },
+        "manufacturer": {
+            "type": "string"
+        }
+      }
+    },
+    "Orders" : {
+        "type": "object",
+      "properties": {
+        "car_id": {
+          "type": "integer"
+        },
+        "amount": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        }
+      }
+    },
+    "Flag" : {
+        "type": "object",
+      "properties": {
+        "car_id": {
+          "type": "integer"
+        },
+        "reason": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
