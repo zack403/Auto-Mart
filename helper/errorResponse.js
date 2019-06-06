@@ -1,4 +1,4 @@
-module.exports = function errorResponse(status, error) {
+module.exports = (status, error) => {
     return {
         status : status,
         error : error

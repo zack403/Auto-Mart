@@ -1,6 +1,6 @@
 const errorResponse = require('../helper/errorResponse');
 
-module.exports = function(req, res, next) {
+module.exports = (req, res, next) => {
   // 401 Unauthorized
   // 403 Forbidden
   // if (!config.get("requiresAuth")) return next();

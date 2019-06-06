@@ -1,6 +1,6 @@
 const {Cars} = require('../models/car');
 
-module.exports = async function(req, res, next) {
+module.exports = async (req, res, next) => {
     const {status, max_price, min_price, state, manufacturer, body_type } = req.query;
     if(status && max_price && min_price) {
         const carByStatusAndPrice = await Cars.filter(car => car.status === status && 
