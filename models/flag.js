@@ -6,7 +6,7 @@ const flagSchema = [];
 
 const validateFlagObj = flag => {
     const schema = {
-        car_id : Joi.number().required(),       
+        car_id : Joi.number().integer().required(),       
         reason : Joi.string().required(),
         description : Joi.string().required()
       };

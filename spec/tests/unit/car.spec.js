@@ -61,7 +61,9 @@ describe('/api/v1/car/', () => {
             manufacturer : "honda",
             body_type : "big",
             model : "hd56",
-            price : 24
+            price : 24,
+            seller_name : "aminu",
+            phone_no : "09072856732"
         })
 
 
@@ -147,7 +149,7 @@ describe('/api/v1/car/', () => {
             expect(res.status).toBe(400);
           });
 
-          it("should return 200 if we have a valid request", async () => {
+          it("should return 201 if we have a valid request", async () => {
             const res = await request(server).post('/api/v1/car')
                .set('Authorization', token)
                .send({
@@ -156,10 +158,12 @@ describe('/api/v1/car/', () => {
                 price : 35,
                 manufacturer : "Toyota",
                 model : "TY34",
-                body_type: "big"
+                body_type: "big",
+                seller_name : "Aminu",
+                phone_no: "09072856732"
                 })
             
-                expect(res.status).toBe(200);
+                expect(res.status).toBe(201);
         })
     })
 

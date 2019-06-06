@@ -31,15 +31,16 @@ describe('/api/v1/auth/signup', () => {
             })
            })
 
-           it("should return 200 ok if sign up is successful", async () => {
+           it("should return 201 ok if sign up is successful", async () => {
             const res = await request(server).post('/api/v1/auth/signup')
                .send({
                     first_name: 'Zack', 
                     last_name: 'Aminu',
                     email: "sadiatu@gmail.com",
-                    password : "1166117"
+                    password : "1166117",
+                    confirm_password: "1166117"
                 })
-                expect(res.status).toBe(200);
+                expect(res.status).toBe(201);
 
         })
  })

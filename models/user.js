@@ -16,14 +16,18 @@ const validateUser = user => {
         .max(50)
         .required(),
       email: Joi.string()
-        .min(5)
-        .max(255)
         .required()
         .email(),
       password: Joi.string()
-        .min(5)
+        .min(7)
+        .alphanum()
         .max(255)
         .required(),
+      confirm_password: Joi.string()
+        .valid(Joi.ref('password')).required().strict()
+        .min(7)
+        .alphanum()
+        .max(255),
       created_at: Joi.date(),
       is_admin: Joi.boolean()
     };
