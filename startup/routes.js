@@ -6,7 +6,7 @@ const order = require('../routes/order');
 const flag = require('../routes/flag')
 const errorHandler = require('../middleware/error');
 
-module.exports = function(app) {
+module.exports = app => {
   app.use(express.json());
   app.use('/api/v1/auth/signup', users);
   app.use('/api/v1/auth/signin', auth);

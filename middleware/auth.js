@@ -3,7 +3,7 @@ const config = require("config");
 const errorResponse = require('../helper/errorResponse');
 
 
-module.exports = function(req, res, next) {
+module.exports = (req, res, next) => {
   const token = req.header("Authorization");
   if (!token){
     const tokenError = errorResponse(401,"Access denied. No token provided.");

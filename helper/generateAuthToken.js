@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const config = require('config');
 
 
-module.exports = function genereateAuthToken(id, email, firstName, isAdmin) {
+module.exports = (id, email, firstName, isAdmin) => {
     const token = jwt.sign(
         {
           id: id,

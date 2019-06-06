@@ -1,4 +1,4 @@
-module.exports = function response(obj, email, message) {
+module.exports = (obj, email, message) => {
     return {
         status : 200,
         data : {

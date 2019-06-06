@@ -1,6 +1,6 @@
 const moment = require('moment');
 
 
-module.exports = function getDate() {
+module.exports = () => {
     return moment().format('MMM Do YYYY, h:mm:ss a');
 }
