@@ -48,19 +48,23 @@ I was motivated by the super talented company ANDELA to undertake this project w
 ## Installation
    - You must have node/npm installed. Download Node [here](https://nodejs.org) and follow the        onscreen instructions for instalation.
    - Clone this repository by running this on your terminal: git clone https://github.com/zack403/Auto-Mart.git
-   - Navigate to the project's directory with this command cd Auto-MArt
+   - Navigate to the project's directory with this command cd Auto-Mart
    - Run npm install to install dependencies
-   - Run npm start to start the server
-   - Test the routes with Postman See the Api Docs [Here]()
+   - Run npm start to start the server but before then run npm install nodemon 
+     if you dont have it installed already.
+   - Test the routes with Postman, See the Api Docs [Here]() for all the available endpoints and      specification.
 
 ## Tests
 This project uses Jasmine for testing. To test, run npm test.
 
 ## API
-The API consumption was built with node.js, express and JWT (JSON web token for Authentication)
+The API was built with node.js, express and JWT(JSON web token for Authentication)
 
-Author
+## UI
+The User Interface was built with HTML5, CSS3 & JAVASCRIPT.
+
+## Author
 Zack Aminu
 
-License
+## License
 MIT License
