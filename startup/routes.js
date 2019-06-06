@@ -3,7 +3,7 @@ const users = require('../routes/user');
 const auth = require('../routes/auth');
 const car = require('../routes/car');
 const order = require('../routes/order');
-const flag = require('../routes/flag')
+const flag = require('../routes/flag');
 const errorHandler = require('../middleware/error');
 
 module.exports = app => {
