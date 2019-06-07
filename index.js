@@ -22,6 +22,8 @@ const options = {
   customCss: '.swagger-ui .topbar { background-color: lavender }'
 };
 
+ app.use(express.static('public'));
+
 app.use('/api/v1/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, options));
 
 

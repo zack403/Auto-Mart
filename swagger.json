@@ -8,12 +8,12 @@
         "email": "aminuzack7@gmail.com"
       }
     },
-    "host": "localhost:3000",
+    "host": "https://myauto-mart.herokuapp.com",
     "basePath": "/api/v1",
     "tags": [
       {
         "name": "Auth",
-        "description": "API for users to signup and sigin into the system"
+        "description": "API for users to signup and signin into the system"
       },
       {
         "name": "Cars",
@@ -30,7 +30,7 @@
       }
     ],
     "schemes": [
-      "http"
+      "https"
     ],
     "paths": {
       "/api/v1/auth/signup": {
