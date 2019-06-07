@@ -52,8 +52,8 @@ I was motivated by the super talented company ANDELA to undertake this project w
    - Run npm install to install dependencies
    - Run npm start to start the server but before then run npm install nodemon 
      if you dont have it installed already.
-   - Test the routes with Postman, See the Api Docs [Here]() for all the available endpoints and      specification.
-   - On your local machine, you can see the Api Docs [Here](localhost:3000/api/v1/api-doc)
+   - Test the routes with Postman, See the Api Docs [Here](https://myauto-mart.herokuapp.com/api/v1/api-docs/) for all the available endpoints and      specification.
+   - On your local machine, you can see the Api Docs [Here](http://localhost:3000/api/v1/api-doc)
 
 ## Tests
 This project uses Jasmine for testing. To test, run npm test.
