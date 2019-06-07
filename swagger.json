@@ -9,7 +9,7 @@
       }
     },
     "host": "https://myauto-mart.herokuapp.com",
-    "basePath": "/api/v1",
+    "basePath": "",
     "tags": [
       {
         "name": "Auth",
@@ -74,41 +74,11 @@
           }
         }      
       },
-      "/api/v1/signup/getUsers": {
-        "get": {
-            "tags": [
-              "Auth"
-            ],
-            "summary": "Get all users in system",
-            "description": "",
-            "operationId": "getUsers",
-            "consumes": [
-              "application/json"
-            ],
-            "produces": [
-              "application/json"
-            ],
-            "responses": {
-              "200": {
-                "description": "OK",
-                "schema": {
-                  "$ref": "#/definitions/User"
-                }
-              }
-            },
-            "security": {
-              "api_key": {
-                "type": "apiKey",
-                "name": "Authorization",
-                "in": "header"
-              }
-            }
-          }
-    },
+    
     "/api/v1/user/upload": {
         "post": {
           "tags": [
-            "Cars"
+            "Auth"
           ],
           "summary": "uploads an image",
           "description": "",
@@ -165,7 +135,7 @@
             ],
             "parameters": [
                 {
-                  "name": "carId",
+                  "name": "id",
                   "in": "path",
                   "description": "ID of user to return",
                   "required": true,
@@ -252,9 +222,6 @@
           "operationId": "getCars",
           "produces": [
             "application/json"
-          ],
-          "parameters": [
-            
           ],
           "responses": {
             "200": {

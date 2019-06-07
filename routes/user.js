@@ -4,7 +4,6 @@ const bcrypt = require('bcrypt');
 const {User, validate} = require('../models/user');
 const moment = require('../helper/moment');
 const errorResponse = require('../helper/errorResponse');
-const resourceResponse = require('../helper/getAllResourceResponse');
 const generateAuthToken = require('../helper/generateAuthToken');
 
 
@@ -53,19 +52,17 @@ router.post('/', async (req, res, next) => {
       }
 });
 
-
-
-//get all users
-router.get('/getUsers', async (req, res) => {
-  const resource = resourceResponse(User);
-  res.status(200).send(resource);
-})
-
 //get a single user
 router.get('/:id',  async ({ params: { id } }, res) => {
   const user = await User.find(user => user.id === parseInt(id));
   if(!user) return res.status(404).send("User with the given Id could not be found");
-  res.send(user);
+  res.status(200).send({
+    id :user.id,
+    first_name : user.first_name,
+    last_name : user.last_name,
+    email : user.email,
+    is_admin : user.is_admin
+  });
 });
 
 
