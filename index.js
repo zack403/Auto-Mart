@@ -42,6 +42,7 @@ app.post("/api/v1/user/upload", upload.single('image'), async (req, res) => {
 require("./startup/cors")(app);
 require("./startup/routes")(app);
 require("./startup/config")();
+require("./startup/production")(app);
 
 
 
