@@ -4,7 +4,7 @@
   "description": "Auto Mart is an online marketplace for automobiles of diverse makes, model or body type. With Auto Mart, users can sell their cars or buy from trusted dealerships or private sellers.",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js",
+    "start": "node index.js",
     "test": "nyc --reporter=html --reporter=text jasmine",
     "coverage": "nyc npm test && nyc report --reporter=text-lcov | coveralls",
     "build": "node build/build.js"
