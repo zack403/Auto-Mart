@@ -219,13 +219,7 @@
           ],
           "responses": {
             "200": {
-              "description": "successful operation",
-              "schema": {
-                "type": "object",
-                "additionalProperties": {
-                  "type": "integer"
-                }
-              }
+              "description": "successful operation"
             }
           },
           "security": {
@@ -549,7 +543,7 @@
       ],
       "summary": "Report an AD",
       "description": "",
-      "operationId": "flag/report ad",
+      "operationId": "reportad",
       "produces": [
         "application/json"
       ],
@@ -608,9 +602,6 @@
     "User": {
       "type": "object",
       "properties": {
-        "confirm_password": {
-          "type": "string"
-        },
         "first_name": {
           "type": "string"
         },
@@ -621,6 +612,9 @@
           "type": "string"
         },
         "password": {
+          "type": "string"
+        },
+        "confirm_password": {
           "type": "string"
         }
       }
@@ -643,12 +637,6 @@
     "Cars" : {
         "type": "object",
       "properties": {
-        "seller_name": {
-          "type": "string"
-        },
-        "phone_no": {
-          "type": "string"
-        },
         "status": {
           "type": "string"
         },
@@ -656,7 +644,7 @@
           "type": "string"
         },
         "price": {
-          "type": "string"
+          "type": "float"
         },
         "body_type": {
             "type": "string"
@@ -666,6 +654,12 @@
           },
         "manufacturer": {
             "type": "string"
+        },
+        "seller_name": {
+          "type": "string"
+        },
+        "phone_no": {
+          "type": "string"
         }
       }
     },
@@ -676,7 +670,7 @@
           "type": "integer"
         },
         "amount": {
-          "type": "string"
+          "type": "float"
         },
         "status": {
           "type": "string"
