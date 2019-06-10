@@ -166,7 +166,7 @@
           }
       },
       "/api/v1/auth/signin": {
-        "get": {
+        "post": {
           "tags": [
             "Auth"
           ],
@@ -179,14 +179,14 @@
           "parameters": [
             {
               "name": "email",
-              "in": "query",
+              "in": "body",
               "description": "The email for login",
               "required": true,
               "type": "string"
             },
             {
               "name": "password",
-              "in": "query",
+              "in": "body",
               "description": "The password for login in clear text",
               "required": true,
               "type": "string"
