@@ -178,18 +178,12 @@
           ],
           "parameters": [
             {
-              "name": "email",
+              "name": "body",
               "in": "body",
-              "description": "The email for login",
-              "required": true,
-              "type": "string"
-            },
-            {
-              "name": "password",
-              "in": "body",
-              "description": "The password for login in clear text",
-              "required": true,
-              "type": "string"
+              "description": "email and password for user to login",
+              "schema": {
+                "$ref": "#/definitions/Auth"
+              }
             }
           ],
           "responses": {
@@ -600,6 +594,17 @@
     }
   },
 "definitions": {
+  "Auth": {
+    "type": "object",
+    "properties": {
+      "email": {
+        "type": "string"
+      },
+      "password": {
+        "type": "string"
+      }
+    }
+  },
     "User": {
       "type": "object",
       "properties": {
