@@ -91,14 +91,7 @@
         ],
         "parameters": [
           {
-            "name": "additionalMetadata",
-            "in": "formData",
-            "description": "Additional data to pass to server",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "file",
+            "name": "image",
             "in": "formData",
             "description": "file to upload",
             "required": false,
@@ -580,6 +573,7 @@
 }
   
 },
+
 "securityDefinitions": {
   "api_key": {
     "type": "apiKey",
