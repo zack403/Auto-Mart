@@ -10,7 +10,7 @@ module.exports = (id, email, firstName, isAdmin) => {
           email : email,
           is_admin : isAdmin
         },
-        config.get('jwtPrivateKey'), {expiresIn: '1h'}
+        config.get('jwtPrivateKey'), {expiresIn: '24h'}
       );
       return token;
 }
