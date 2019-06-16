@@ -5,11 +5,12 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
+    "dev" : "nodemon index.js",
     "test": "nyc --reporter=html --reporter=text jasmine",
     "coverage": "nyc npm test && nyc report --reporter=text-lcov | coveralls"
   },
   "engines": {
-    "node" : "11.1.0"
+    "node": "11.1.0"
   },
   "repository": {
     "type": "git",
@@ -38,6 +39,7 @@
     "morgan": "^1.9.1",
     "multer": "^1.4.1",
     "nyc": "^14.1.1",
+    "pg": "^7.11.0",
     "request": "^2.88.0",
     "swagger-ui-express": "^4.0.6",
     "winston": "^3.2.1"
