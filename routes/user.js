@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
 const {User, validate} = require('../models/user');
+const auth = require('../middleware/auth');
 const moment = require('../helper/moment');
 const errorResponse = require('../helper/errorResponse');
 const generateAuthToken = require('../helper/generateAuthToken');
@@ -35,7 +36,7 @@ router.post('/', async (req, res, next) => {
       const result = await User.push(userToCreate);
       if ( result ) {
         const {id, is_admin} = userToCreate;
-        const token = generateAuthToken(id, req.body.email, req.body.first_name, is_admin) 
+        const token = generateAuthToken(id, req.body.email, req.body.first_name, is_admin); 
           res.status(201).send({
             status : 201,
             data : {
@@ -53,9 +54,10 @@ router.post('/', async (req, res, next) => {
 });
 
 //get a single user
-router.get('/:id',  async ({ params: { id } }, res) => {
+router.get('/:id', auth, async ({ params: { id } }, res) => {
+  let errorMessage;
   const user = await User.find(user => user.id === parseInt(id));
-  if(!user) return res.status(404).send("User with the given Id could not be found");
+  if(!user) return res.status(404).send(errorMessage = errorResponse(404, "User with the given Id could not be found"));
   res.status(200).send({
     id :user.id,
     first_name : user.first_name,
