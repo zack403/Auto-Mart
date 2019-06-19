@@ -1,7 +1,33 @@
 const Joi = require('joi');
+const db = require('../startup/db');
+
 
 const carSchema = [];
 
+
+
+const carTable = async () => {
+   const result = await db.query(`
+   CREATE TABLE IF NOT EXISTS
+    cars(
+      id SERIAL NOT NULL,
+      seller_name VARCHAR(128) NOT NULL,
+      phone_no VARCHAR(128) NOT NULL,
+      state VARCHAR(128) NOT NULL,
+      status VARCHAR(128) NOT NULL,
+      price NUMERIC NOT NULL,
+      manufacturer VARCHAR NOT NULL,
+      car_image_url BIT NOT NULL,
+      model  VARCHAR(128) NOT NULL,
+      body_type VARCHAR(128) NOT NULL,
+      owner SERIAL NOT NULL,
+      created_on TIMESTAMP,
+      PRIMARY KEY (id),
+      FOREIGN KEY (owner) REFERENCES users (id) ON DELETE CASCADE
+    )`);
+    console.log(result);
+  } 
+  
 
 // module.exports = class Use {
 //     constructor ( state, status, price, manufacturer, model, body_type) {
@@ -51,3 +77,5 @@ const validateCarObj = car => {
 
 module.exports.Cars = carSchema;
 module.exports.validate = validateCarObj;
+module.exports.carTable = carTable;
+

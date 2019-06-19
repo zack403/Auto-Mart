@@ -9,8 +9,19 @@ require("./config/cloudinaryConfig");
 const morgan = require('morgan');
 const swaggerDocument = require('./swagger.json');
 const swaggerUi = require('swagger-ui-express');
+const db = require('./startup/db');
+const {userTable} = require('./models/user');
+const {carTable} = require('./models/car');
+const {orderTable} = require('./models/order');
+const {flagTable} = require('./models/flag');
 
 
+//INITIATE CONNECTION TO THE DATABASE HERE, AND CREATE NECESSARY TABLES
+db.connect();
+userTable();
+carTable();
+orderTable();
+flagTable();
 
 if(app.get('env') === 'development') {
   app.use(morgan('combined'));
@@ -40,13 +51,16 @@ app.post("/api/v1/user/upload", upload.single('image'), async (req, res) => {
   
 });
 
+app.get("/db", async (req, res) => {
+  const resu = await db.query('SELECT * FROM users');
+  console.log(resu);
+  res.send(resu)
+});
 
 require("./startup/cors")(app);
 require("./startup/routes")(app);
 require("./startup/config")();
-require("./startup/db")();
 require("./startup/production")(app);
-
 
 
 const port = process.env.PORT || config.get("port");

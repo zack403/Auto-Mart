@@ -1,14 +1,23 @@
-const {Pool} = require('pg');
+const { Pool } = require('pg');
 const config = require('config');
-const winston = require("winston");
+const winston = require('winston');
 
 const connectionString = config.get("db");
 
 const pool = new Pool({
-    connectionString: connectionString,
-    ssl: true
+    connectionString: connectionString
 })
 
-module.exports = () => pool.connect()
-    .then(() => winston.info('Connected to the Database...'))
-    .catch(err => winston.info('Failed to connect to the Database', err));
+
+module.exports = {
+  connect: async () => {
+    try {
+         await pool.connect();
+        winston.info('Connected to the Database', )
+    } catch (error) {
+        winston.info('Failed to connect to the Database', error)
+    }
+},
+  query: (text, params) => pool.query(text, params)
+
+}
