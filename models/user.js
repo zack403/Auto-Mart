@@ -1,8 +1,30 @@
 const Joi = require('joi');
+const db = require('../startup/db');
+
 
 const userSchema = [ 
  
 ]
+
+  const userTable = async () => {
+   const result = await db.query(`
+   CREATE TABLE IF NOT EXISTS
+    users(
+      id SERIAL NOT NULL,
+      first_name VARCHAR(128) NOT NULL,
+      last_name VARCHAR(128) NOT NULL,
+      email VARCHAR(128) NOT NULL,
+      address VARCHAR(128) NOT NULL,
+      is_admin BOOLEAN NOT NULL,
+      user_image_url BIT,
+      password  VARCHAR(128) NOT NULL,
+      confirm_password VARCHAR(128) NOT NULL,
+      created_at TIMESTAMP,
+      PRIMARY KEY (id)
+    )`);
+    console.log(result);
+  } 
+  
 
 
 const validateUser = user => {
@@ -23,3 +45,4 @@ const validateUser = user => {
 
 module.exports.User = userSchema;
 module.exports.validate = validateUser;
+module.exports.userTable = userTable;
