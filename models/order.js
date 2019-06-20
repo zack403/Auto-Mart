@@ -6,7 +6,7 @@ const orders = [];
 
 
 const orderTable = async () => {
-  const result = await db.query(`
+  return await db.query(`
   CREATE TABLE IF NOT EXISTS
    orders(
      id SERIAL NOT NULL,
@@ -14,14 +14,12 @@ const orderTable = async () => {
      car_id SERIAL NOT NULL,
      amount NUMERIC NOT NULL,
      status VARCHAR(128) NOT NULL,
-     created_on TIMESTAMP,
+     created_on TIMESTAMP NOT NULL DEFAULT NOW(),
      price_offered NUMERIC NOT NULL,
      PRIMARY KEY (id),
      FOREIGN KEY (car_id) REFERENCES cars (id),
      FOREIGN KEY (buyer) REFERENCES users (id) ON DELETE CASCADE
-
    )`);
-   console.log(result);
  } 
 
 const validateOrders = car => {

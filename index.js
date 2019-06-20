@@ -17,11 +17,17 @@ const {flagTable} = require('./models/flag');
 
 
 //INITIATE CONNECTION TO THE DATABASE HERE, AND CREATE NECESSARY TABLES
-db.connect();
-userTable();
-carTable();
-orderTable();
-flagTable();
+
+
+const sync = async () => {
+    await db.connect();
+    await userTable(); // this has to be called first because it does not depend on any other table
+    await carTable();
+    await orderTable();
+    await flagTable();
+}
+sync();
+
 
 if(app.get('env') === 'development') {
   app.use(morgan('combined'));

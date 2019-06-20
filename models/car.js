@@ -7,7 +7,7 @@ const carSchema = [];
 
 
 const carTable = async () => {
-   const result = await db.query(`
+   return await db.query(`
    CREATE TABLE IF NOT EXISTS
     cars(
       id SERIAL NOT NULL,
@@ -17,15 +17,14 @@ const carTable = async () => {
       status VARCHAR(128) NOT NULL,
       price NUMERIC NOT NULL,
       manufacturer VARCHAR NOT NULL,
-      car_image_url BIT NOT NULL,
+      car_image_url VARCHAR NOT NULL,
       model  VARCHAR(128) NOT NULL,
       body_type VARCHAR(128) NOT NULL,
       owner SERIAL NOT NULL,
-      created_on TIMESTAMP,
+      created_on TIMESTAMP NOT NULL DEFAULT NOW(),
       PRIMARY KEY (id),
       FOREIGN KEY (owner) REFERENCES users (id) ON DELETE CASCADE
     )`);
-    console.log(result);
   } 
   
 
