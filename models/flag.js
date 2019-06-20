@@ -5,7 +5,7 @@ const db = require('../startup/db');
 const flagSchema = [];
 
 const flagTable = async () => {
-  const result = await db.query(`
+  return await db.query(`
   CREATE TABLE IF NOT EXISTS
    flags(
      id SERIAL NOT NULL,
@@ -13,11 +13,10 @@ const flagTable = async () => {
      reason VARCHAR(128) NOT NULL,
      description VARCHAR(128) NOT NULL,
      owner SERIAL NOT NULL,
-     created_on TIMESTAMP,
+     created_on TIMESTAMP NOT NULL DEFAULT NOW(),
      PRIMARY KEY (id),
      FOREIGN KEY (owner) REFERENCES users (id) ON DELETE CASCADE
    )`);
-   console.log(result);
  } 
 
 

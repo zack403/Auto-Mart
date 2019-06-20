@@ -2,47 +2,73 @@ const Joi = require('joi');
 const db = require('../startup/db');
 
 
-const userSchema = [ 
+const userTable = async () => {
+  return await db.query(`
+  CREATE TABLE IF NOT EXISTS
+   users(
+     id SERIAL NOT NULL,
+     first_name VARCHAR(128) NOT NULL,
+     last_name VARCHAR(128) NOT NULL,
+     email VARCHAR(128) NOT NULL,
+     address VARCHAR(128) NOT NULL,
+     is_admin BOOLEAN NOT NULL,
+     user_image_url VARCHAR,
+     password  VARCHAR(128) NOT NULL,
+     confirm_password VARCHAR(128) NOT NULL,
+     created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+     PRIMARY KEY (id)
+   )`);
+ } 
  
-]
-
-  const userTable = async () => {
-   const result = await db.query(`
-   CREATE TABLE IF NOT EXISTS
-    users(
-      id SERIAL NOT NULL,
-      first_name VARCHAR(128) NOT NULL,
-      last_name VARCHAR(128) NOT NULL,
-      email VARCHAR(128) NOT NULL,
-      address VARCHAR(128) NOT NULL,
-      is_admin BOOLEAN NOT NULL,
-      user_image_url BIT,
-      password  VARCHAR(128) NOT NULL,
-      confirm_password VARCHAR(128) NOT NULL,
-      created_at TIMESTAMP,
-      PRIMARY KEY (id)
-    )`);
-    console.log(result);
-  } 
-  
-
 
 const validateUser = user => {
-    const schema = {
-      first_name: Joi.string().required(),
-      last_name: Joi.string().required(),
-      email: Joi.string().required().email(),
-      password: Joi.string().min(7).alphanum().max(255).required(),
-      confirm_password: Joi.string().valid(Joi.ref('password')).required().strict().min(7)
-         .alphanum().max(255),
-      address : Joi.string(),
-      created_at: Joi.date(),
-      is_admin: Joi.boolean()
-    };
-  
-    return Joi.validate(user, schema);
-  }
+   const schema = {
+     first_name: Joi.string().required(),
+     last_name: Joi.string().required(),
+     email: Joi.string().required().email(),
+     password: Joi.string().min(7).alphanum().max(255).required(),
+     confirm_password: Joi.string().valid(Joi.ref('password')).required().strict().min(7)
+        .alphanum().max(255),
+     address : Joi.string(),
+     created_at: Joi.date(),
+     is_admin: Joi.boolean()
+   };
+ 
+   return Joi.validate(user, schema);
+ }
 
-module.exports.User = userSchema;
+const userMethods =  {
+  findByEmail: async (user) => {
+    const text = 'SELECT * FROM users where email = $1'
+    return await db.query(text, [user]);
+  },
+  findById: async (id) => {
+    const text = 'SELECT * FROM users where id = $1'
+    return await db.query(text, [id]);
+  },
+  save: async (first_name, last_name, email, address, 
+        user_image_url, password, confirm_password
+        ) => {
+      const text = `INSERT INTO
+      users(first_name, last_name, email, address, is_admin, 
+        user_image_url, password, confirm_password)
+      VALUES($1, $2, $3, $4, $5, $6, $7, $8)
+      returning id, first_name, last_name, email, created_at`;
+      const values = [
+        first_name,
+        last_name,
+        email,
+        address,
+        false,
+        user_image_url,
+        password,
+        confirm_password
+      ]
+     return await db.query(text, values);
+  }
+}
+
+
+module.exports.User = userMethods;
 module.exports.validate = validateUser;
 module.exports.userTable = userTable;
