@@ -2,6 +2,12 @@ language: node_js
 node_js: 
   - "stable"
 
+services:
+  - postgresql "10.5"
+
+before_script:
+  - psql -c 'create database AutoMartDB;' -U postgres
+
 env:
   - automart_jwtPrivateKey="mysecureKey"
  
