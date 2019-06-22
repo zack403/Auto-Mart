@@ -8,29 +8,27 @@ const generateAuthToken = require('../helper/generateAuthToken');
 
 
 
-
-
 //login endpoint
 router.post('/', async (req, res) => {
     const {error} = validateUser(req.body);
     if(error) return res.status(400).send(error.details[0].message);
         
-    const userEmail = await User.find(e => e.email === req.body.email);
-    if (!userEmail) return res.status(400).send('Login Failed, invalid email or password.'); 
+    const {rows: userEmail} = await User.findByEmail(req.body.email);
+    if (!userEmail[0]) return res.status(400).send('Login Failed, invalid email or password.'); 
 
-    const userPassword = await bcrypt.compare(req.body.password, userEmail.password);
+    const userPassword = await bcrypt.compare(req.body.password, userEmail[0].password);
     if (!userPassword) return res.status(400).send('Login Failed, invalid email or password.'); 
 
-    const {id, email, first_name, is_admin} = userEmail;
+    const {id, email, first_name, last_name, is_admin} = userEmail[0];
     const token = generateAuthToken(id, email, first_name, is_admin);
      res.status(200).send({
         status : 200,
         data : {
-            token : token,
-            id : userEmail.id,
-            first_name: userEmail.first_name,
-            last_name : userEmail.last_name,
-            email: userEmail.email
+            token,
+            id,
+            first_name,
+            last_name,
+            email
         }
       });
 

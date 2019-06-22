@@ -46,6 +46,10 @@ const userMethods =  {
     const text = 'SELECT * FROM users where id = $1'
     return await db.query(text, [id]);
   },
+  delete: async () => {
+    const text = 'DELETE FROM users'
+    return await db.query(text);
+  },
   save: async (first_name, last_name, email, address, 
         user_image_url, password, confirm_password
         ) => {

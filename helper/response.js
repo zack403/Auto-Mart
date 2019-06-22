@@ -10,7 +10,10 @@ module.exports = (obj, email, message) => {
             model : obj.model,
             price: obj.price,
             state: obj.state,
-            status: obj.status
+            status: obj.status,
+            body_type: obj.body_type,
+            seller_name: obj.seller_name,
+            phone_no: obj.phone_no
         }
     }
 }

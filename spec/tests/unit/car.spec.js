@@ -14,6 +14,10 @@ let model;
 let body_type;
 let price;
 let token;
+let owner;
+let car; 
+let user;
+
 
 const exec = () => {
     return request(server)
@@ -23,55 +27,42 @@ const exec = () => {
   };
   
 
-
 describe('/api/v1/car/', () => {
-    beforeEach(() => {
+    beforeEach(async () => {
         server = require('../../../index');
+    
+        const {rows: use}  = await User.save('Zack', 'Aminu', 'zackaminu@yahoo.com', '112 road', 
+        'image', '1234567', '1234567');
+        user = use[0];
+                userID = user.id;
+                owner = user.id;
+                token = jwt.sign({
+                    id: userID,
+                    first_name : "Zack",
+                    email : "zackaminu@yahoo.com",
+                    is_admin : false
+                }, config.get('jwtPrivateKey'));
 
-        userID = User.length + 1;
-        carID = Cars.length + 1;
-        token = jwt.sign({
-            id: userID,
-            first_name : User.find(val => val.id === userID),
-            email : User.find(el => el.id === userID),
-            is_admin : false
-        }, config.get('jwtPrivateKey'));
-
-        state = Cars.find(c => c.state);
-        status = Cars.find(s => s.status);
-        manufacturer = Cars.find(m => m.manufacturer);
-        price = Cars.find(p => p.price);
-        body_type = Cars.find(b => b.body_type);
-        model = Cars.find(m => m.model);
-
-        User.push({
-            id: userID,
-            first_name : "afenifo",
-            last_name : "okaraga",
-            email :  "ok@yahoo.com",
-            password : 1234567,
-            is_admin : false
-        })
-
-        Cars.push({
-            id: 1,
-            owner : User.find(elem => elem.id),
-            state: "new",
-            status : "available",
-            manufacturer : "honda",
-            body_type : "big",
-            model : "hd56",
-            price : 24,
-            seller_name : "aminu",
-            phone_no : "09072856732"
-        })
-
-
+        
+        
+        const {rows} = await Cars.save("Zack", "090864656673", "used", 1000, "honda", "hd009", "truck", owner);
+        car = rows[0];
+        
+        carID = car.id;
+        state = car.state;
+        status = car.status;
+        manufacturer = car.manufacturer;
+        price = car.price;
+        body_type = car.body_type;
+        model = car.model;
+        
     })
-    afterEach(() => {
+
+
+    afterEach(async () => {
         server.close();
-        // User = [];
-        // Cars = [];
+        await User.delete();
+        await Cars.delete();
     });
 
     describe('GET /api/v1/car', () => {
@@ -111,8 +102,8 @@ describe('/api/v1/car/', () => {
 
 
     it('should return a car if valid id is passed', async () => {
-    
-      const res = await request(server).get('/api/v1/car/1')
+        const id = car.id;
+      const res = await request(server).get(`/api/v1/car/${id}`)
       .set('Authorization', token);
 
         expect(res.status).toBe(200);
@@ -153,14 +144,13 @@ describe('/api/v1/car/', () => {
             const res = await request(server).post('/api/v1/car')
                .set('Authorization', token)
                .send({
+                seller_name : "Aminu",
+                phone_no: "090864656673",
                 state : "used",
-                status : "available",
-                price : 35,
+                price : 4000,
                 manufacturer : "Toyota",
                 model : "TY34",
-                body_type: "big",
-                seller_name : "Aminu",
-                phone_no: "09072856732"
+                body_type: "big"
                 })
             
                 expect(res.status).toBe(201);
@@ -196,8 +186,8 @@ describe('/api/v1/car/', () => {
         id = 50; 
         let tok = jwt.sign({
           id: userID,
-          first_name : User.find(val => val.id === userID),
-          email : User.find(el => el.id === userID),
+          first_name : user.first_name,
+          email : user.email,
           is_admin : true
         }, config.get('jwtPrivateKey'));
 
@@ -211,11 +201,11 @@ describe('/api/v1/car/', () => {
   
       
       it('should delete the car if input is valid', async () => {
-       id = 1;
+       const id = car.id;
        let tok = jwt.sign({
         id: userID,
-        first_name : User.find(val => val.id === userID),
-        email : User.find(el => el.id === userID),
+        first_name : user.first_name,
+        email : user.email,
         is_admin : true
       }, config.get('jwtPrivateKey'));
        const res = await request(server)
@@ -261,7 +251,7 @@ describe('/api/v1/car/', () => {
       it("should return 200 if query matches", async () => {
 
         const res = await request(server)
-          .get('/api/v1/car?status=available&min_price=10&max_price=50')
+          .get('/api/v1/car?status=Available&min_price=10&max_price=2000')
           .set('Authorization', token);
 
           expect(res.status).toBe(200);
@@ -302,7 +292,7 @@ describe('/api/v1/car/', () => {
     it("should return 200 if query matches", async () => {
 
       const res = await request(server)
-        .get('/api/v1/car?status=available')
+        .get('/api/v1/car?status=Available')
         .set('Authorization', token);
 
         expect(res.status).toBe(200);
@@ -312,12 +302,12 @@ describe('/api/v1/car/', () => {
   })
 
   
-  describe('GET /car?body_type=big', () => {
+  describe('GET /car?body_type=truck', () => {
 
     let id;
     const exec = async () => {
       return await request(server)
-        .get('/api/v1/car?body_type=big')
+        .get('/api/v1/car?body_type=truck')
         .set('Authorization', token);
 
 
@@ -334,7 +324,7 @@ describe('/api/v1/car/', () => {
     it("should return 404 if query does not match", async () => {
 
       const res = await request(server)
-        .get('/api/v1/car?body_type=bg')
+        .get('/api/v1/car?body_type=tr')
         .set('Authorization', token);
 
         expect(res.status).toBe(404);
@@ -344,7 +334,7 @@ describe('/api/v1/car/', () => {
     it("should return 200 if query matches", async () => {
 
       const res = await request(server)
-        .get('/api/v1/car?body_type=big')
+        .get('/api/v1/car?body_type=truck')
         .set('Authorization', token);
 
         expect(res.status).toBe(200);
@@ -382,15 +372,6 @@ describe('/api/v1/car/', () => {
 
     })
 
-    it("should return 200 if query matches", async () => {
-      Cars.find(c => c.state = "new");
-      const res = await request(server)
-        .get('/api/v1/car?status=available&state=new')
-        .set('Authorization', token);
-        expect(res.status).toBe(200);
-
-    })
-
   })
 
   describe('GET /car?status=available&state=used', () => {
@@ -398,7 +379,7 @@ describe('/api/v1/car/', () => {
     let id;
     const exec = async () => {
       return await request(server)
-        .get('/api/v1/car?status=available&state=used')
+        .get('/api/v1/car?status=Available&state=used')
         .set('Authorization', token);
 
 
@@ -423,9 +404,9 @@ describe('/api/v1/car/', () => {
     })
 
     it("should return 200 if query matches", async () => {
-      Cars.find(c => c.state = "used");
+      car.state = "used";
       const res = await request(server)
-        .get('/api/v1/car?status=available&state=used')
+        .get('/api/v1/car?status=Available&state=used')
         .set('Authorization', token);
 
         expect(res.status).toBe(200);
@@ -434,12 +415,12 @@ describe('/api/v1/car/', () => {
 
   })
 
-  describe('GET /car?status=available&manufacturer=honda', () => {
+  describe('GET /car?status=Available&manufacturer=honda', () => {
 
     let id;
     const exec = async () => {
       return await request(server)
-        .get('/api/v1/car?status=available&manufacturer=honda')
+        .get('/api/v1/car?status=Available&manufacturer=honda')
         .set('Authorization', token);
 
 
@@ -465,7 +446,7 @@ describe('/api/v1/car/', () => {
 
     it("should return 200 if query matches", async () => {
       const res = await request(server)
-        .get('/api/v1/car?status=available&manufacturer=honda')
+        .get('/api/v1/car?status=Available&manufacturer=honda')
         .set('Authorization', token);
 
         expect(res.status).toBe(200);
@@ -506,9 +487,9 @@ describe('/api/v1/car/', () => {
     })
 
     it("should return 200 if successful", async () => {
-
+     const id = car.id;
       const res = await request(server)
-        .patch('/api/v1/car/1/price')
+        .patch(`/api/v1/car/${id}/price`)
         .set('Authorization', token)
         .send({price: 200});
 
@@ -548,9 +529,9 @@ describe('/api/v1/car/', () => {
     })
 
     it("should return 200 if successful", async () => {
-
+        const id = car.id;
       const res = await request(server)
-        .patch('/api/v1/car/1/status')
+        .patch(`/api/v1/car/${id}/status`)
         .set('Authorization', token);
        
 
