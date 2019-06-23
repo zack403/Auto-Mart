@@ -6,7 +6,6 @@ module.exports = multer({
         if(!file.mimetype.match(/jpeg|jpeg|png|gif$i/)) {
             cb(new Error('File is not supported'), false)
         }
-
         cb(null, true)
     }
 })

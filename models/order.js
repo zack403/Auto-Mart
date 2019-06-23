@@ -1,8 +1,6 @@
 const Joi = require('joi');
 const db = require('../startup/db');
 
-
-
 const orderTable = async () => {
   return await db.query(`
   CREATE TABLE IF NOT EXISTS
@@ -18,6 +16,7 @@ const orderTable = async () => {
      FOREIGN KEY (buyer) REFERENCES users (id) ON DELETE CASCADE
    )`);
  } 
+ 
 const validateOrders = car => {
     const schema = {
         buyer: Joi.number().integer(),
@@ -31,6 +30,7 @@ const validateOrders = car => {
       };
       return Joi.validate(car, schema);
 }
+
 const orderMethods =  {
   findById: async (id) => {
     const text = 'SELECT * FROM orders where id = $1'
@@ -72,6 +72,7 @@ const orderMethods =  {
      return await db.query(text, values);
   }
 }
+
 module.exports.Orders = orderMethods;
 module.exports.validate = validateOrders;
 module.exports.orderTable = orderTable;

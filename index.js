@@ -17,8 +17,6 @@ const {flagTable} = require('./models/flag');
 
 
 //INITIATE CONNECTION TO THE DATABASE HERE, AND CREATE NECESSARY TABLES
-
-
 const sync = async () => {
     await db.connect();
     await userTable(); // this has to be called first because it does not depend on any other table
@@ -27,7 +25,6 @@ const sync = async () => {
     await flagTable();
 }
 sync();
-
 
 if(app.get('env') === 'development') {
   app.use(morgan('combined'));
@@ -39,10 +36,9 @@ const options = {
   customCss: '.swagger-ui .topbar { background-color: lavender }'
 };
 
- app.use(express.static('public'));
+app.use(express.static('public'));
 
 app.use('/api/v1/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, options));
-
 
 app.post("/api/v1/user/upload", upload.single('image'), async (req, res) => {
   console.log("file", req.file);
@@ -57,17 +53,10 @@ app.post("/api/v1/user/upload", upload.single('image'), async (req, res) => {
   
 });
 
-app.get("/db", async (req, res) => {
-  const resu = await db.query('SELECT * FROM users');
-  console.log(resu);
-  res.send(resu)
-});
-
 require("./startup/cors")(app);
 require("./startup/routes")(app);
 require("./startup/config")();
 require("./startup/production")(app);
-
 
 const port = process.env.PORT || config.get("port");
 const server = app.listen(port, () =>

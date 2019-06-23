@@ -4,9 +4,6 @@ const {Orders, validate} = require('../models/order');
 const {Cars} = require('../models/car');
 const auth = require('../middleware/auth');
 const Joi = require('joi');
-const moment = require('../helper/moment');
-
-
 
 router.post('/', auth, async (req, res) => {
    const {error} = validate(req.body);
@@ -35,6 +32,7 @@ router.post('/', auth, async (req, res) => {
         })
     }
 })
+
 router.patch("/:order_id/price", auth, async (req, res) => {
     // validate request
    const {error} = validateOrder(req.body);
@@ -65,10 +63,12 @@ router.patch("/:order_id/price", auth, async (req, res) => {
     })
    }
 })
+
 const validateOrder = req => {
     const schema = {
         new_price : Joi.number().required()
     }
     return Joi.validate(req, schema);
 }
+
 module.exports = router;

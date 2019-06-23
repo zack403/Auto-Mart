@@ -5,20 +5,19 @@ node_js:
 services:
   - postgresql 
 
-before_script:
-  - psql -c 'create database AutoMartDB;' -U postgres
-  - travis_wait npm install
+install:
+  - npm install
 
 addons:
   - postgresql: "10.5"
 
+before_script:
+  - travis_wait npm install
+  - psql -c 'create database AutoMartDB;' -U postgres
+
 env:
   - automart_jwtPrivateKey="mysecureKey"
  
-
-install:
-  - npm install
-
 script:
   - npm test
 

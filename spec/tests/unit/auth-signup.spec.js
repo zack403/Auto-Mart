@@ -6,14 +6,11 @@ describe('/api/v1/auth/signup', () => {
     beforeEach(() => 
     {
         server = require('../../../index'); 
-        
-        
     })
     afterEach(async () => {
         server.close();
         await User.delete();
     });
-
 
     describe('POST /api/v1/auth/signup', () => {
         it('should return 400 if user model is not provided', async () => {
