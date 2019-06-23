@@ -1,7 +1,6 @@
 const Joi = require('joi');
 const db = require('../startup/db');
 
-
 const userTable = async () => {
   return await db.query(`
   CREATE TABLE IF NOT EXISTS
@@ -19,9 +18,8 @@ const userTable = async () => {
      PRIMARY KEY (id)
    )`);
  } 
- 
 
-const validateUser = user => {
+ const validateUser = user => {
    const schema = {
      first_name: Joi.string().required(),
      last_name: Joi.string().required(),
@@ -33,7 +31,6 @@ const validateUser = user => {
      created_at: Joi.date(),
      is_admin: Joi.boolean()
    };
- 
    return Joi.validate(user, schema);
  }
 
@@ -50,6 +47,7 @@ const userMethods =  {
     const text = 'DELETE FROM users'
     return await db.query(text);
   },
+
   save: async (first_name, last_name, email, address, 
         user_image_url, password, confirm_password
         ) => {
@@ -71,7 +69,6 @@ const userMethods =  {
      return await db.query(text, values);
   }
 }
-
 
 module.exports.User = userMethods;
 module.exports.validate = validateUser;

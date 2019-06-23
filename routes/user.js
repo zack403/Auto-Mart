@@ -3,18 +3,15 @@ const router = express.Router();
 const bcrypt = require('bcrypt');
 const {User, validate} = require('../models/user');
 const auth = require('../middleware/auth');
-const moment = require('../helper/moment');
 const errorResponse = require('../helper/errorResponse');
 const generateAuthToken = require('../helper/generateAuthToken');
  
-
-
 //signup endpoint
 router.post('/', async (req, res) => {
-  const {first_name, last_name, email, address, 
-        user_image_url, password} = req.body; 
   const {error} = validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
+  const {first_name, last_name, email, address, 
+    user_image_url, password} = req.body; 
   const {rows: user} = await User.findByEmail(email);
   if (user[0]) {
     const userError = errorResponse(400, `An account with email ${email} already exist`);
@@ -22,16 +19,15 @@ router.post('/', async (req, res) => {
   } 
   const salt = await bcrypt.genSalt(10);
   const hashedPassword = await bcrypt.hash(password, salt);
-
   const {rows: created} = await User.save(first_name, last_name, email, address, 
     user_image_url, hashedPassword, hashedPassword);
       if ( created[0] ) {
         const {id, is_admin, first_name, last_name, email, created_at} = created[0];
-        const token = generateAuthToken(id, email, first_name, is_admin); 
+        // const token = generateAuthToken(id, email, first_name, is_admin); 
           res.status(201).send({
             status : 201,
             data : {
-                token,
+                // token,
                 message: "Account successfully created",
                 id,
                 first_name,

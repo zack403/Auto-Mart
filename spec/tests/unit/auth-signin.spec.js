@@ -3,8 +3,6 @@ const {User} = require('../../../models/user');
 
 let server; 
 
-
-
 describe('/api/v1/auth/signin', () => {
     beforeEach( async () => 
     {

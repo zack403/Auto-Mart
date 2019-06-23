@@ -1,7 +1,6 @@
 const Joi = require('joi');
 const db = require('../startup/db');
 
-
 const carTable = async () => {
    return await db.query(`
    CREATE TABLE IF NOT EXISTS
@@ -22,8 +21,8 @@ const carTable = async () => {
       FOREIGN KEY (owner) REFERENCES users (id) ON DELETE CASCADE
     )`);
   } 
-  
-const validateCarObj = car => {
+
+  const validateCarObj = car => {
     const schema = {
         seller_name: Joi.string()
            .required(),
@@ -101,7 +100,6 @@ const carMethods =  {
      return await db.query(text, values);
   }
 }
-
 
 module.exports.Cars = carMethods;
 module.exports.validate = validateCarObj;

@@ -4,12 +4,10 @@ const {Cars, validate} = require('../models/car');
 const Joi = require('joi');
 const auth = require('../middleware/auth');
 const admin = require("../middleware/admin");
-const moment = require('../helper/moment');
 const response = require('../helper/response');
 const resourceResponse = require('../helper/getAllResourceResponse');
 const getCars = require('../middleware/getcars');
 const errorResponse =  require('../helper/errorResponse');
-
 
 let updatedMessage = "Successfully updated";
 let errorMessage;
@@ -22,12 +20,11 @@ router.get("/", [auth, getCars], async (req, res) => {
     return res.status(200).send(resource);
 })
 
-  //get carby id
-  router.get("/:car_id", auth, async (req, res) => {
+//get carby id
+router.get("/:car_id", auth, async (req, res) => {
     const {id: userID} = req.user;
     const {rows: car} = await Cars.findById(parseInt(req.params.car_id));
     if(!car[0]) return res.status(404).send(errorMessage = errorResponse(404, notFoundCar));
-    
     const {id, created_on, state, status, price, manufacturer, model,
         body_type, seller_name, phone_no
     } = car[0];
@@ -59,18 +56,14 @@ router.delete("/:id", [auth, admin], async (req, res) => {
     }
 })
 
-
 router.patch("/:car_id/price", auth, async (req, res) => {
-     //get the email and id of the logged in user
-    const {email} = req.user;
-    const carID = parseInt(req.params.car_id);
-   
     const {error} = validatePrice(req.body);
     if(error) return res.status(400).send(error.details[0].message);
-
+    //get the email and id of the logged in user
+    const {email} = req.user;
+    const carID = parseInt(req.params.car_id);
     const {rows: car} = await Cars.findById(carID);
     if(!car[0]) return res.status(404).send(errorMessage = errorResponse(404, notFoundCar));
-
     const {rows: carByPrice} = await Cars.updatePrice(carID, req.body.price);
     const {id, created_on, manufacturer, model, price, state, 
         status, body_type, seller_name, phone_no } = carByPrice[0];
@@ -92,30 +85,27 @@ router.patch("/:car_id/price", auth, async (req, res) => {
     }
 })
 
-
 router.patch("/:car_id/status", auth, async (req, res) => {
-    //get the email and id of the logged in user
+   //get the email and id of the logged in user
    const {email} = req.user;
    const carID = parseInt(req.params.car_id);
-
    const {rows: car} = await Cars.findById(carID);
    if(!car[0]) return res.status(404).send(errorMessage = errorResponse(404, notFoundCar));
-
    const {rows: carByStatus} = await Cars.updateStatus(carID);
    const {id, created_on, manufacturer, model, price, state, 
     status, body_type, seller_name, phone_no } = carByStatus[0];
    const updateCarObj = {
-    id, 
-    created_on,
-    state,
-    status,
-    price,
-    manufacturer,
-    model,
-    body_type,
-    seller_name,
-    phone_no
-}
+        id, 
+        created_on,
+        state,
+        status,
+        price,
+        manufacturer,
+        model,
+        body_type,
+        seller_name,
+        phone_no
+    }
    const message = response(updateCarObj, email, updatedMessage);
    if(message) {
        res.status(200).send(message);
@@ -124,16 +114,13 @@ router.patch("/:car_id/status", auth, async (req, res) => {
 
 //post a car ad endpoint
 router.post('/', auth, async (req, res) => {
-    //get the email and id of the logged in user
-   const {email , id} = req.user;
-
-   const {state, price, manufacturer, model, body_type, seller_name, phone_no} = req.body;
-
    const {error} = validate(req.body);
    if(error) return res.status(400).send(error.details[0].message);
-
+   //get the email and id of the logged in user
+   const {email , id} = req.user;
+   const {state, price, manufacturer, model, body_type, seller_name, phone_no} = req.body;
     //create the car here
-    const {rows: created} = await Cars.save(seller_name, phone_no, state, price, 
+   const {rows: created} = await Cars.save(seller_name, phone_no, state, price, 
         manufacturer, model, body_type, id);
         if (created[0]) {
             let createdMessage = "Ad successfully posted";
