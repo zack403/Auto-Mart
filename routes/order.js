@@ -9,74 +9,66 @@ const moment = require('../helper/moment');
 
 
 router.post('/', auth, async (req, res) => {
-    //get the email and id of the logged in user
-   const {id} = req.user;
-
-   const { car_id, amount, status} = req.body;
    const {error} = validate(req.body);
    if(error) return res.status(400).send(error.details[0].message);
-
-   const car = await Cars.find(car => car.id === parseInt(car_id));
-   if(!car) return res.status(404).send("The car you are trying to purchase does not exist");
-
-   
-    //create the purchase order
-    const poObj = {
-        id : Orders.length + 1, 
-        buyer : id, //which is the user id of the logged in user
-        car_id : car_id,
-        amount : amount,
-        status : status ? status : 'Pending',
-        created_on: moment()
-    }
-
-    const createdPO = await Orders.push(poObj);
-    if (createdPO) {
+    //get the email and id of the logged in user
+    const {id} = req.user;
+    let { car_id, amount, status} = req.body;
+    status = status ? status : 'Pending';
+   //get the car user is trying to make purchase order for
+   const {rows: car} = await Cars.findById(parseInt(car_id));
+   if(!car[0]) return res.status(404).send("The car you are trying to purchase does not exist");
+    const {rows: created} = await Orders.save(id, car_id, amount, status);
+    if (created[0]) {
+        const {id, car_id, created_on, status, amount} = created[0];
         res.status(200).send({
             status : 200,
             data : {
-                id : poObj.id,
+                id,
                 message: "Purchase order successful",
-                car_id : poObj.car_id,
-                created_on : poObj.created_on,
-                status: poObj.status,
-                price: car.price,
-                price_offered: poObj.amount,
+                car_id,
+                created_on,
+                status,
+                price: car[0].price,
+                price_offered: amount,
             }
         })
     }
 })
-
 router.patch("/:order_id/price", auth, async (req, res) => {
-     
+    // validate request
    const {error} = validateOrder(req.body);
    if(error) return res.status(400).send(error.details[0].message);
-
-   const order = await Orders.find(order => order.id === parseInt(req.params.order_id));
-   if(!order) return res.status(404).send("This purchase order does not exist");
-   let old_price_offered = order.amount;
-   if(order.status != 'Pending') return res.status(400).send('You can only update the price, if the order is still pending')
-
-   order.amount = req.body.new_price;
-   res.status(200).send({
-       status: 200,
-       data: {
-           id : order.id,
-           message : "Successfully updated",
-           car_id: order.car_id,
-           status : order.status,
-           old_price_offered: old_price_offered,
-           new_price_offered : req.body.new_price
-       }
-   })
+   // get the id of the order you want to update
+   const orderID = parseInt(req.params.order_id);
+   //check the database if the order id is valid
+   const {rows: order} = await Orders.findById(orderID);
+   // bounce the user out if it is not a valid order
+   if(!order[0]) return res.status(404).send("This purchase order does not exist");
+   let oldPriceOffered = order[0].amount; // set old_price_offered to order amount
+   //only the order that is pending can be updated
+   if(order[0].status != 'Pending') return res.status(400).send('You can only update the price, if the order is still pending');
+   //update the order here
+   const {rows: updated} = await Orders.updateOrderPrice(orderID, req.body.new_price);
+   if(updated[0]) {
+    const {id, car_id, status, amount} = updated[0];
+    res.status(200).send({
+        status: 200,
+        data: {
+            id ,
+            message : "Successfully updated",
+            car_id,
+            status,
+            old_price_offered : oldPriceOffered,
+            new_price_offered : amount
+        }
+    })
+   }
 })
-
-
 const validateOrder = req => {
     const schema = {
         new_price : Joi.number().required()
     }
     return Joi.validate(req, schema);
 }
-
 module.exports = router;
