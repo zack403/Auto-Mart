@@ -1,7 +1,6 @@
 const Joi = require('joi');
 const db = require('../startup/db');
 
-
 const flagTable = async () => {
   return await db.query(`
   CREATE TABLE IF NOT EXISTS
@@ -17,6 +16,7 @@ const flagTable = async () => {
      FOREIGN KEY (owner) REFERENCES users (id) ON DELETE CASCADE
    )`);
  } 
+
 const validateFlagObj = flag => {
     const schema = {
         car_id : Joi.number().integer().required(),       
@@ -25,6 +25,7 @@ const validateFlagObj = flag => {
       };
       return Joi.validate(flag, schema);
 }
+
 const flagMethods =  {
   findById: async (id) => {
     const text = 'SELECT * FROM flags where id = $1'
@@ -48,6 +49,7 @@ const flagMethods =  {
      return await db.query(text, values);
   }
 }
+
 module.exports.Flags = flagMethods;
 module.exports.validate = validateFlagObj;
 module.exports.flagTable = flagTable;
