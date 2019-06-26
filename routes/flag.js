@@ -1,42 +1,29 @@
 const express = require('express');
 const router = express.Router();
 const auth = require('../middleware/auth');
-const moment = require('../helper/moment');
 const {Flags, validate} = require('../models/flag');
 const {Cars} = require('../models/car');
 
-
-
-
-
-
 router.post('/', auth, async (req, res) => {
-     //get the email and id of the logged in user
-   const {id} = req.user;
     const {error} = validate(req.body);
-     if(error) return res.status(400).send(error.details[0].message);
-
-   const car = await Cars.find(car => car.id === parseInt(req.body.car_id));
-   if(!car) return res.status(404).send("This ad does not exist");
-
-     //create the flagged ad here
-   const flagObj = {
-        id : Flags.length + 1, 
-        owner : id, //which is the user id of the logged in user
-        created_on : moment(),
-        car_id : car.id,
-        reason : req.body.reason,
-        description : req.body.description
-    }
-
-    const createdFlag = await Flags.push(flagObj);
-    if (createdFlag) {
+    if(error) return res.status(400).send(error.details[0].message);
+    //get the id of the logged in user
+    const {id} = req.user;
+    const {car_id, reason, description} = req.body;
+    // find the car to be reported
+    const {rows: car} = await Cars.findById(parseInt(car_id));
+    // bounce the user if car does not exist
+    if(!car[0]) return res.status(404).send("This ad does not exist");
+    //create the flagged ad here
+    const {rows: created} = await Flags.save(id, car_id, reason, description);
+    if (created[0]) {
+        const {id, car_id, reason, description} = created[0];
         res.status(200).send({
-            id: flagObj.id,
-            message: `Ad ${car.manufacturer} reported successfully`,
-            car_id : car.id,
-            reason: flagObj.reason,
-            description: flagObj.description
+            id,
+            message: `Ad ${car[0].manufacturer} reported successfully`,
+            car_id,
+            reason,
+            description
         })
     }
 });
