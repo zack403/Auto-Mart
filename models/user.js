@@ -47,7 +47,15 @@ const userMethods =  {
     const text = 'DELETE FROM users'
     return await db.query(text);
   },
-
+  updateUser: async (id, password) => {
+    const updateQuery = `UPDATE users
+    SET password=$1,confirm_password=$1 WHERE id=$2 returning *`;
+    const values = [
+      password,
+      id
+    ];
+    return await db.query(updateQuery, values);
+  },
   save: async (first_name, last_name, email, address, 
         user_image_url, password, confirm_password
         ) => {
