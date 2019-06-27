@@ -39,7 +39,7 @@ const carTable = async () => {
         body_type : Joi.string()
            .required()
       };
-      return Joi.validate(car, schema);
+      return Joi.validate(car, schema, { abortEarly: false });
 }
 
 const carMethods =  {
@@ -78,7 +78,7 @@ const carMethods =  {
     return await db.query(text, [id]);
   },
   save: async (seller_name, phone_no, state, price, 
-        manufacturer, model, body_type,owner
+        manufacturer, model, body_type, image, owner
         ) => {
       const text = `INSERT INTO
       cars(seller_name, phone_no, status, state, price, manufacturer, 
@@ -94,7 +94,7 @@ const carMethods =  {
         manufacturer,
         model,
         body_type,
-        "image",
+        image,
         owner
       ]
      return await db.query(text, values);
