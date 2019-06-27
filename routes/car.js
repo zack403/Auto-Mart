@@ -8,6 +8,9 @@ const response = require('../helper/response');
 const resourceResponse = require('../helper/getAllResourceResponse');
 const getCars = require('../middleware/getcars');
 const errorResponse =  require('../helper/errorResponse');
+const upload = require('../middleware/multer');
+const imageUpload = require('../helper/imageUpload');
+
 
 let updatedMessage = "Successfully updated";
 let errorMessage;
@@ -113,22 +116,26 @@ router.patch("/:car_id/status", auth, async (req, res) => {
 })
 
 //post a car ad endpoint
-router.post('/', auth, async (req, res) => {
+router.post('/', upload.single('image'), async (req, res) => {
+   console.log("file", req.file);
    const {error} = validate(req.body);
-   if(error) return res.status(400).send(error.details[0].message);
+   if(error) return res.status(400).send(error.details);
    //get the email and id of the logged in user
    const {email , id} = req.user;
    const {state, price, manufacturer, model, body_type, seller_name, phone_no} = req.body;
+   const result = imageUpload(req.file.path);
+   const imageUrl = result.url;
     //create the car here
    const {rows: created} = await Cars.save(seller_name, phone_no, state, price, 
-        manufacturer, model, body_type, id);
+        manufacturer, model, body_type, imageUrl, id);
         if (created[0]) {
             let createdMessage = "Ad successfully posted";
             const {id, created_on, manufacturer, model, price, state, 
-                status, body_type ,seller_name, phone_no } = created[0];
+                status, body_type ,seller_name, phone_no, car_image_url } = created[0];
             const carObj = {
                 id, 
                 created_on,
+                car_image_url,
                 state,
                 status,
                 price,
