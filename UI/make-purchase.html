@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="A web application marketplace for car">
+	  <meta name="keywords" content="car, buy, sell, toyota, benz,">
+    <meta name="author" content="Zack Aminu">
+    <link rel="stylesheet" href="styles/index.css">
+    <title>AutoMart | Make Purchase</title>
+  </head>
+
+  <body>
+      <div class="shift-footer">
+        <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light">
+                <div class="container">
+                    <a  class="navbar-brand pl-5 " href="../index.html"><img src="images/am-logo.svg" alt="AutoMart logo"></a>
+                      <button class="navbar-toggler" type="button" data-toggle="collapse" 
+                        data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" 
+                        aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                      </button>
+                      <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav ml-auto">
+                          <li class="nav-item active">
+                            <a class="nav-link" href="../index.html">Home</a>
+                          </li>
+                          <li class="nav-item active ">
+                            <a class="nav-link" href="sign-in.html">Login</a>
+                          </li>
+                          <li class="nav-item active ">
+                            <a class="nav-link" href="post-car-sale.html">Post Ad</a>
+                          </li>
+                          <li class="nav-item active ">
+                                <a class="nav-link" href="reported-ads.html">Reported Ads</a>
+                              </li>
+                          <li class="nav-item active">
+                            <a class="nav-link" href="view-a-car.html">View A car</a>
+                          </li>
+                          <li class="nav-item active">
+                                <a class="nav-link" href="view-unsold-car.html">View All Unsold Cars</a>
+                              </li>
+                              <li class="nav-item active">
+                                    <a class="nav-link" href="purchase-order.html">Make A Purchase</a>
+                                  </li>
+                                  <li class="nav-item active">
+                                      <a class="nav-link" href="admin-right.html">Admin</a>
+                                    </li>
+                                    <li class="nav-item dropdown active">
+                                            <a class="nav-link" href=""><img id="user-image" src="images/user-image.jpg" alt="user image"></a>
+                                            <div class="dropdown-content">
+                                                    <a href="my-ad.html">My Ads</a>
+                                                    <a href="my-po.html">My PO</a>
+                                                    <a href="#">Logout</a>
+                                                  </div>
+                                    </li>
+                        </ul>
+                      </div>
+                </div>
+                    
+        </nav>
+
+         <div class="container mt-5">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                    <img class="card-img-top" src="images/honda.jpg" alt="Card image cap">
+                    </div>
+                    <p style="cursor: pointer; color: blue" id="report">REPORT THIS AD</p>
+                </div>
+                <div class="col-md-3">
+                        <div class="card">
+                            <div class="card-body">
+                                        <h3>Toyotta Camry 2019 model</h3>
+                                  <div class="card-text">
+                                        <p> Key Features</p>
+                                        <p class="text-muted">>Fast</p>
+                                        <p class="text-muted">>Durable</p>
+                                        <p class="text-muted">>Efficient</p>
+                                        <p class="text-muted">>Long Lasting</p>
+                                        <p class="text-muted">>Rugged</p>
+                                  </div>
+                            </div>
+                            <div class="card-footer">
+                                    <h2>&#8358;13,000000</h2>
+                            </div>
+                        </div>                
+                </div>
+                        <div class="col-md-3">
+                                
+                                        <h3>Make a Purchase</h3>
+                                        <form class="form">
+                                        
+                                        <div class="form-group">
+                                            <label for="fullname">
+                                            </label>
+                                            <input type="text" class="form-control" placeholder="Full Name" id="fullname" autofocus required>
+                                        </div>
+                                    
+                                        <div class="form-group">
+                                            <label for="phone">
+                                            </label>
+                                            <input type="text" class="form-control" placeholder="Phone Number" id="phone" required>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label for="email">
+                                            </label>
+                                            <input type="email" class="form-control" placeholder="Email Address" id="email" required>
+                                        </div>
+                        
+                                        <div class="form-group">
+                                                <label for="price">
+                                                </label>
+                                                <input type="email" class="form-control" placeholder="Price in Naira" id="price" required>
+                                        </div>
+                                        <div class="form-group">
+                                                <button type="button" class="btn btn-primary">
+                                                <span>Make Purchase order</span>
+                                                </button>
+                                        </div>
+                        </div>
+                        <div class="stand-out">
+                                <p>By clicking <mark>Make Purchase Order</mark>, you authorize AUTO-MART and its sellers/partners to contact you by texts/calls which may
+                                    include marketing and be by autodialer. Calls may be pre-recorded. You also agree to our 
+                                    Privacy statement. Consent is not required to purchase goods/services.
+                                </p>
+                       </div>
+            </div>
+        </div> 
+
+
+              <!-- The Modal -->
+        <div id="reportModal" class="modal" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title">Report AD</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="reason">Reason</label>
+                            <input type="text" class="form-control">
+                        </div>
+                        <div class="form-group">
+                                <label>Description</label><br>
+                                <textarea cols="20" rows="5" class="text-area form-control"></textarea>
+                            </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-danger">Report</button>
+                      <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+        <footer id="main-footer" class="mt-4 py-2">
+                <div class="container footer-container">
+                  <div>
+                    <img src="images/am-logo.svg" alt="NewsGrid">
+                    <p>
+                        Auto Mart is an online marketplace for automobiles of diverse makes, 
+                        model or body type. With Auto Mart, 
+                        users can sell their cars or buy from trusted dealerships or private sellers.
+                    </p>
+                  </div>
+                  <div>
+                      <h2>Links</h2>
+                       <a href="#"><p>About Us</p></a> 
+                       <a href="#"><p>Contact</p></a> 
+                       <a href="#"><p>Help & Support</p></a> 
+            
+                    </div>
+                  <div>
+                    <h2>Join Our Blog</h2>
+                    <p>Join our blog to meet other car enthusiast</p>
+                    <a href="#" class="btn btn-primary">Join Now</a>
+                  </div>
+                  <div>
+                      <h2>Follow Us</h2>
+                       <a href="https://twitter.com"><p>Twitter</p></a> 
+                       <a href="https://linkedin.com"><p>LinkedIn</p></a> 
+            
+                    </div>
+                  <div>
+                    <p>
+                      Copyright &copy; 2019 AutoMart Ltd. All rights reserved
+                    </p>
+                  </div>
+                </div>
+        </footer>
+          
+            <script>
+                // access the modal
+                let reportModal = document.getElementById("reportModal");
+                
+                // Get the paragraph el that opens the modal
+                let para = document.getElementById("report");
+                
+                // Get the span element that closes the modal
+                let span = document.getElementsByClassName("close")[0];
+                
+                // When the user clicks the button, open the modal 
+                para.onclick = function() {
+                    reportModal.style.display = "block";
+                }
+                
+                // When the user clicks on <span> (x), close the modal
+                span.onclick = function() {
+                    reportModal.style.display = "none";
+                }
+                
+                // When the user clicks anywhere outside of the modal, close it
+                window.onclick = function(event) {
+                  if (event.target == reportModal) {
+                    reportModal.style.display = "none";
+                  }
+                }
+                </script>
+  </body>
+</html>
