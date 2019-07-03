@@ -4,11 +4,15 @@ const {Orders, validate} = require('../models/order');
 const {Cars} = require('../models/car');
 const auth = require('../middleware/auth');
 const Joi = require('joi');
+const errorResponse = require('../helper/errorResponse');
+
+
+let clientError;
 
 router.post('/', auth, async (req, res) => {
    const {error} = validate(req.body);
-   if(error) return res.status(400).send(error.details[0].message);
-    //get the email and id of the logged in user
+   if (error) return res.status(400).send(clientError = errorResponse(400, error.details[0].message));
+        //get the email and id of the logged in user
     const {id} = req.user;
     let { car_id, amount, status} = req.body;
     status = status ? status : 'Pending';
@@ -36,8 +40,8 @@ router.post('/', auth, async (req, res) => {
 router.patch("/:order_id/price", auth, async (req, res) => {
     // validate request
    const {error} = validateOrder(req.body);
-   if(error) return res.status(400).send(error.details[0].message);
-   // get the id of the order you want to update
+   if (error) return res.status(400).send(clientError = errorResponse(400, error.details[0].message));   
+  // get the id of the order you want to update
    const orderID = parseInt(req.params.order_id);
    //check the database if the order id is valid
    const {rows: order} = await Orders.findById(orderID);

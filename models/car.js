@@ -39,7 +39,7 @@ const carTable = async () => {
         body_type : Joi.string()
            .required()
       };
-      return Joi.validate(car, schema, { abortEarly: false });
+      return Joi.validate(car, schema);
 }
 
 const carMethods =  {

@@ -37,7 +37,7 @@ describe('/api/v1/order', () => {
                     email : "zackaminu@yahoo.com",
                     is_admin : false
                 }, config.get('jwtPrivateKey'));
-        const {rows} = await Cars.save("Zack", "090864656673", "used", 1000, "honda", "hd009", "truck", owner);
+        const {rows} = await Cars.save("Zack", "090864656673", "used", 1000, "honda", "hd009", "truck", "image", owner);
         car = rows[0];
         // instantiate the required fielsd herer..       
         carID = car.id;

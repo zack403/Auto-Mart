@@ -4,12 +4,17 @@ const bcrypt = require('bcrypt');
 const Joi = require('joi');
 const {User} = require('../models/user');
 const generateAuthToken = require('../helper/generateAuthToken');
+const errorResponse = require('../helper/errorResponse');
+
 
 
 //login endpoint
 router.post('/', async (req, res) => {
     const {error} = validateUser(req.body);
-    if(error) return res.status(400).send(error.details[0].message);
+    if (error){
+        const clientError = errorResponse(400, error.details[0].message);
+        return res.status(400).send(clientError);
+    }  
     const {rows: userEmail} = await User.findByEmail(req.body.email);
     if (!userEmail[0]) return res.status(400).send('Login Failed, invalid email or password.'); 
     const userPassword = await bcrypt.compare(req.body.password, userEmail[0].password);
@@ -22,6 +27,7 @@ router.post('/', async (req, res) => {
             token,
             id,
             first_name,
+            is_admin,
             last_name,
             email
         }

@@ -3,10 +3,15 @@ const router = express.Router();
 const auth = require('../middleware/auth');
 const {Flags, validate} = require('../models/flag');
 const {Cars} = require('../models/car');
+const errorResponse = require('../helper/errorResponse');
+
 
 router.post('/', auth, async (req, res) => {
     const {error} = validate(req.body);
-    if(error) return res.status(400).send(error.details[0].message);
+    if (error){
+        const clientError = errorResponse(400, error.details[0].message);
+        return res.status(400).send(clientError);
+    }   
     //get the id of the logged in user
     const {id} = req.user;
     const {car_id, reason, description} = req.body;

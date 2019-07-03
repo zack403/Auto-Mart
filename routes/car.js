@@ -14,6 +14,7 @@ const imageUpload = require('../helper/imageUpload');
 
 let updatedMessage = "Successfully updated";
 let errorMessage;
+let clientError;
 let notFoundCar = "Car with the given Id could not be found";
 
 //getcars
@@ -61,7 +62,7 @@ router.delete("/:id", [auth, admin], async (req, res) => {
 
 router.patch("/:car_id/price", auth, async (req, res) => {
     const {error} = validatePrice(req.body);
-    if(error) return res.status(400).send(error.details[0].message);
+    if (error) return res.status(400).send(clientError = errorResponse(400, error.details[0].message));
     //get the email and id of the logged in user
     const {email} = req.user;
     const carID = parseInt(req.params.car_id);
@@ -116,11 +117,11 @@ router.patch("/:car_id/status", auth, async (req, res) => {
 })
 
 //post a car ad endpoint
-router.post('/', upload.single('image'), async (req, res) => {
+router.post('/', [auth, upload.single('image')], async (req, res) => {
    console.log("file", req.file);
    const {error} = validate(req.body);
-   if(error) return res.status(400).send(error.details);
-   //get the email and id of the logged in user
+   if (error) return res.status(400).send(clientError = errorResponse(400, error.details[0].message));
+  //get the email and id of the logged in user
    const {email , id} = req.user;
    const {state, price, manufacturer, model, body_type, seller_name, phone_no} = req.body;
    const result = imageUpload(req.file.path);
