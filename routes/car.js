@@ -124,8 +124,14 @@ router.post('/', [auth, upload.single('image')], async (req, res) => {
   //get the email and id of the logged in user
    const {email , id} = req.user;
    const {state, price, manufacturer, model, body_type, seller_name, phone_no} = req.body;
-   const result = imageUpload(req.file.path);
-   const imageUrl = result.url;
+   const result = await imageUpload(req.file.path);
+   let imageUrl;
+   if(result) {
+     imageUrl = result.url;
+   }
+   else {
+       return res.status(500).send(clientError = errorResponse(500, "Error while trying to upload your image, try again..."));
+   }
     //create the car here
    const {rows: created} = await Cars.save(seller_name, phone_no, state, price, 
         manufacturer, model, body_type, imageUrl, id);
