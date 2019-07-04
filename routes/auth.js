@@ -7,7 +7,7 @@ const generateAuthToken = require('../helper/generateAuthToken');
 const errorResponse = require('../helper/errorResponse');
 
 
-
+let errMessage;
 //login endpoint
 router.post('/', async (req, res) => {
     const {error} = validateUser(req.body);
@@ -16,9 +16,9 @@ router.post('/', async (req, res) => {
         return res.status(400).send(clientError);
     }  
     const {rows: userEmail} = await User.findByEmail(req.body.email);
-    if (!userEmail[0]) return res.status(400).send('Login Failed, invalid email or password.'); 
+    if (!userEmail[0]) return res.status(400).send(errMessage = errorResponse(400, 'Login Failed, invalid email or password.')); 
     const userPassword = await bcrypt.compare(req.body.password, userEmail[0].password);
-    if (!userPassword) return res.status(400).send('Login Failed, invalid email or password.'); 
+    if (!userPassword) return res.status(400).send(errMessage = errorResponse(400, 'Login Failed, invalid email or password.')); 
     const {id, email, first_name, last_name, is_admin} = userEmail[0]; //get user details
     const token = generateAuthToken(id, email, first_name, is_admin); // assing a token to the ser here
      res.status(200).send({
