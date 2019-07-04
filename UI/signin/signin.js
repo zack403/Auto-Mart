@@ -16,8 +16,6 @@ const hideOrShowField = () => {
 
 // method to login the user
 const login = async () => {
-    // const user = JSON.parse(localStorage.getItem("user"));
-    // console.log(user);
     hideOrShowField();
     let email = document.getElementById('email').value;
     let password = document.getElementById('password').value;

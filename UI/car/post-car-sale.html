@@ -6,15 +6,16 @@
     <meta name="description" content="A web application marketplace for car" />
     <meta name="keywords" content="car, buy, sell, toyota, benz," />
     <meta name="author" content="Zack Aminu" />
-    <link rel="stylesheet" href="styles/form.css" />
+    <link rel="stylesheet" href="../styles/form.css" />
     <title>AutoMart | Post car sale AD</title>
   </head>
 
   <body>
+    <div class="spinner"></div>
     <div class="shift-footer">
     <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light">
       <div class="container">
-        <a class="navbar-brand pl-5 " href="../index.html"><img src="images/am-logo.svg" alt="AutoMart logo"/></a>
+        <a class="navbar-brand pl-5 " href="../index.html"><img src="../images/am-logo.svg" alt="AutoMart logo"/></a>
         <div id="navbarNav">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item active">
@@ -42,7 +43,7 @@
               <a class="nav-link" href="admin-right.html">Admin</a>
             </li>
             <li class="nav-item dropdown active">
-              <a class="nav-link" href=""><img id="user-image" src="images/user-image.jpg" alt="user image"/></a>
+              <a class="nav-link" href=""><img id="user-image" src="../images/user-image.jpg" alt="user image"/></a>
               <div class="dropdown-content">
                 <a href="my-ad.html">My Ads</a>
                 <a href="my-po.html">My PO</a>
@@ -54,6 +55,8 @@
       </div>
     </nav>
     <div class="form-wrapper">
+        <div id="alert-danger" class="alert alert-danger"></div>
+        <div id="alert-success" class="alert alert-success"></div>
       <form>
         <h1>Place a FREE Advert</h1>
         <p class="text-center stand-out">
@@ -61,56 +64,50 @@
         </p>
         <div class="form-group">
           <label for="state">Car State</label>
-          <select id="car-state" class="form-control" required>
-            <option value="New"> New </option>
-            <option value="Used"> Used </option>
+          <select id="car_state" name="car_state" class="form-control" required>
+            <option value="new"> New </option>
+            <option value="used"> Used </option>
           </select>
         </div>
 
         <div class="form-group">
           <label for="manufucture">Make</label>
-          <input name="make" type="text" id="make" class="form-control" required />
+          <input name="manufacturer" type="text" id="manufacturer" class="form-control" required />
         </div>
         <div class="form-group">
           <label for="model">Model</label>
           <input name="model" type="text" id="model" class="form-control" required />
         </div>
-
+        <div class="form-group">
+            <label for="model">Body Type</label>
+            <input name="body_type" type="text" id="body_type" class="form-control" required />
+          </div>
         <div class="form-group">
           <label for="price">Price<small>($)</small></label>
           <input name="price" type="text" id="price" class="form-control" required />
         </div>
         <div class="form-group">
-          <label for="price">Color</label>
-          <input name="color" type="text" id="color" class="form-control" required />
-        </div>
-        <div class="form-group">
-          <label for="pic">Image of the car</label>
-          <input name="pic" type="file" id="pic" accept="image/*" />
+          <label for="image">Image of the car</label>
+          <input name="image" type="file" id="image" accept="image/*" required/>
         </div>
         <div class="form-group">
           <label for="">Seller Name</label>
-          <input type="text" id="name" name="name" class="form-control" required />
-        </div>
-
-        <div class="form-group">
-          <label for="">Email</label>
-          <input type="email" id="email" name="email" class="form-control" required />
+          <input type="text" id="seller_name" name="seller_name" class="form-control" required />
         </div>
         <div class="form-group">
           <label for="">Phone</label>
-          <input type="text" id="phone" name="phone" class="form-control" required />
+          <input type="text" id="phone_no" name="phone_no" class="form-control" required />
         </div>
       </form>
       <div class="form-group text-center">
-        <button class="btn btn-primary full-width">SUBMIT AD</button>
+        <button class="btn btn-primary full-width" id="submitAd">SUBMIT AD</button>
       </div>
     </div>
   </div>
     <footer id="main-footer" class="mt-4 py-2">
       <div class="container footer-container">
         <div>
-          <img src="images/am-logo.svg" alt="NewsGrid" />
+          <img src="../images/am-logo.svg" alt="NewsGrid" />
           <p>
             Auto Mart is an online marketplace for automobiles of diverse makes, model or body type. With Auto Mart, users can sell their cars or buy
             from trusted dealerships or private sellers.
@@ -140,5 +137,7 @@
         </div>
       </div>
     </footer>
+    
+    <script type="module" src="../car/postCar.js"></script>
   </body>
 </html>
