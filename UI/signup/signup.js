@@ -1,4 +1,5 @@
-const url = "http://localhost:3000/api/v1/auth/signup";
+import {authService} from "../services/authService.js";
+const authSvc = new authService();
 
 const hideFields = () => {
     document.querySelector('.spinner').style.display = 'none';
@@ -31,16 +32,7 @@ const register = async () => {
         confirm_password
     }
     try {
-        const res = await fetch(url, {
-            method: 'POST',
-            mode: 'cors',
-            headers: {
-                'Content-Type' : 'application/json',
-                'Accept': 'application/json'
-            },
-            body: JSON.stringify(formData)
-        });
-    const response = await res.json();
+    const response = await authSvc.register(formData);
     workWithResponse(response);
     } catch (error) {
         document.getElementById('alert-danger').style.display = 'block';
@@ -49,13 +41,16 @@ const register = async () => {
     }   
 }
 
+     // fire a click event when the register button is clicked
+     document.getElementById("register").addEventListener("click", register);
+
 const workWithResponse = res => {
     const {data, error} = res;
     document.querySelector('.spinner').style.display = 'none';
     if(data) {
         document.getElementById('alert-success').style.display = 'block';
         document.getElementById('alert-success').innerHTML = data.message;
-        window.location.href = "./signin/sign-in.html";
+        window.location.href = "/UI/signin/sign-in.html";
         return;
     }
     else if(error) {

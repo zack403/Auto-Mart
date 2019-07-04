@@ -1,4 +1,5 @@
-const url = "http://localhost:3000/api/v1/auth/signin";
+import { authService } from '../services/authService.js';
+const authSvc = new authService();
 
 const hideFields = () => {
     document.querySelector('.spinner').style.display = 'none';
@@ -13,7 +14,10 @@ const hideOrShowField = () => {
     document.getElementById('alert-success').style.display = 'none';
 }
 
+// method to login the user
 const login = async () => {
+    // const user = JSON.parse(localStorage.getItem("user"));
+    // console.log(user);
     hideOrShowField();
     let email = document.getElementById('email').value;
     let password = document.getElementById('password').value;
@@ -22,19 +26,10 @@ const login = async () => {
         email,
         password
     }
+
     try {
-        const res = await fetch(url, {
-            method: 'POST',
-            mode: 'cors',
-            headers: {
-                'Content-Type' : 'application/json',
-                'Accept': 'application/json'
-            },
-            body: JSON.stringify(formData)
-        });
-    const response = await res.json();
-    workWithResponse(response);
-    console.log(response);
+        const response = await authSvc.login(formData);
+        workWithResponse(response);
     } catch (error) {
         document.getElementById('alert-danger').style.display = 'block';
         document.getElementById('alert-danger').innerHTML = error; 
@@ -42,13 +37,18 @@ const login = async () => {
     }   
 }
 
+    // fire a click event when the login button is clicked
+    document.getElementById("login").addEventListener("click", login);
+
+   // work with server response here...
 const workWithResponse = res => {
     const {data, error} = res;
     document.querySelector('.spinner').style.display = 'none';
     if(data) {
+        localStorage.setItem("user", JSON.stringify(data));
         document.getElementById('alert-success').style.display = 'block';
-        document.getElementById('alert-success').innerHTML = data.message;
-        window.location.href = "./signin/sign-in.html";
+        document.getElementById('alert-success').innerHTML = "Login Successful, Redirecting...";
+        window.location.href = "/";
         return;
     }
     else if(error) {
