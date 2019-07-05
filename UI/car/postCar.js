@@ -37,8 +37,8 @@ const postAd = async () => {
 
     try {
     const response = await carSvc.postCar(formData);
-    workWithResponse(response);
     console.log(response);
+    workWithResponse(response);
     } catch (error) {
         document.getElementById('alert-danger').style.display = 'block';
         document.getElementById('alert-danger').innerHTML = error; 
@@ -74,7 +74,6 @@ const workWithResponse = res => {
     if(data) {
         document.getElementById('alert-success').style.display = 'block';
         document.getElementById('alert-success').innerHTML = data.message;
-        window.location.href = "/UI/signin/sign-in.html";
         return;
     }
     else if(error) {
