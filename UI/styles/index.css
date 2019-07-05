@@ -8,6 +8,15 @@
   --fluid-width: 100%;
 }
 
+.imge
+{
+  background-image: url("../images/car2.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  
+}
+
 .dropdown-content {
   display: none;
   position: absolute;

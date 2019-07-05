@@ -1,5 +1,4 @@
 import {authService} from "../services/authService.js";
-const authSvc = new authService();
 
 const hideFields = () => {
     document.querySelector('.spinner').style.display = 'none';
@@ -32,7 +31,7 @@ const register = async () => {
         confirm_password
     }
     try {
-    const response = await authSvc.register(formData);
+    const response = await authService.register(formData);
     workWithResponse(response);
     } catch (error) {
         document.getElementById('alert-danger').style.display = 'block';

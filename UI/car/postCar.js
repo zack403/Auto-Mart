@@ -1,5 +1,4 @@
 import {carService} from "../services/carService.js";
-const carSvc = new carService();
 
 const hideFields = () => {
     document.querySelector('.spinner').style.display = 'none';
@@ -36,7 +35,7 @@ const postAd = async () => {
     formData.append('phone_no', phone_no);
 
     try {
-    const response = await carSvc.postCar(formData);
+    const response = await carService.postCar(formData);
     console.log(response);
     workWithResponse(response);
     } catch (error) {

@@ -1,5 +1,4 @@
 import { authService } from '../services/authService.js';
-const authSvc = new authService();
 
 const hideFields = () => {
     document.querySelector('.spinner').style.display = 'none';
@@ -26,7 +25,7 @@ const login = async () => {
     }
 
     try {
-        const response = await authSvc.login(formData);
+        const response = await authService.login(formData);
         workWithResponse(response);
     } catch (error) {
         document.getElementById('alert-danger').style.display = 'block';
@@ -46,7 +45,7 @@ const workWithResponse = res => {
         localStorage.setItem("user", JSON.stringify(data));
         document.getElementById('alert-success').style.display = 'block';
         document.getElementById('alert-success').innerHTML = "Login Successful, Redirecting...";
-        window.location.href = "/";
+        window.location.href = "../home/home.html";
         return;
     }
     else if(error) {
