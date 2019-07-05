@@ -1,17 +1,34 @@
 import {apiUrl} from "../config.js";
-import {fetchService} from "./fetchService.js";
 
 export class authService {
 
-    async login(formData) {
+    static async login(formData) {
         let url = apiUrl("auth/signin");
-        const response = await fetch(url, fetchService("POST", formData));
+        const response = await fetch(url, authFetchService("POST", formData));
         return response.json();
     }
 
-    async register(formData) {
+    static async register(formData) {
         let url = apiUrl("auth/signup");
-        const response = await fetch(url, fetchService("POST", formData));
+        const response = await fetch(url, authFetchService("POST", formData));
         return response.json();
     }
+
+    static getUserToken() {
+        const user = JSON.parse(localStorage.getItem("user"));
+        const token = user.token;
+        return token;
+    }
+}
+
+     const authFetchService = (method, body) => {
+        return {
+         method,
+         mode: 'cors',
+         headers: {
+            'Accept': 'application/json',
+             'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(body)
+  }
 }
