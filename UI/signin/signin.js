@@ -4,6 +4,8 @@ const hideFields = () => {
     document.querySelector('.spinner').style.display = 'none';
     document.getElementById('alert-danger').style.display = 'none';
     document.getElementById('alert-success').style.display = 'none';
+    const user = localStorage.getItem("user");
+    if(user) localStorage.removeItem("user");
 }
 hideFields();
 

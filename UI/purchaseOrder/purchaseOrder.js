@@ -19,8 +19,8 @@ import {carService} from "../services/carService.js";
     // }
 
     const disPlayCar = async () => {
-       const res =  await getCarDetails(id);
-       console.log(res);
+            const res =  await getCarDetails(id);
+            console.log(res);
 
             const div1 = document.createElement('div');
             const img = document.createElement('img');
@@ -43,8 +43,8 @@ import {carService} from "../services/carService.js";
 
             //bind values to the element
             img.src = res.car_image_url;
-            h3.innerHTML = `${res.manufacturer}, Model: ${res.model}`;
-            p1.innerHTML = res.body_type;
+            h3.innerHTML = `${res.manufacturer} <br> Model: ${res.model}`;
+            p1.innerHTML = `> ${res.body_type}`;
             h2.innerHTML = `&#8358;${res.price}`;
     }
     disPlayCar();

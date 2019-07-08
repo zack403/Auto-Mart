@@ -60,14 +60,17 @@ const workWithResponse = res => {
             p2.innerHTML = `Price: &#8358;${price}`
             
             a.onclick = async () => {
-               window.location.href = "../make-purchase.html?id="+id; 
+               window.location.href = "../purchaseOrder/make-purchase.html?id="+id; 
             }
-           return;
          }
+         return;
     }
     else if(error) {
             document.querySelector(".spinner").style.display = "none";
             document.getElementById("alert-danger").style.display = "block";
+            if(error === "Invalid token.") {
+              window.location.href = "../signin/sign-in.html";
+            }
             document.getElementById("alert-danger").innerHTML = error;
             return;
     }
