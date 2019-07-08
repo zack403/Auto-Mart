@@ -29,7 +29,7 @@ router.get("/:car_id", auth, async (req, res) => {
     const {id: userID} = req.user;
     const {rows: car} = await Cars.findById(parseInt(req.params.car_id));
     if(!car[0]) return res.status(404).send(errorMessage = errorResponse(404, notFoundCar));
-    const {id, created_on, state, status, price, manufacturer, model,
+    const {id, created_on, car_image_url, state, status, price, manufacturer, model,
         body_type, seller_name, phone_no
     } = car[0];
     res.status(200).send({
@@ -38,6 +38,7 @@ router.get("/:car_id", auth, async (req, res) => {
         created_on,
         state,
         status,
+        car_image_url,
         price,
         manufacturer,
         model,
