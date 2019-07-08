@@ -374,6 +374,7 @@ img {
   img {
     vertical-align: middle;
     border-style: none;
+    cursor: pointer;
   }
   
   svg {
