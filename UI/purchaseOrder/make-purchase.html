@@ -7,7 +7,8 @@
     <meta name="description" content="A web application marketplace for car">
 	  <meta name="keywords" content="car, buy, sell, toyota, benz,">
     <meta name="author" content="Zack Aminu">
-    <link rel="stylesheet" href="styles/index.css">
+    <link rel="stylesheet" href="../styles/index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>AutoMart | Make Purchase</title>
   </head>
 
@@ -15,7 +16,7 @@
       <div class="shift-footer">
         <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light">
                 <div class="container">
-                    <a  class="navbar-brand pl-5 " href="../index.html"><img src="images/am-logo.svg" alt="AutoMart logo"></a>
+                    <a  class="navbar-brand pl-5 " href="../../index.html"><img src="../images/am-logo.svg" alt="AutoMart logo"></a>
                       <button class="navbar-toggler" type="button" data-toggle="collapse" 
                         data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" 
                         aria-label="Toggle navigation">
@@ -24,31 +25,10 @@
                       <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav ml-auto">
                           <li class="nav-item active">
-                            <a class="nav-link" href="../index.html">Home</a>
+                            <a class="nav-link" href="../../index.html">Home</a>
                           </li>
-                          <li class="nav-item active ">
-                            <a class="nav-link" href="sign-in.html">Login</a>
-                          </li>
-                          <li class="nav-item active ">
-                            <a class="nav-link" href="post-car-sale.html">Post Ad</a>
-                          </li>
-                          <li class="nav-item active ">
-                                <a class="nav-link" href="reported-ads.html">Reported Ads</a>
-                              </li>
-                          <li class="nav-item active">
-                            <a class="nav-link" href="view-a-car.html">View A car</a>
-                          </li>
-                          <li class="nav-item active">
-                                <a class="nav-link" href="view-unsold-car.html">View All Unsold Cars</a>
-                              </li>
-                              <li class="nav-item active">
-                                    <a class="nav-link" href="purchase-order.html">Make A Purchase</a>
-                                  </li>
-                                  <li class="nav-item active">
-                                      <a class="nav-link" href="admin-right.html">Admin</a>
-                                    </li>
                                     <li class="nav-item dropdown active">
-                                            <a class="nav-link" href=""><img id="user-image" src="images/user-image.jpg" alt="user image"></a>
+                                            <a class="nav-link" href=""><img id="user-image" src="../images/user-image.jpg" alt="user image"></a>
                                             <div class="dropdown-content">
                                                     <a href="my-ad.html">My Ads</a>
                                                     <a href="my-po.html">My PO</a>
@@ -63,23 +43,25 @@
 
          <div class="container mt-5">
             <div class="row">
-                <div class="col-md-6">
+                <div id="colMdSix" class="col-md-6">
                     <div class="card">
-                    <img class="card-img-top" src="images/honda.jpg" alt="Card image cap">
+                    <img class="card-img-top" src="../images/honda.jpg" alt="Card image cap">
                     </div>
                     <p style="cursor: pointer; color: blue" id="report">REPORT THIS AD</p>
                 </div>
-                <div class="col-md-3">
+                <div  class="col-md-3">
                         <div class="card">
                             <div class="card-body">
-                                        <h3>Toyotta Camry 2019 model</h3>
+                                        <h3>Toyota Camry 2019 model</h3>
                                   <div class="card-text">
                                         <p> Key Features</p>
-                                        <p class="text-muted">>Fast</p>
-                                        <p class="text-muted">>Durable</p>
-                                        <p class="text-muted">>Efficient</p>
-                                        <p class="text-muted">>Long Lasting</p>
-                                        <p class="text-muted">>Rugged</p>
+                                        <div id="list">
+                                            <p class="text-muted">>Fast</p>
+                                            <p class="text-muted">>Durable</p>
+                                            <p class="text-muted">>Efficient</p>
+                                            <p class="text-muted">>Long Lasting</p>
+                                            <p class="text-muted">>Rugged</p>
+                                        </div>
                                   </div>
                             </div>
                             <div class="card-footer">
@@ -117,7 +99,7 @@
                                         </div>
                                         <div class="form-group">
                                                 <button type="button" class="btn btn-primary">
-                                                <span>Make Purchase order</span>
+                                                <span> <i class="fa fa-cart"> Make Purchase order</i></span>
                                                 </button>
                                         </div>
                         </div>
@@ -144,11 +126,11 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="reason">Reason</label>
-                            <input type="text" class="form-control">
+                            <input type="text" id="reason" name="reason" class="form-control" required>
                         </div>
                         <div class="form-group">
                                 <label>Description</label><br>
-                                <textarea cols="20" rows="5" class="text-area form-control"></textarea>
+                                <textarea cols="20" rows="5" id="description" name="description" class="text-area form-control" required></textarea>
                             </div>
                     </div>
                     <div class="modal-footer">
@@ -163,7 +145,7 @@
         <footer id="main-footer" class="mt-4 py-2">
                 <div class="container footer-container">
                   <div>
-                    <img src="images/am-logo.svg" alt="NewsGrid">
+                    <img src="../images/am-logo.svg" alt="NewsGrid">
                     <p>
                         Auto Mart is an online marketplace for automobiles of diverse makes, 
                         model or body type. With Auto Mart, 
@@ -196,6 +178,7 @@
                 </div>
         </footer>
           
+            <script type="module" src="../purchaseOrder/purchaseOrder.js"></script>
             <script>
                 // access the modal
                 let reportModal = document.getElementById("reportModal");
