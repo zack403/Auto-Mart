@@ -1,12 +1,34 @@
 import {carService} from "../services/carService.js";
+import {ReportAdService} from "../services/reportAdService.js";
 
     let url_string = window.location.href;
     let url = new URL(url_string);
     let id = url.searchParams.get("id");
+    let reported = false;
+
+    let reportBtn = document.getElementById("report");
+    let errorAlert = document.getElementById("alert-danger");
+    let successAlert = document.getElementById("alert-success");
+    let spinner = document.querySelector(".spinner");
+
+    
+    reportBtn.innerHTML = "REPORT THIS AD";
+    // When the user clicks the button, open the modal 
+    reportBtn.onclick = function() {
+        errorAlert.style.display = 'none';
+        successAlert.style.display = 'none';
+        reportModal.style.display = "block";
+    }
+    if (reported){
+        reportBtn.style.color = "red";
+        reportBtn.onclick = null;
+        reportBtn.style.cursor = "none";
+        reportBtn.innerHTML = "REPORTED STOLEN";
+    }
 
     const getCarDetails = async (id) => {
         try {
-            document.querySelector('.spinner').style.display = 'block';
+            spinner.style.display = 'block';
             const response = await carService.getCar(id);
             return response;
             } catch (error) {
@@ -14,17 +36,11 @@ import {carService} from "../services/carService.js";
         } 
     }
 
-
-    // const reportAD = () => {
-
-    // }
-
     const disPlayCar = async () => {
             const res =  await getCarDetails(id);
             console.log(res);
             if(res.id) {
-                document.querySelector('.spinner').style.display = 'none';
-
+                spinner.style.display = 'none';
                 const div1 = document.createElement('div');
                 const img = document.createElement('img');
                 const h3 = document.createElement('h3');
@@ -52,5 +68,34 @@ import {carService} from "../services/carService.js";
             }
     }
     disPlayCar();
+
+    const reportAD = async () => {
+        
+        let car_id = id;
+        let reason = document.getElementById('reason').value;
+        let description = document.getElementById('description').value;
+
+        const formData = {
+            car_id,
+            reason,
+            description,
+        }
+
+        try {
+            const response = await ReportAdService.reportAD(formData);
+            console.log(response);
+            if(response.id){
+                reported = true;
+                successAlert.style.display = 'block';
+                successAlert.innerHTML = response.message;
+                location.reload();
+            }
+            } catch (error) {
+                errorAlert.style.display = 'block';
+                errorAlert.innerHTML = error;
+        } 
+    }
+    document.getElementById("rptBtn").addEventListener("click", reportAD);
+
 
 

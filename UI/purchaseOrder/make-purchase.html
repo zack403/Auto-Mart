@@ -55,7 +55,7 @@
 
                       </div>
                     </div>
-                    <p style="cursor: pointer; color: blue" id="report">REPORT THIS AD</p>
+                    <p style="cursor: pointer; color: blue" id="report"></p>
 
                 </div>
                 <div  class="col-md-3">
@@ -123,6 +123,8 @@
               <!-- The Modal -->
         <div id="reportModal" class="modal" tabindex="-1" role="dialog">
                 <div class="modal-dialog" role="document">
+                    <div id="alert-success" class="alert alert-success"></div>
+                    <div id="alert-danger" class="alert alert-danger"></div>
                   <div class="modal-content">
                     <div class="modal-header">
                       <h5 class="modal-title">Report AD</h5>
@@ -141,7 +143,7 @@
                             </div>
                     </div>
                     <div class="modal-footer">
-                      <button type="button" class="btn btn-danger">Report</button>
+                      <button type="button" id="rptBtn"  class="btn btn-danger">Report</button>
                       <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
                     </div>
                   </div>
@@ -190,16 +192,9 @@
                 // access the modal
                 let reportModal = document.getElementById("reportModal");
                 
-                // Get the paragraph el that opens the modal
-                let para = document.getElementById("report");
-                
                 // Get the span element that closes the modal
                 let span = document.getElementsByClassName("close")[0];
                 
-                // When the user clicks the button, open the modal 
-                para.onclick = function() {
-                    reportModal.style.display = "block";
-                }
                 
                 // When the user clicks on <span> (x), close the modal
                 span.onclick = function() {
