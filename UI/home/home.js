@@ -39,8 +39,11 @@ const workWithResponse = res => {
             div1.className = "card";
             div2.className = "card-body"
             img.id = "img";
+            img.height = "200";
+            img.width = "500";
             img.className = "card-img-top";
             h5.className = "card-title";
+            h5.className = "upperCase"
             p1.className = "card-text text-right badge badge-warning";
             div3.className = "card-footer";
             p2.className = "text-primary";

@@ -6,6 +6,7 @@ import {carService} from "../services/carService.js";
 
     const getCarDetails = async (id) => {
         try {
+            document.querySelector('.spinner').style.display = 'block';
             const response = await carService.getCar(id);
             return response;
             } catch (error) {
@@ -21,31 +22,34 @@ import {carService} from "../services/carService.js";
     const disPlayCar = async () => {
             const res =  await getCarDetails(id);
             console.log(res);
+            if(res.id) {
+                document.querySelector('.spinner').style.display = 'none';
 
-            const div1 = document.createElement('div');
-            const img = document.createElement('img');
-            const h3 = document.createElement('h3');
-            const h2 = document.createElement('h2');
-            const p1 = document.createElement('p');
-
-            //give each element the needed class attribute
-            div1.className = "card";
-            img.id = "img";
-            img.alt = "Card image cap";
-            img.className = "card-img-top";
-            p1.className = "text-muted";
-
-            document.getElementById("colMdSix").prepend(div1);
-            div1.append(img);
-            document.querySelector(".card-body").prepend(h3);
-            document.getElementById("list").prepend(p1);
-            document.querySelector(".card-footer").append(h2);
-
-            //bind values to the element
-            img.src = res.car_image_url;
-            h3.innerHTML = `${res.manufacturer} <br> Model: ${res.model}`;
-            p1.innerHTML = `> ${res.body_type}`;
-            h2.innerHTML = `&#8358;${res.price}`;
+                const div1 = document.createElement('div');
+                const img = document.createElement('img');
+                const h3 = document.createElement('h3');
+                const h2 = document.createElement('h2');
+    
+                //give each element the needed class attribute
+                div1.className = "card";
+                img.id = "img";
+                img.alt = "Card image cap";
+                img.className = "card-img-top";
+                h3.className = "text-center";
+                h3.className = "upperCase"
+    
+                document.getElementById("colMdSix").prepend(div1);
+                div1.append(img);
+                document.querySelector(".card-body").prepend(h3);
+                document.querySelector(".card-footer").append(h2);
+    
+                //bind values to the element
+                img.src = res.car_image_url;
+                document.getElementById("by").innerHTML = res.seller_name;
+                document.getElementById("no").innerHTML = res.phone_no;
+                h3.innerHTML = `${res.manufacturer} ${res.model} ${res.body_type}`;
+                h2.innerHTML = `&#8358;${res.price}`;
+            }
     }
     disPlayCar();
 

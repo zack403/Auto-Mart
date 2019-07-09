@@ -1,9 +1,9 @@
 import { authService } from '../services/authService.js';
 
 const hideFields = () => {
-    document.querySelector('.spinner').style.display = 'none';
     document.getElementById('alert-danger').style.display = 'none';
     document.getElementById('alert-success').style.display = 'none';
+    document.querySelector('.spinner').style.display = 'none';
     const user = localStorage.getItem("user");
     if(user) localStorage.removeItem("user");
 }
