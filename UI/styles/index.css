@@ -361,6 +361,10 @@ img {
     font-size: 1em;
   }
   
+  .upperCase {
+    text-transform: uppercase;
+  }
+
   pre {
     margin-top: 0;
     margin-bottom: 1rem;
