@@ -4,7 +4,6 @@ import {ReportAdService} from "../services/reportAdService.js";
     let url_string = window.location.href;
     let url = new URL(url_string);
     let id = url.searchParams.get("id");
-    let reported = false;
 
     let reportBtn = document.getElementById("report");
     let errorAlert = document.getElementById("alert-danger");
@@ -19,13 +18,24 @@ import {ReportAdService} from "../services/reportAdService.js";
         successAlert.style.display = 'none';
         reportModal.style.display = "block";
     }
-    if (reported){
-        reportBtn.style.color = "red";
-        reportBtn.onclick = null;
-        reportBtn.style.cursor = "none";
-        reportBtn.innerHTML = "REPORTED STOLEN";
+    
+    
+
+    const getReportedAd = async () => {
+        const res = await ReportAdService.getReportAD(id);
+        if(res.id) {
+            reportBtn.style.color = "red";
+            reportBtn.onclick = null;
+            reportBtn.style.cursor = "none";
+            reportBtn.innerHTML = `REPORTED as "${response.reason}"`;
+        }
+        else if (res.error) {
+            console.log(res.error);
+        } 
+        console.log(res);
     }
 
+    getReportedAd();
     const getCarDetails = async (id) => {
         try {
             spinner.style.display = 'block';
