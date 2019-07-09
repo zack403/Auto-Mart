@@ -27,7 +27,7 @@ import {ReportAdService} from "../services/reportAdService.js";
             reportBtn.style.color = "red";
             reportBtn.onclick = null;
             reportBtn.style.cursor = "none";
-            reportBtn.innerHTML = `REPORTED as "${response.reason}"`;
+            reportBtn.innerHTML = `REPORTED as "${res.reason}"`;
         }
         else if (res.error) {
             console.log(res.error);
@@ -95,7 +95,6 @@ import {ReportAdService} from "../services/reportAdService.js";
             const response = await ReportAdService.reportAD(formData);
             console.log(response);
             if(response.id){
-                reported = true;
                 successAlert.style.display = 'block';
                 successAlert.innerHTML = response.message;
                 location.reload();
