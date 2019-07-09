@@ -32,7 +32,7 @@ const flagMethods =  {
     return await db.query(text);
   },
   findById: async (id) => {
-    const text = 'SELECT * FROM flags where id = $1'
+    const text = 'SELECT * FROM flags where car_id = $1'
     return await db.query(text, [id]);
   },
   delete: async () => {
