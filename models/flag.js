@@ -27,6 +27,10 @@ const validateFlagObj = flag => {
 }
 
 const flagMethods =  {
+  findAll: async () => {
+    const text = 'SELECT * FROM flags'
+    return await db.query(text);
+  },
   findById: async (id) => {
     const text = 'SELECT * FROM flags where id = $1'
     return await db.query(text, [id]);
