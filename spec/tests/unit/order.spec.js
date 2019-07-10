@@ -37,7 +37,7 @@ describe('/api/v1/order', () => {
                     email : "zackaminu@yahoo.com",
                     is_admin : false
                 }, config.get('jwtPrivateKey'));
-        const {rows} = await Cars.save("Zack", "090864656673", "used", 1000, "honda", "hd009", "truck", "image", owner);
+        const {rows} = await Cars.save("zackaminu@yahoo.com", "Zack", "090864656673", "used", 1000, "honda", "hd009", "truck", "image", owner);
         car = rows[0];
         // instantiate the required fielsd herer..       
         carID = car.id;
@@ -47,7 +47,7 @@ describe('/api/v1/order', () => {
         price = car.price;
         body_type = car.body_type;
         model = car.model;
-        const {rows: orde} = await Orders.save(userID, carID, 500, 'Pending');        
+        const {rows: orde} = await Orders.save(userID, carID, 500, 'Pending', "Ojo", "090235322352");        
         order = orde[0];
     })
     afterEach(async () => {
@@ -62,11 +62,7 @@ describe('/api/v1/order', () => {
             const res = await exec();
             expect(res.status).toBe(401);
           });
-        it('should return 400 if buyer is not provided', async () => {
-            buyer = ''; 
-            const res = await exec();        
-            expect(res.status).toBe(400);
-          });        
+               
         it('should return 400 if amount is not provided', async () => {
             amount = ''; 
             const res = await exec();
@@ -78,7 +74,9 @@ describe('/api/v1/order', () => {
                .send({
                 car_id : car.id,
                 amount : 600,
-                status : "Pending"
+                status : "Pending",
+                buyer_name: "ojo",
+                buyer_phone_no: "0803566534653"
                 })
                expect(res.status).toBe(200);
         })

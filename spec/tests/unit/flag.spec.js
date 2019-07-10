@@ -28,7 +28,7 @@ describe('/api/v1/flag', () => {
                     email : "zackaminu@yahoo.com",
                     is_admin : false
                 }, config.get('jwtPrivateKey'));
-        const {rows} = await Cars.save("Zack", "090864656673", "used", 1000, "honda", "hd009", "truck",   "image", owner);
+        const {rows} = await Cars.save("zackaminu@yahoo.com","Zack", "090864656673", "used", 1000, "honda", "hd009", "truck",   "image", owner);
         car = rows[0];
         carID = car.id;
         const {rows: flag} = await Flags.save(userID, carID, "Damaged Car", 'Car not in good shape');        

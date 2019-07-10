@@ -6,26 +6,30 @@ const orderTable = async () => {
   CREATE TABLE IF NOT EXISTS
    orders(
      id SERIAL NOT NULL,
-     buyer SERIAL NOT NULL,
+     buyer_id SERIAL NOT NULL,
      car_id SERIAL NOT NULL,
+     buyer_name VARCHAR(128) NOT NULL,
+     buyer_phone_no VARCHAR(128) NOT NULL,
      amount NUMERIC NOT NULL,
      status VARCHAR(128) NOT NULL,
      created_on TIMESTAMP NOT NULL DEFAULT NOW(),
      PRIMARY KEY (id),
      FOREIGN KEY (car_id) REFERENCES cars (id),
-     FOREIGN KEY (buyer) REFERENCES users (id) ON DELETE CASCADE
+     FOREIGN KEY (buyer_id) REFERENCES users (id) ON DELETE CASCADE
    )`);
  } 
  
 const validateOrders = car => {
     const schema = {
-        buyer: Joi.number().integer(),
+        buyer_id: Joi.number().integer(),
         car_id: Joi.number()
           .integer()
           .required(),
         amount: Joi.number()
           .required(),
-        status: Joi.string()
+        status: Joi.string(),
+        buyer_name: Joi.string().required(),
+        buyer_phone_no: Joi.number().required()
            
       };
       return Joi.validate(car, schema);
@@ -58,16 +62,22 @@ const orderMethods =  {
     const text = 'DELETE FROM orders'
     return await db.query(text);
   },
-  save: async (buyer, car_id, amount, status) => {
+  deleteOrderByID: async (id) => {
+    const text = 'DELETE FROM orders where id=$1'
+    return await db.query(text, [id]);
+  },
+  save: async (buyer_id, car_id, amount, status, buyer_name, buyer_phone_no) => {
       const text = `INSERT INTO
-      orders(buyer, car_id, amount, status)
-      VALUES($1, $2, $3, $4)
+      orders(buyer_id, car_id, amount, status, buyer_name, buyer_phone_no)
+      VALUES($1, $2, $3, $4, $5, $6)
       returning *`;
       const values = [
-        buyer,
+        buyer_id,
         car_id,
         amount,
-        status
+        status,
+        buyer_name,
+        buyer_phone_no
       ]
      return await db.query(text, values);
   }

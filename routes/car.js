@@ -134,7 +134,7 @@ router.post('/', [auth, upload.single('image')], async (req, res) => {
        return res.status(500).send(clientError = errorResponse(500, "Error while trying to upload your image, try again..."));
    }
     //create the car here
-   const {rows: created} = await Cars.save(seller_name, phone_no, state, price, 
+   const {rows: created} = await Cars.save(email, seller_name, phone_no, state, price, 
         manufacturer, model, body_type, imageUrl, id);
         if (created[0]) {
             let createdMessage = "Ad successfully posted";

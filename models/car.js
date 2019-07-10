@@ -9,6 +9,7 @@ const carTable = async () => {
       seller_name VARCHAR(128) NOT NULL,
       phone_no VARCHAR(128) NOT NULL,
       state VARCHAR(128) NOT NULL,
+      seller_email VARCHAR(128) NOT NULL,
       status VARCHAR(128) NOT NULL,
       price NUMERIC NOT NULL,
       manufacturer VARCHAR NOT NULL,
@@ -77,15 +78,16 @@ const carMethods =  {
     const text = 'DELETE FROM cars where id = $1'
     return await db.query(text, [id]);
   },
-  save: async (seller_name, phone_no, state, price, 
+  save: async (email, seller_name, phone_no, state, price, 
         manufacturer, model, body_type, image, owner
         ) => {
       const text = `INSERT INTO
-      cars(seller_name, phone_no, status, state, price, manufacturer, 
+      cars(seller_email, seller_name, phone_no, status, state, price, manufacturer, 
         model, body_type, car_image_url, owner)
-      VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+      VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
       returning *`;
       const values = [
+        email,
         seller_name,
         phone_no,
         "Available",

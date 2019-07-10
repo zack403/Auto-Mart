@@ -5,8 +5,15 @@ const {Cars} = require('../models/car');
 const auth = require('../middleware/auth');
 const Joi = require('joi');
 const errorResponse = require('../helper/errorResponse');
+const nodemailer = require('nodemailer');
+const sgTransport = require('nodemailer-sendgrid-transport');
 
-
+const transporter = nodemailer.createTransport(sgTransport({
+    auth: {
+      api_key: config.get('sendgrid_key'),
+    },
+  }));
+  
 let clientError;
 
 router.post('/', auth, async (req, res) => {
@@ -14,26 +21,47 @@ router.post('/', auth, async (req, res) => {
    if (error) return res.status(400).send(clientError = errorResponse(400, error.details[0].message));
         //get the email and id of the logged in user
     const {id} = req.user;
-    let { car_id, amount, status} = req.body;
+    let { car_id, amount, status, buyer_name, buyer_phone_no} = req.body;
     status = status ? status : 'Pending';
    //get the car user is trying to make purchase order for
    const {rows: car} = await Cars.findById(parseInt(car_id));
    if(!car[0]) return res.status(404).send("The car you are trying to purchase does not exist");
-    const {rows: created} = await Orders.save(id, car_id, amount, status);
+    const {rows: created} = await Orders.save(id, car_id, amount, status, buyer_name, buyer_phone_no);
     if (created[0]) {
-        const {id, car_id, created_on, status, amount} = created[0];
-        res.status(200).send({
-            status : 200,
-            data : {
-                id,
-                message: "Purchase order successful",
-                car_id,
-                created_on,
-                status,
-                price: car[0].price,
-                price_offered: amount,
-            }
-        })
+        const {id, car_id, created_on, status, amount, buyer_name, buyer_phone_no} = created[0];
+        const mailOptions = {
+            to: car[0].email,
+            from: 'Auto-Mart',
+            subject: 'Purchase Order Notification Email',
+            text:
+                  'Hello,\n\n'
+                  + `Your Posted AD ${car[0].manufacturer} has been purchased by ${buyer_name} ,\n\n`
+                  + `Here are the buyers details: \n
+                  + Name: ${buyer_name} \n
+                  + Phone Number: ${buyer_phone_no}. You can call the buyer on the phone number for payment options. \n
+                  Thank you for choosing Auto-Mart`,
+          };
+          const result = await transporter.sendMail(mailOptions);
+          if(result) {
+            res.status(200).send({
+                status : 200,
+                data : {
+                    id,
+                    message: "Purchase order successful",
+                    notify: "An email has been sent to the seller about your order, you will be contacted for processing.",
+                    car_id,
+                    created_on,
+                    status,
+                    buyer_name,
+                    buyer_phone_no,
+                    price: car[0].price,
+                    price_offered: amount,
+                }
+            })
+          }
+          else {
+              await Orders.deleteOrderByID(id);
+          }
     }
 })
 
