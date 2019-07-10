@@ -7,6 +7,8 @@ const Joi = require('joi');
 const errorResponse = require('../helper/errorResponse');
 const nodemailer = require('nodemailer');
 const sgTransport = require('nodemailer-sendgrid-transport');
+const config = require('config');
+
 
 const transporter = nodemailer.createTransport(sgTransport({
     auth: {
