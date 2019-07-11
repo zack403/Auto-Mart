@@ -1,9 +1,12 @@
 import {carService} from "../services/carService.js";
 import {ReportAdService} from "../services/reportAdService.js";
+import {OrderService} from "../services/orderService.js";
+
 
     let url_string = window.location.href;
     let url = new URL(url_string);
     let id = url.searchParams.get("id");
+    document.getElementById("alert").style.display = "none";
 
     let reportBtn = document.getElementById("report");
     let errorAlert = document.getElementById("alert-danger");
@@ -104,6 +107,52 @@ import {ReportAdService} from "../services/reportAdService.js";
                 errorAlert.innerHTML = error;
         } 
     }
+
+    const purchaseOrder = async () => {
+        spinner.style.display = "block";
+        let car_id = id;
+        let amount = document.getElementById('price').value;
+        let buyer_name = document.getElementById('fullname').value;
+        let buyer_phone_no = document.getElementById('phone').value;
+
+
+        const formData = {
+            car_id,
+            amount,
+            buyer_name,
+            buyer_phone_no
+        }
+
+        try {
+            const response = await OrderService.createPurchaseOrder(formData);
+            console.log(response);
+            const {data, error} = response;
+            if(data.id){
+                spinner.style.display = "none";
+                document.getElementById("alert").style.display = "block";
+                errorAlert.style.display = "none";
+                successAlert.style.display = 'block';
+                successAlert.innerHTML = `${data.message}\n
+                ${data.notify}`;
+                //window.location.href = "../home/home.html";
+            }
+            else if (error) {
+                spinner.style.display = "none";
+                document.getElementById("alert").style.display = "block";
+                successAlert.style.display = 'none';
+                errorAlert.style.display = 'block';
+                errorAlert.innerHTML = error;
+            }  
+        } catch (error) {
+                spinner.style.display = "none";
+                document.getElementById("alert").style.display = "block";
+                successAlert.style.display = 'none';
+                errorAlert.style.display = 'block';
+                errorAlert.innerHTML = error;
+        } 
+    }
+
+    document.getElementById("poBtn").addEventListener("click", purchaseOrder);
     document.getElementById("rptBtn").addEventListener("click", reportAD);
 
 
