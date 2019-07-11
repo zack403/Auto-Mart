@@ -32,16 +32,16 @@ router.post('/', auth, async (req, res) => {
     if (created[0]) {
         const {id, car_id, created_on, status, amount, buyer_name, buyer_phone_no} = created[0];
         const mailOptions = {
-            to: car[0].email,
+            to: car[0].seller_email,
             from: 'Auto-Mart',
             subject: 'Purchase Order Notification Email',
             text:
                   'Hello,\n\n'
-                  + `Your Posted AD ${car[0].manufacturer} has been purchased by ${buyer_name} ,\n\n`
-                  + `Here are the buyers details: \n
-                  + Name: ${buyer_name} \n
-                  + Phone Number: ${buyer_phone_no}. You can call the buyer on the phone number for payment options. \n
-                  Thank you for choosing Auto-Mart`,
+                  + `Your Posted AD ${car[0].manufacturer} has been purchased by ${buyer_name}.\n`
+                  + `<h5>Here are the buyers details</h5>:\n`
+                  + `<b>Name</b>: ${buyer_name}.\n`
+                  + `<b>Phone Number</b>: ${buyer_phone_no}. You can call the buyer on the phone number for payment options. \n
+                  Thank you for choosing Auto-Mart.`,
           };
           const result = await transporter.sendMail(mailOptions);
           if(result) {
@@ -63,6 +63,7 @@ router.post('/', auth, async (req, res) => {
           }
           else {
               await Orders.deleteOrderByID(id);
+              return res.status(500).send("Error while processing your Purchase order, Try again..")
           }
     }
 })
