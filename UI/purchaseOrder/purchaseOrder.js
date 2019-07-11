@@ -31,8 +31,6 @@ document.getElementById("logout").addEventListener("click", logout)
         successAlert.style.display = 'none';
         reportModal.style.display = "block";
     }
-    
-    
 
     const getReportedAd = async () => {
         const res = await ReportAdService.getReportAD(id);
@@ -47,8 +45,9 @@ document.getElementById("logout").addEventListener("click", logout)
         } 
         console.log(res);
     }
-
     getReportedAd();
+
+    
     const getCarDetails = async (id) => {
         try {
             spinner.style.display = 'block';
@@ -86,7 +85,10 @@ document.getElementById("logout").addEventListener("click", logout)
                 img.src = res.car_image_url;
                 document.getElementById("by").innerHTML = res.seller_name;
                 document.getElementById("no").innerHTML = res.phone_no;
-                h3.innerHTML = `${res.manufacturer} ${res.model} ${res.body_type}`;
+                document.getElementById("mode").innerHTML = res.model;
+                document.getElementById("manufac").innerHTML = res.manufacturer;
+                document.getElementById("type").innerHTML = res.body_type;
+                h3.innerHTML = `${res.manufacturer}`;
                 h2.innerHTML = `&#8358;${res.price}`;
             }
     }

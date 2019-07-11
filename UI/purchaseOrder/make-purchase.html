@@ -50,9 +50,11 @@
                     <div class="card">
                       <h6 class="text-center">AD Details</h6>
                       <div class="ml-5">
-                        <P class="">Posted By: <span id="by"></span></P>
-                        <P>Seller Phone No: <span id="no"></span></P>
-
+                        <P class="font-weight-bold">Posted By: <span class="font-weight-normal" id="by"></span></P>
+                        <P class="font-weight-bold">Seller Phone No: <span class="font-weight-normal" id="no"></span></P>
+                        <P class="font-weight-bold">Model: <span class="font-weight-normal" id="mode"></span></P>
+                        <P class="font-weight-bold">Manufacturer: <span class="font-weight-normal" id="manufac"></span></P>
+                        <P class="font-weight-bold">Body Type: <span class="font-weight-normal" id="type"></span></P>
                       </div>
                     </div>
                     <p style="cursor: pointer; color: blue" id="report"></p>
@@ -103,8 +105,8 @@
                                                 <input type="email" class="form-control" placeholder="Price in Naira" id="price" required>
                                         </div>
                                         <div class="form-group">
-                                                <button type="button"  class="btn btn-primary">
-                                                <span id="poBtn"> <i class="fa fa-shopping-cart"> Make Purchase order</i></span>
+                                                <button id="poBtn" type="button"  class="btn btn-primary">
+                                                   Make Purchase order
                                                 </button>
                                         </div>
                         </div>
@@ -119,10 +121,12 @@
 
 
               <!-- The Modal -->
+              <div id="alert-success" class="alert alert-success"></div>
+                    <div id="alert-danger" class="alert alert-danger"></div>  
         <div id="reportModal" class="modal" tabindex="-1" role="dialog">
+          
                 <div class="modal-dialog" role="document">
-                    <div id="alert-success" class="alert alert-success"></div>
-                    <div id="alert-danger" class="alert alert-danger"></div>
+                    
                   <div class="modal-content">
                     <div class="modal-header">
                       <h5 class="modal-title">Report AD</h5>

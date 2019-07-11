@@ -27,6 +27,16 @@ export class carService {
         return response.json();
     }
 
+    static async fetchCarsByMake(manufacturer) {
+        let url = apiUrl(`car?status=Available&manufacturer=${manufacturer}`);
+        const response = await fetch(url, {
+            headers: {
+                'Authorization': authService.getUserToken(),
+            }
+        });
+        return response.json();
+    }
+
     static async getCar(id) {
         let url = apiUrl(`car/${id}`);
         const response = await fetch(url, {
