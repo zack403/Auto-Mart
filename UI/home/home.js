@@ -1,7 +1,14 @@
 import {carService} from "../services/carService.js";
+import {authService} from "../services/authService.js";
+
+const user = authService.getUserToken();
+if(user && !user.is_admin) {
+    document.getElementById("admin").style.display = "none"
+}
 
 document.getElementById("alert-danger").style.display = "none";
 document.getElementById("alert-info").style.display = "none";
+
 
 const fetchCars = async () => {
     try {
