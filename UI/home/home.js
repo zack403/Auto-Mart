@@ -20,8 +20,10 @@ fetchCars();
 const workWithResponse = res => {
     const {data, error} = res;
     if(data) {
-        if(data.length <= 0) {
-            return document.getElementById("alert-info").innerHTML = "No featured adverts yet...";
+        if(data === "No record found") {
+            document.querySelector(".spinner").style.display = "none";
+            document.getElementById("alert-info").style.display = "block";
+            return document.getElementById("alert-info").innerHTML = "<h5>No featured adverts yet...</h5>";
         }
         for(const car of data) {
             const {id, car_image_url, manufacturer, state, status, price} = car;
@@ -71,7 +73,7 @@ const workWithResponse = res => {
     else if(error) {
             document.querySelector(".spinner").style.display = "none";
             document.getElementById("alert-danger").style.display = "block";
-            if(error === "Invalid token.") {
+            if(error === "Invalid token." || "Access denied. No token provided.") {
               window.location.href = "../signin/sign-in.html";
             }
             document.getElementById("alert-danger").innerHTML = error;
