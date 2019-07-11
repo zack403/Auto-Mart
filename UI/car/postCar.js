@@ -1,4 +1,6 @@
 import {carService} from "../services/carService.js";
+import {authService} from "../services/authService.js";
+
 
 const hideFields = () => {
     document.querySelector('.spinner').style.display = 'none';
@@ -6,6 +8,14 @@ const hideFields = () => {
     document.getElementById('alert-success').style.display = 'none';
 }
 hideFields();
+
+const logout = () => {
+    const loggedOut = authService.logout();
+    if(loggedOut) {
+        return window.location.href = "../signin/sign-in.html";
+    }
+}
+document.getElementById("logout").addEventListener("click", logout)
 
 const hideOrShowField = () => {
     document.querySelector('.spinner').style.display = 'block';

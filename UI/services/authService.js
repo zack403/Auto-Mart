@@ -22,6 +22,16 @@ export class authService {
         }
         
     }
+
+    static removeUserToken() {
+        const user = localStorage.getItem("user");
+        if(user) return localStorage.removeItem("user");
+    }
+
+    static logout() {
+        localStorage.removeItem("user");
+        return true;
+    }
 }
 
      const authFetchService = (method, body) => {

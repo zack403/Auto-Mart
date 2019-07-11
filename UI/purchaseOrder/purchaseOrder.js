@@ -3,6 +3,16 @@ import {ReportAdService} from "../services/reportAdService.js";
 import {OrderService} from "../services/orderService.js";
 
 
+const logout = () => {
+    const loggedOut = authService.logout();
+    if(loggedOut) {
+        return window.location.href = "../signin/sign-in.html";
+    }
+}
+document.getElementById("logout").addEventListener("click", logout)
+
+
+
     let url_string = window.location.href;
     let url = new URL(url_string);
     let id = url.searchParams.get("id");
@@ -110,6 +120,8 @@ import {OrderService} from "../services/orderService.js";
 
     const purchaseOrder = async () => {
         spinner.style.display = "block";
+        successAlert.innerHTML = "";
+        errorAlert.innerHTML = "";
         let car_id = id;
         let amount = document.getElementById('price').value;
         let buyer_name = document.getElementById('fullname').value;
@@ -127,7 +139,7 @@ import {OrderService} from "../services/orderService.js";
             const response = await OrderService.createPurchaseOrder(formData);
             console.log(response);
             const {data, error} = response;
-            if(data.id){
+            if(data && data.id){
                 spinner.style.display = "none";
                 document.getElementById("alert").style.display = "block";
                 errorAlert.style.display = "none";
