@@ -26,6 +26,10 @@ from {transform:rotate(0deg);}
 to {transform:rotate(360deg);}
 }
 
+#logout {
+  cursor: pointer;
+}
+
 .spinner::after {
 	content:'';
 	display:block;

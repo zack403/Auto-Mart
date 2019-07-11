@@ -6,6 +6,15 @@ if(user && !user.is_admin) {
     document.getElementById("admin").style.display = "none"
 }
 
+const logout = () => {
+    const loggedOut = authService.logout();
+    if(loggedOut) {
+        return window.location.href = "../signin/sign-in.html";
+    }
+}
+document.getElementById("logout").addEventListener("click", logout)
+
+
 document.getElementById("alert-danger").style.display = "none";
 document.getElementById("alert-info").style.display = "none";
 
