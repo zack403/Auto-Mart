@@ -19,6 +19,8 @@ const transporter = nodemailer.createTransport(sgTransport({
 let clientError;
 
 router.post('/', auth, async (req, res) => {
+   const {rows: available} = await Orders.findProcessedOrder(parseInt(req.body.car_id));
+   if(available[0]) return res.status(400).send(clientError = errorResponse(400, "This car is not available for purchase as it is been processed for a user"));
    const {error} = validate(req.body);
    if (error) return res.status(400).send(clientError = errorResponse(400, error.details[0].message));
         //get the email and id of the logged in user
@@ -27,7 +29,7 @@ router.post('/', auth, async (req, res) => {
     status = status ? status : 'Pending';
    //get the car user is trying to make purchase order for
    const {rows: car} = await Cars.findById(parseInt(car_id));
-   if(!car[0]) return res.status(404).send("The car you are trying to purchase does not exist");
+   if(!car[0]) return res.status(404).send(clientError = errorResponse(400, "The car you are trying to purchase does not exist"));
     const {rows: created} = await Orders.save(id, car_id, amount, status, buyer_name, buyer_phone_no);
     if (created[0]) {
         const {id, car_id, created_on, status, amount, buyer_name, buyer_phone_no} = created[0];
@@ -37,10 +39,10 @@ router.post('/', auth, async (req, res) => {
             subject: 'Purchase Order Notification Email',
             text:
                   'Hello,\n\n'
-                  + `Your Posted AD ${car[0].manufacturer} has been purchased by ${buyer_name}.\n`
-                  + `<h5>Here are the buyers details</h5>:\n`
-                  + `<b>Name</b>: ${buyer_name}.\n`
-                  + `<b>Phone Number</b>: ${buyer_phone_no}. You can call the buyer on the phone number for payment options. \n
+                  + `Your Posted AD ${car[0].manufacturer} has been purchased by ${buyer_name}.\n\n`
+                  + `Here are the buyers details: \n\n`
+                  + `Name: ${buyer_name}. \n\n`
+                  + `Phone Number: ${buyer_phone_no}. You can call the buyer on the phone number for payment options. \n\n
                   Thank you for choosing Auto-Mart.`,
           };
           const result = await transporter.sendMail(mailOptions);
@@ -63,7 +65,7 @@ router.post('/', auth, async (req, res) => {
           }
           else {
               await Orders.deleteOrderByID(id);
-              return res.status(500).send("Error while processing your Purchase order, Try again..")
+              return res.status(500).send(clientError = errorResponse(500, "Error while processing your Purchase order, Try again.."))
           }
     }
 })

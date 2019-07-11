@@ -40,6 +40,10 @@ const orderMethods =  {
     const text = 'SELECT * FROM orders where id = $1'
     return await db.query(text, [id]);
   },
+  findProcessedOrder: async (id) => {
+    const text = 'SELECT * FROM orders where car_id = $1'
+    return await db.query(text, [id]);
+  },
   updateOrderPrice: async (id, newPrice) => {
     const updateQuery = `UPDATE orders
     SET amount=$1 WHERE id=$2 returning *`;
