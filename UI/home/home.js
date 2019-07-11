@@ -1,6 +1,12 @@
 import {carService} from "../services/carService.js";
 import {authService} from "../services/authService.js";
 
+let errorAlert = document.getElementById("alert-danger");
+let successAlert = document.getElementById("alert-success");
+let spinner = document.querySelector(".spinner");
+let alertInfo =  document.getElementById("alert-info");
+
+
 const user = authService.getUserToken();
 if(user && !user.is_admin) {
     document.getElementById("admin").style.display = "none"
@@ -14,10 +20,8 @@ const logout = () => {
 }
 document.getElementById("logout").addEventListener("click", logout)
 
-
-document.getElementById("alert-danger").style.display = "none";
-document.getElementById("alert-info").style.display = "none";
-
+errorAlert.style.display = "none";
+alertInfo.style.display = "none";
 
 const fetchCars = async () => {
     try {
@@ -25,9 +29,9 @@ const fetchCars = async () => {
     console.log(response);
     workWithResponse(response);
     } catch (error) {
-        document.querySelector('.spinner').style.display = 'none';
-        document.getElementById("alert-danger").style.display = "block";
-        return document.getElementById("alert-danger").innerHTML = error;
+        spinner.style.display = 'none';
+        errorAlert.style.display = "block";
+        return errorAlert.innerHTML = error;
     }   
 }
 fetchCars();
@@ -37,13 +41,13 @@ const workWithResponse = res => {
     const {data, error} = res;
     if(data) {
         if(data === "No record found") {
-            document.querySelector(".spinner").style.display = "none";
-            document.getElementById("alert-info").style.display = "block";
-            return document.getElementById("alert-info").innerHTML = "<h5>No featured adverts yet...</h5>";
+            spinner.style.display = "none";
+            alertInfo.style.display = "block";
+            return alertInfo.innerHTML = "<h5>No featured adverts yet...</h5>";
         }
         for(const car of data) {
             const {id, car_image_url, manufacturer, state, status, price} = car;
-            document.querySelector(".spinner").style.display = "none";
+            spinner.style.display = "none";
             //create necessary element for the UI
             const div1 = document.createElement('div');
             const div2 = document.createElement('div');
@@ -87,12 +91,12 @@ const workWithResponse = res => {
          return;
     }
     else if(error) {
-            document.querySelector(".spinner").style.display = "none";
-            document.getElementById("alert-danger").style.display = "block";
+            spinner.style.display = "none";
+            errorAlert.style.display = "block";
             if(error === "Invalid token." || "Access denied. No token provided.") {
               window.location.href = "../signin/sign-in.html";
             }
-            document.getElementById("alert-danger").innerHTML = error;
+            errorAlert.innerHTML = error;
             return;
     }
 };

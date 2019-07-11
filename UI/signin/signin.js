@@ -1,17 +1,21 @@
 import { authService } from '../services/authService.js';
 
+let errorAlert = document.getElementById("alert-danger");
+let successAlert = document.getElementById("alert-success");
+let spinner = document.querySelector(".spinner");
+
 const hideFields = () => {
-    document.getElementById('alert-danger').style.display = 'none';
-    document.getElementById('alert-success').style.display = 'none';
-    document.querySelector('.spinner').style.display = 'none';
+    errorAlert.style.display = 'none';
+    successAlert.style.display = 'none';
+    spinner.style.display = 'none';
     authService.removeUserToken();
 }
 hideFields();
 
 const hideOrShowField = () => {
-    document.querySelector('.spinner').style.display = 'block';
-    document.getElementById('alert-danger').style.display = 'none';
-    document.getElementById('alert-success').style.display = 'none';
+    spinner.style.display = 'block';
+    errorAlert.style.display = 'none';
+    successAlert.style.display = 'none';
 }
 
 // method to login the user
@@ -29,9 +33,9 @@ const login = async () => {
         const response = await authService.login(formData);
         workWithResponse(response);
     } catch (error) {
-        document.getElementById('alert-danger').style.display = 'block';
-        document.getElementById('alert-danger').innerHTML = error; 
-        document.querySelector('.spinner').style.display = 'none';
+        errorAlert.style.display = 'block';
+        errorAlert.innerHTML = error; 
+        spinner.style.display = 'none';
     }   
 }
 
@@ -41,17 +45,17 @@ const login = async () => {
    // work with server response here...
 const workWithResponse = res => {
     const {data, error} = res;
-    document.querySelector('.spinner').style.display = 'none';
+    spinner.style.display = 'none';
     if(data) {
         localStorage.setItem("user", JSON.stringify(data));
-        document.getElementById('alert-success').style.display = 'block';
-        document.getElementById('alert-success').innerHTML = "Login Successful, Redirecting...";
+        successAlert.style.display = 'block';
+        successAlert.innerHTML = "Login Successful, Redirecting...";
         window.location.href = "../home/home.html";
         return;
     }
     else if(error) {
-        document.getElementById('alert-danger').style.display = 'block';
-        document.getElementById('alert-danger').innerHTML = error;        
+        errorAlert.style.display = 'block';
+        errorAlert.innerHTML = error;        
         return;
     }
 };

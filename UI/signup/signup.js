@@ -1,16 +1,21 @@
 import {authService} from "../services/authService.js";
 
+
+let errorAlert = document.getElementById("alert-danger");
+let successAlert = document.getElementById("alert-success");
+let spinner = document.querySelector(".spinner");
+
 const hideFields = () => {
-    document.querySelector('.spinner').style.display = 'none';
-    document.getElementById('alert-danger').style.display = 'none';
-    document.getElementById('alert-success').style.display = 'none';
+    spinner.style.display = 'none';
+    errorAlert.style.display = 'none';
+    successAlert.style.display = 'none';
 }
 hideFields();
 
 const hideOrShowField = () => {
-    document.querySelector('.spinner').style.display = 'block';
-    document.getElementById('alert-danger').style.display = 'none';
-    document.getElementById('alert-success').style.display = 'none';
+    spinner.style.display = 'block';
+    errorAlert.style.display = 'none';
+    successAlert.style.display = 'none';
 }
 
 const register = async () => {
@@ -34,9 +39,9 @@ const register = async () => {
     const response = await authService.register(formData);
     workWithResponse(response);
     } catch (error) {
-        document.getElementById('alert-danger').style.display = 'block';
-        document.getElementById('alert-danger').innerHTML = error; 
-        document.querySelector('.spinner').style.display = 'none';
+        errorAlert.style.display = 'block';
+        errorAlert.innerHTML = error; 
+        spinner.style.display = 'none';
     }   
 }
 
@@ -45,16 +50,16 @@ const register = async () => {
 
 const workWithResponse = res => {
     const {data, error} = res;
-    document.querySelector('.spinner').style.display = 'none';
+    spinner.style.display = 'none';
     if(data) {
-        document.getElementById('alert-success').style.display = 'block';
-        document.getElementById('alert-success').innerHTML = data.message;
+        successAlert.style.display = 'block';
+        successAlert.innerHTML = data.message;
         window.location.href = "/UI/signin/sign-in.html";
         return;
     }
     else if(error) {
-        document.getElementById('alert-danger').style.display = 'block';
-        document.getElementById('alert-danger').innerHTML = error;        
+        errorAlert.style.display = 'block';
+        errorAlert.innerHTML = error;        
         return;
     }
 };
