@@ -12,7 +12,7 @@ let alertInfo =  document.getElementById("alert-info");
 
 errorAlert.style.display = "none";
 alertInfo.style.display = "none";
-
+document.getElementById("showing").style.display = "none";
 
 const logout = () => {
     const loggedOut = authService.logout();
@@ -36,8 +36,12 @@ const fetchAllUnsoldCars = async () => {
 fetchAllUnsoldCars();
 
 const workWithResponse = res => {
+    const {error} = res;
+    if(error !== undefined && error === "Invalid token." || error === "Access denied. No token provided.") {
+       return window.location.href = "../signin/sign-in.html";
+      }
     if(res) {
-        if(res.length <= 0) {
+        if(res.length <= 0 || res.error != undefined) {
             spinner.style.display = "none";
             alertInfo.style.display = "block";
             return alertInfo.innerHTML = "<h5>No Record found</h5>";
@@ -45,6 +49,8 @@ const workWithResponse = res => {
         for(const car of res) {
             const {id, car_image_url, manufacturer, state, status, price} = car;
             spinner.style.display = "none";
+            document.getElementById("showing").style.display = "block";
+
             //create necessary element for the UI
             const div1 = document.createElement('div');
             const div2 = document.createElement('div');
@@ -93,9 +99,6 @@ const workWithResponse = res => {
     else if(error) {
             spinner.style.display = "none";
             errorAlert.style.display = "block";
-            if(error === "Invalid token." || "Access denied. No token provided.") {
-              window.location.href = "../signin/sign-in.html";
-            }
             errorAlert.innerHTML = error;
             return;
     }
@@ -103,6 +106,13 @@ const workWithResponse = res => {
 
 const applyFilters = async () => {
     spinner.style.display = 'block';
+    alertInfo.style.display = "none";
+    alertInfo.innerHTML = "";
+    let div = document.getElementById('adRpt');
+    while(div.firstChild){
+    div.removeChild(div.firstChild);
+    }
+    document.getElementById("showing").style.display = "none";
 
     let state = document.getElementById("car-state").value;
     let minPrice = document.getElementById("min_price").value;
