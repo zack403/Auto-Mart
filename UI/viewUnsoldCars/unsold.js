@@ -57,10 +57,12 @@ const workWithResponse = res => {
             const div3 = document.createElement('div');
             const img = document.createElement('img');
             const h5 = document.createElement('h5');
-            const h6 = document.createElement('h6');
+            // const h6 = document.createElement('h6');
             const p1 = document.createElement('p');
             const p2 = document.createElement('p');
             const p3 = document.createElement('p');
+            const a = document.createElement("a");
+            const b = document.createElement("button");
 
             div1.className = "card mr-3 mb-3";
             img.className = "card-img-top";
@@ -70,28 +72,36 @@ const workWithResponse = res => {
             div2.className = "card-body";
             h5.className = "card-title";
             p1.className = "card-text text-right badge badge-warning";
-            h6.className ="card-text";
+            // h6.className ="card-text";
             p2.className = "badge badge-danger";
             div3.className = "card-footer";
             p3.className = "text-primary";
+            b.className = "btn btn-primary";
 
             document.getElementById("adRpt").append(div1);
             div1.append(img);
             div1.append(div2);
             div2.append(h5);
             div2.append(p1);
-            div2.append(h6);
+            // div2.append(h6);
             div2.append(p2);
             div1.append(div3);
             div3.append(p3);
+            a.append(b);
+            div3.append(a);
 
             //bind values to the element
             img.src = car_image_url;
-            h5.innerHTML = manufacturer;
+            h5.innerHTML = `${manufacturer} <small class="text-info">${state}<small>`;;
             p1.innerHTML = status;
-            h6.innerHTML = state;
+            // h6.innerHTML = state;
             p3.innerHTML = `Price: &#8358;${price}`;
+            b.innerHTML = "BUY"
             
+
+            a.onclick = async () => {
+                window.location.href = "../purchaseOrder/make-purchase.html?id="+id; 
+             }
             
          }
          return;
