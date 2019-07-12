@@ -118,6 +118,9 @@ const applyFilters = async () => {
     spinner.style.display = 'block';
     alertInfo.style.display = "none";
     alertInfo.innerHTML = "";
+    errorAlert.style.display = "none";
+    errorAlert.innerHTML = "";
+    
     let div = document.getElementById('adRpt');
     while(div.firstChild){
     div.removeChild(div.firstChild);
