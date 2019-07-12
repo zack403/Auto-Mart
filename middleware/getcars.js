@@ -9,7 +9,14 @@ module.exports = async (req, res, next) => {
 
     const {rows: cars} = await Cars.findAll();
     const {status, max_price, min_price, state, manufacturer, body_type } = req.query;
-    if(status && max_price && min_price) {
+
+    if(status && max_price && min_price && manufacturer && state) {
+        car = await cars.filter(car => car.status === status && 
+    car.price <= max_price && car.price >= min_price && car.state === state && car.manufacturer === manufacturer);
+        if(car.length === 0) return res.status(notFound).send(error = errorResponse(notFound, "Search returns no result"));
+        return res.status(ok).send(car);
+    }
+    else if(status && max_price && min_price) {
                 car = await cars.filter(car => car.status === status && 
             car.price <= max_price && car.price >= min_price);
         if(car.length === 0) return res.status(notFound).send(error = errorResponse(notFound, `Car with the ${status} status and price range between ${min_price} and ${max_price} returns no result`));
