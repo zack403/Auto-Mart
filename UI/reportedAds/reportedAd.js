@@ -2,10 +2,17 @@ import {authService} from "../services/authService.js";
 import {ReportAdService} from "../services/reportAdService.js";
 
 
+let errorAlert = document.getElementById("alert-danger");
+let spinner = document.querySelector(".spinner");
+let alertInfo =  document.getElementById("alert-info");
+
 const user = authService.getUserToken();
 if(!user) {
     window.location.href = "../signin/sign-in.html"
 }
+
+errorAlert.style.display = "none";
+alertInfo.style.display = "none";
 
 const logout = () => {
     const loggedOut = authService.logout();
@@ -18,7 +25,7 @@ document.getElementById("logout").addEventListener("click", logout)
 const fetchReportedAds = async () => {
     try {
     const response = await ReportAdService.fetchAllReportedAds();
-    return console.log(response);
+    console.log(response);
     workWithResponse(response);
     } catch (error) {
         spinner.style.display = 'none';
@@ -34,50 +41,54 @@ const workWithResponse = res => {
         if(data === "No record found") {
             spinner.style.display = "none";
             alertInfo.style.display = "block";
-            return alertInfo.innerHTML = "<h5>No featured adverts yet...</h5>";
+            return alertInfo.innerHTML = "<h5>No Reported Ads yet...</h5>";
         }
-        for(const car of data) {
-            const {id, car_image_url, manufacturer, state, status, price} = car;
+        for(const flag of data) {
+            const {description, reason } = flag;
             spinner.style.display = "none";
             //create necessary element for the UI
             const div1 = document.createElement('div');
             const div2 = document.createElement('div');
             const div3 = document.createElement('div');
-            const a = document.createElement('a');
             const img = document.createElement('img');
             const h5 = document.createElement('h5');
+            const h6 = document.createElement('h6');
             const p1 = document.createElement('p');
-            const p2 = document.createElement('div');
-            //give each element the needed class attribute
-            div1.className = "card";
-            div2.className = "card-body"
-            img.id = "img";
-            img.height = "200";
-            img.width = "500";
+            const p2 = document.createElement('p');
+            const p3 = document.createElement('p');
+
+            div1.className = "card mr-3 mb-3";
             img.className = "card-img-top";
+            img.alt = "Card image cap";
+            // img.height = "200";
+            // img.width = "500";
+            div2.className = "card-body";
             h5.className = "card-title";
-            h5.className = "upperCase"
             p1.className = "card-text text-right badge badge-warning";
+            h6.className ="card-text";
+            p2.className = "badge badge-danger";
             div3.className = "card-footer";
-            p2.className = "text-primary";
-            //append element to the UI
-            document.getElementById("cardDeck").append(div1);
-            div1.append(a);
-            a.append(img);
+            p3.className = "text-primary";
+
+            document.getElementById("adRpt").append(div1);
+            div1.append(img);
             div1.append(div2);
             div2.append(h5);
             div2.append(p1);
+            div2.append(h6);
+            div2.append(p2);
             div1.append(div3);
-            div3.append(p2);
+            div3.append(p3);
+
             //bind values to the element
-            img.src = car_image_url;
-            h5.innerHTML = `${manufacturer} <small class="text-info">${state}<small>`;
-            p1.innerHTML = status;
-            p2.innerHTML = `Price: &#8358;${price}`
+            img.src = flag.image_url;
+            h5.innerHTML = flag.manufacturer;
+            p1.innerHTML = `Reported ${reason}`;
+            h6.innerHTML = description;
+            p2.innerHTML = reason;
+            p3.innerHTML = flag.price;
             
-            a.onclick = async () => {
-               window.location.href = "../purchaseOrder/make-purchase.html?id="+id; 
-            }
+            
          }
          return;
     }

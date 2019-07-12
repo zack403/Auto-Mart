@@ -12,6 +12,7 @@
   </head>
 
   <body>
+      <div class="spinner"></div>
     <div class="shift-footer">
     <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light">
       <div class="container">
@@ -27,7 +28,7 @@
               <div class="dropdown-content">
                 <a href="../../UI/myAd/my-ad.html">My Ads</a>
                 <a href="../../UI/myPo/my-po.html">My PO</a>
-                <a  id="logout">Logout</a>
+                <a id="logout">Logout</a>
               </div>
             </li>
           </ul>
@@ -37,8 +38,10 @@
 
     <div class=" mt-3 container">
       <h3 class="text-center mt-5">REPORTED ADS</h3>
-        <div class="row container">
-            <div class="card mr-3 mb-3">
+      <div id="alert-danger" class="mt-5 alert alert-danger"></div>
+      <div id="alert-info" class="mt-5 alert alert-info"></div>
+        <div id="adRpt" class="row container">
+            <!-- <div class="card mr-3 mb-3">
                 <img class="card-img-top" src="images/honda.jpg" alt="Card image cap"/>
                 <div class="card-body">
                   <h5 class="card-title">Honda 2019</h5>
@@ -49,7 +52,7 @@
                 <div class="card-footer">
                   <p class="text-primary">Price: &#8358;13,000000</p>
                 </div>
-              </div>
+              </div> -->
         </div>
     </div>
   </div>
