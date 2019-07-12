@@ -37,6 +37,26 @@ export class carService {
         return response.json();
     }
 
+    static async fetchAllUnsoldCars() {
+        let url = apiUrl(`car?status=Available`);
+        const response = await fetch(url, {
+            headers: {
+                'Authorization': authService.getUserToken(),
+            }
+        });
+        return response.json();
+    }
+
+    static async fetchCarsByFilter(state, minPrice, maxPrice, manufacturer) {
+        let url = apiUrl(`car?status=Available&state=${state}&min_price=${minPrice}&max_price=${maxPrice}&manufacturer=${manufacturer}`);
+        const response = await fetch(url, {
+            headers: {
+                'Authorization': authService.getUserToken(),
+            }
+        });
+        return response.json();
+    }
+
     static async getCar(id) {
         let url = apiUrl(`car/${id}`);
         const response = await fetch(url, {
