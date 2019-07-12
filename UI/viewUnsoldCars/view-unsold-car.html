@@ -11,6 +11,7 @@
   </head>
 
   <body>
+      <div class="spinner"></div>
     <div class="shift-footer">
       <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light">
         <div class="container">
@@ -36,23 +37,24 @@
 
       <div class="container mt-5">
         <div class="row">
-          <div class="col-md-3">
+          <div class="sticky-top col-md-3">
             <p>Filters...</p>
-            <form>
+            <form class="">
               <div class="form-group">
                 <label for="state">Car State</label>
                 <select id="car-state" class="form-control" required>
-                  <option value="New"> New </option>
-                  <option value="Used"> Used </option>
+                    <option selected disabled value=""> Select Car state </option>
+                  <option value="new"> New </option>
+                  <option value="used"> Used </option>
                 </select>
               </div>
 
               <div class="form-group">
                 <label for="manufucture">Make</label>
                 <select required class="form-control" name="makes" id="make">
-                  <option value="acura">Acura</option>
-                  <option value="acura">Toyota</option>
-                  <option value="acura">Honda</option>
+                  <option selected disabled value=""> Select Car Make </option>
+                  <option value="Toyota">Toyota</option>
+                  <option value="Honda">Honda</option>
                   <option value="acura">Alfa Romeo</option>
                   <option value="acura">Aston Martin</option>
                   <option value="acura">Audi</option>
@@ -64,151 +66,51 @@
                 </select>
               </div>
               <div class="form-group">
-                <label for="state">Min Price</label>
-                <select id="car-state" class="form-control" required>
-                  <option value="New">&#8358;100,000 </option>
-                  <option value="Used">&#8358;200,000</option>
-                  <option value="Used">&#8358;300,000</option>
-                  <option value="Used">&#8358;400,000</option>
-                  <option value="Used">&#8358;500,000</option>
-                  <option value="Used">&#8358;600,000</option>
-                  <option value="Used">&#8358;700,000</option>
+                <label for="min_price">Min Price</label>
+                <select id="min_price" class="form-control" required>
+                  <option selected disabled value=""> Select Minimum Price </option>
+                  <option value="100000">&#8358;100,000 </option>
+                  <option value="200000">&#8358;200,000</option>
+                  <option value="300000">&#8358;300,000</option>
+                  <option value="400000">&#8358;400,000</option>
+                  <option value="500000">&#8358;500,000</option>
+                  <option value="600000">&#8358;600,000</option>
+                  <option value="700000">&#8358;700,000</option>
+                  <option value="800000">&#8358;800,000</option>
+                  <option value="900000">&#8358;900,000</option>
+                  <option value="1000000">&#8358;1,000,000</option>
+
                 </select>
               </div>
 
               <div class="form-group">
-                <label for="state">Max Price</label>
-                <select id="car-state" class="form-control" required>
-                  <option value="New">&#8358;1,000,000 </option>
-                  <option value="Used">&#8358;2,000,000</option>
-                  <option value="Used">&#8358;3,000,000</option>
-                  <option value="Used">&#8358;4,000,000</option>
-                  <option value="Used">&#8358;5,000,000</option>
-                  <option value="Used">&#8358;6,000,000</option>
-                  <option value="Used">&#8358;7,000,000</option>
+                <label for="max_price">Max Price</label>
+                <select id="max_price" class="form-control" required>
+                  <option selected disabled value=""> Select Maximum Price </option>
+                  <option value="1000000">&#8358;1,000,000 </option>
+                  <option value="2000000">&#8358;2,000,000</option>
+                  <option value="3000000">&#8358;3,000,000</option>
+                  <option value="4000000">&#8358;4,000,000</option>
+                  <option value="5000000">&#8358;5,000,000</option>
+                  <option value="6000000">&#8358;6,000,000</option>
+                  <option value="7000000">&#8358;7,000,000</option>
+                  <option value="8000000">&#8358;8,000,000</option>
+                  <option value="9000000">&#8358;9,000,000</option>
+                  <option value="10000000">&#8358;10,000,000</option>
                 </select>
               </div>
             </form>
             <div class="form-group text-center">
-              <button class="btn btn-primary full-width">APPLY FILTERS</button>
+              <button id="filters" class="btn btn-primary full-width">APPLY FILTERS</button>
             </div>
           </div>
           <div class="col-md-9">
             <p>Showing All Unsold Cars</p>
-            <div class="card-deck mt-5">
-              <div class="card">
-                <a href="make-purchase.html"><img class="card-img-top" src="images/honda.jpg" alt="Card image cap"/></a>
-                <div class="card-body">
-                  <h5 class="card-title">Honda 2019</h5>
-                  <p class="card-text text-right badge badge-warning">
-                    Available
-                  </p>
-                </div>
-                <div class="card-footer">
-                  <p class="text-primary">Price: &#8358;13,000000</p>
-                </div>
-              </div>
-              <div class="card">
-                <a href="make-purchase.html"><img class="card-img-top" src="images/toyota.jpg" alt="Card image cap"/></a>
-                <div class="card-body">
-                  <h5 class="card-title">Toyota 2019</h5>
-                  <p class="card-text text-right badge badge-warning">
-                    Available
-                  </p>
-                </div>
-                <div class="card-footer">
-                  <p class="text-primary">Price: &#8358;13,000000</p>
-                </div>
-              </div>
-              <div class="card">
-                <a href="make-purchase.html"><img class="card-img-top" src="images/honda.jpg" alt="Card image cap"/></a>
-                <div class="card-body">
-                  <h5 class="card-title">Honda 2019</h5>
-                  <p class="card-text text-right badge badge-warning">
-                    Available
-                  </p>
-                </div>
-                <div class="card-footer">
-                  <p class="text-primary">Price: &#8358;13,000000</p>
-                </div>
-              </div>
-            </div>
-            <div class="card-deck mt-4">
-              <div class="card">
-                <a href="make-purchase.html"><img class="card-img-top" src="images/honda.jpg" alt="Card image cap"/></a>
-                <div class="card-body">
-                  <h5 class="card-title">Honda 2019</h5>
-                  <p class="card-text text-right badge badge-warning">
-                    Available
-                  </p>
-                </div>
-                <div class="card-footer">
-                  <p class="text-primary">Price: &#8358;13,000000</p>
-                </div>
-              </div>
-              <div class="card">
-                <a href="make-purchase.html"><img class="card-img-top" src="images/toyota.jpg" alt="Card image cap"/></a>
-                <div class="card-body">
-                  <h5 class="card-title">Toyota 2019</h5>
-                  <p class="card-text text-right badge badge-warning">
-                    Available
-                  </p>
-                </div>
-                <div class="card-footer">
-                  <p class="text-primary">Price: &#8358;13,000000</p>
-                </div>
-              </div>
-              <div class="card">
-                <a href="make-purchase.html"><img class="card-img-top" src="images/honda.jpg" alt="Card image cap"/></a>
-                <div class="card-body">
-                  <h5 class="card-title">Honda 2019</h5>
-                  <p class="card-text text-right badge badge-warning">
-                    Available
-                  </p>
-                </div>
-                <div class="card-footer">
-                  <p class="text-primary">Price: &#8358;13,000000</p>
-                </div>
-              </div>
-            </div>
-            <div class="card-deck mt-4">
-              <div class="card">
-                <a href="make-purchase.html"><img class="card-img-top" src="images/honda.jpg" alt="Card image cap"/></a>
-                <div class="card-body">
-                  <h5 class="card-title">Honda 2019</h5>
-                  <p class="card-text text-right badge badge-warning">
-                    Available
-                  </p>
-                </div>
-                <div class="card-footer">
-                  <p class="text-primary">Price: &#8358;13,000000</p>
-                </div>
-              </div>
-              <div class="card">
-                <a href="make-purchase.html"> <img class="card-img-top" src="images/toyota.jpg" alt="Card image cap"/></a>
-                <div class="card-body">
-                  <h5 class="card-title">Toyota 2019</h5>
-                  <p class="card-text text-right badge badge-warning">
-                    Available
-                  </p>
-                </div>
-                <div class="card-footer">
-                  <p class="text-primary">Price: &#8358;13,000000</p>
-                </div>
-              </div>
-              <div class="card">
-                <a href="make-purchase.html"><img class="card-img-top" src="images/honda.jpg" alt="Card image cap"/></a>
-                <div class="card-body">
-                  <h5 class="card-title">Honda 2019</h5>
-                  <p class="card-text text-right badge badge-warning">
-                    Available
-                  </p>
-                </div>
-                <div class="card-footer">
-                  <p class="text-primary">Price: &#8358;13,000000</p>
-                </div>
-              </div>
-            </div>
+            <div id="alert-danger" class="mt-5 alert alert-danger"></div>
+            <div id="alert-info" class="mt-5 alert alert-info"></div>
+            <div id="adRpt" class="container">
+              
+          </div>
           </div>
         </div>
       </div>
