@@ -47,6 +47,12 @@ router.get("/:car_id", auth, async (req, res) => {
         phone_no
     });
 })
+router.get("/myad/:id", auth, async (req, res) => {
+    const {rows: car} = await Cars.findAd(parseInt(req.params.id));
+    if(car.length <= 0) return res.status(404).send(errorMessage = errorResponse(404, "You have no Ad yet"));
+    const resource = resourceResponse(car);
+    return res.status(200).send(resource);
+})
 
 //delete a car
 router.delete("/:id", [auth, admin], async (req, res) => {

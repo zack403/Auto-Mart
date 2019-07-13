@@ -52,6 +52,10 @@ const carMethods =  {
     const text = 'SELECT * FROM cars where id = $1'
     return await db.query(text, [id]);
   },
+  findAd: async (id) => {
+    const text = 'SELECT * FROM cars where owner = $1'
+    return await db.query(text, [id]);
+  },
   updatePrice: async (id, price) => {
     const updateQuery = `UPDATE cars
     SET price=$1 WHERE id=$2 returning *`;
