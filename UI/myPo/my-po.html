@@ -7,10 +7,12 @@
     <meta name="keywords" content="car, buy, sell, toyota, benz," />
     <meta name="author" content="Zack Aminu" />
     <link rel="stylesheet" href="../../UI/styles/index.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>AutoMart | My Purchase Orders</title>
   </head>
 
   <body>
+      <div class="spinner"></div>
     <div class="shift-footer">
       <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light">
         <div class="container">
@@ -19,14 +21,15 @@
           <div id="navbarNav">
             <ul class="navbar-nav ml-auto">
               <li class="nav-item active">
-                <a class="nav-link" href="../../UI/home/home.html">Home</a>
+                <a class="nav-link" href="../../UI/home/home.html"><i class="fa fa-home"> Home</i></a>
               </li>
               <li class="nav-item dropdown active">
                 <a class="nav-link" href=""><img id="user-image" src="../../UI/images/user-image.jpg" alt="user image"/></a>
                 <div class="dropdown-content">
-                  <a href="../../UI/myAd/my-ad.html">My Ads</a>
-                  <a href="../../UI/myPo/my-po.html">My PO</a>
-                  <a  id="logout">Logout</a>
+                    <p>Signed as <small id="small"></small></p>
+                  <a href="../../UI/myAd/my-ad.html"><i class="fa fa-list-ul"> My Ads</i></a>
+                  <a href="../../UI/myPo/my-po.html"><i class="fa fa-list-ul"> My PO</i></a>
+                  <a  id="logout"><i class="fa fa-sign-out"> Logout</i></a>
                 </div>
               </li>
             </ul>
@@ -36,165 +39,26 @@
 
       <div class="mt-3 container">
         <h5>My Purchase Orders</h5>
-        <div class="card-deck">
-          <div class="card">
-            <img class="card-img-top" src="images/honda.jpg" alt="Card image cap" />
-            <div class="card-body">
-              <h5 class="card-title">Honda 2019</h5>
-            </div>
-            <div class="card-footer">
-              <p class="text-primary">Price: &#8358;13,000000</p>
-              <div class="row">
-                <input type="text" placeholder="Enter new price" class="mr-2" />
-                <a href=""
-                  ><button class="float-right btn btn-outline-danger">
-                    UPDATE PRICE
-                  </button></a
-                >
-              </div>
-            </div>
-          </div>
-          <div class="card">
-            <img class="card-img-top" src="images/toyota.jpg" alt="Card image cap" />
-            <div class="card-body">
-              <h5 class="card-title">Toyota 2019</h5>
-            </div>
-            <div class="card-footer">
-              <p class="text-primary">Price: &#8358;13,000000</p>
-              <div class="row">
-                <input type="text" placeholder="Enter new price" class="mr-2" />
-                <a href=""
-                  ><button class="float-right btn btn-outline-danger">
-                    UPDATE PRICE
-                  </button></a
-                >
-              </div>
-            </div>
-          </div>
-          <div class="card">
-            <img class="card-img-top" src="images/honda.jpg" alt="Card image cap" />
-            <div class="card-body">
-              <h5 class="card-title">Honda 2019</h5>
-            </div>
-            <div class="card-footer">
-              <p class="text-primary">Price: &#8358;13,000000</p>
-              <div class="row">
-                <input type="text" placeholder="Enter new price" class="mr-2" />
-                <a href=""
-                  ><button class="float-right btn btn-outline-danger">
-                    UPDATE PRICE
-                  </button></a
-                >
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="card-deck mt-4">
-          <div class="card">
-            <img class="card-img-top" src="images/honda.jpg" alt="Card image cap" />
-            <div class="card-body">
-              <h5 class="card-title">Honda 2019</h5>
-            </div>
-            <div class="card-footer">
-              <p class="text-primary">Price: &#8358;13,000000</p>
-              <div class="row">
-                <input type="text" placeholder="Enter new price" class="mr-2" />
-                <a href=""
-                  ><button class="float-right btn btn-outline-danger">
-                    UPDATE PRICE
-                  </button></a
-                >
-              </div>
-            </div>
-          </div>
-          <div class="card">
-            <img class="card-img-top" src="images/toyota.jpg" alt="Card image cap" />
-            <div class="card-body">
-              <h5 class="card-title">Toyota 2019</h5>
-            </div>
-            <div class="card-footer">
-              <p class="text-primary">Price: &#8358;13,000000</p>
-              <div class="row">
-                <input type="text" placeholder="Enter new price" class="mr-2" />
-                <a href=""
-                  ><button class="float-right btn btn-outline-danger">
-                    UPDATE PRICE
-                  </button></a
-                >
-              </div>
-            </div>
-          </div>
-          <div class="card">
-            <img class="card-img-top" src="images/honda.jpg" alt="Card image cap" />
-            <div class="card-body">
-              <h5 class="card-title">Honda 2019</h5>
-            </div>
-            <div class="card-footer">
-              <p class="text-primary">Price: &#8358;13,000000</p>
-              <div class="row">
-                <input type="text" placeholder="Enter new price" class="mr-2" />
-                <a href=""
-                  ><button class="float-right btn btn-outline-danger">
-                    UPDATE PRICE
-                  </button></a
-                >
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="card-deck mt-4">
-          <div class="card">
-            <img class="card-img-top" src="images/honda.jpg" alt="Card image cap" />
-            <div class="card-body">
-              <h5 class="card-title">Honda 2019</h5>
-            </div>
-            <div class="card-footer">
-              <p class="text-primary">Price: &#8358;13,000000</p>
-              <div class="row">
-                <input type="text" placeholder="Enter new price" class="mr-2" />
-                <a href=""
-                  ><button class="float-right btn btn-outline-danger">
-                    UPDATE PRICE
-                  </button></a
-                >
-              </div>
-            </div>
-          </div>
-          <div class="card">
-            <img class="card-img-top" src="images/toyota.jpg" alt="Card image cap" />
-            <div class="card-body">
-              <h5 class="card-title">Toyota 2019</h5>
-            </div>
-            <div class="card-footer">
-              <p class="text-primary">Price: &#8358;13,000000</p>
-              <div class="row">
-                <input type="text" placeholder="Enter new price" class="mr-2" />
-                <a href=""
-                  ><button class="float-right btn btn-outline-danger">
-                    UPDATE PRICE
-                  </button></a
-                >
-              </div>
-            </div>
-          </div>
-          <div class="card">
-            <img class="card-img-top" src="images/honda.jpg" alt="Card image cap" />
-            <div class="card-body">
-              <h5 class="card-title">Honda 2019</h5>
-            </div>
-            <div class="card-footer">
-              <p class="text-primary">Price: &#8358;13,000000</p>
-              <div class="row">
-                <input type="text" placeholder="Enter new price" class="mr-2" />
-                <a href=""
-                  ><button class="float-right btn btn-outline-danger">
-                    UPDATE PRICE
-                  </button></a
-                >
-              </div>
-            </div>
-          </div>
-        </div>
+        <div id="alert-danger" class="mt-5 alert alert-danger"></div>
+        <div id="alert-info" class="alert alert-info"></div>
+        <div id="alert-success" class="alert alert-success"></div>
+        <div class="card-deck" id="mypo">
+            <!-- <div class="card">
+                <img class="card-img-top" src="images/honda.jpg" alt="Card image cap" />
+                <div class="card-body">
+                  <h5 class="card-title">Honda 2019</h5>
+                  <h6 class="card-text badge badge-warning">Pending</h6>
+                  <div class="row">
+                    <input type="text" placeholder="Enter new price" class="mr-2" />
+                    <button class="float-right btn btn-outline-danger">UPDATE PRICE</button>
+                  </div>
+                </div>
+                <div class="card-footer">
+                  <p class="text-primary">Price: &#8358;13,000000</p>
+                  <button class="btn btn-success">UPDATE STATUS TO ACCEPTED</button>
+                  <button class="btn btn-danger">UPDATE STATUS TO REJECTED</button>
+                </div>
+              </div> -->
       </div>
     </div>
 
