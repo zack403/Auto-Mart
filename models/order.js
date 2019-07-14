@@ -40,6 +40,10 @@ const orderMethods =  {
     const text = 'SELECT * FROM orders where id = $1'
     return await db.query(text, [id]);
   },
+  findMyOrder: async (id) => {
+    const text = 'SELECT * FROM orders where buyer_id = $1'
+    return await db.query(text, [id]);
+  },
   findProcessedOrder: async (id) => {
     const text = 'SELECT * FROM orders where car_id = $1'
     return await db.query(text, [id]);
@@ -70,14 +74,15 @@ const orderMethods =  {
     const text = 'DELETE FROM orders where id=$1'
     return await db.query(text, [id]);
   },
-  save: async (buyer_id, car_id, amount, status, buyer_name, buyer_phone_no) => {
+  save: async (buyer_id, car_id, imageUrl, amount, status, buyer_name, buyer_phone_no) => {
       const text = `INSERT INTO
-      orders(buyer_id, car_id, amount, status, buyer_name, buyer_phone_no)
-      VALUES($1, $2, $3, $4, $5, $6)
+      orders(buyer_id, car_id, car_image_url, amount, status, buyer_name, buyer_phone_no)
+      VALUES($1, $2, $3, $4, $5, $6, $7)
       returning *`;
       const values = [
         buyer_id,
         car_id,
+        imageUrl,
         amount,
         status,
         buyer_name,

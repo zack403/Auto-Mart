@@ -4,6 +4,7 @@ const {Orders, validate} = require('../models/order');
 const {Cars} = require('../models/car');
 const auth = require('../middleware/auth');
 const Joi = require('joi');
+const resourceResponse = require('../helper/getAllResourceResponse');
 const errorResponse = require('../helper/errorResponse');
 const nodemailer = require('nodemailer');
 const sgTransport = require('nodemailer-sendgrid-transport');
@@ -17,6 +18,13 @@ const transporter = nodemailer.createTransport(sgTransport({
   }));
   
 let clientError;
+
+router.get("/:id", auth, async (req, res) => {
+    const {rows: order} = await Orders.findMyOrder(parseInt(req.params.id));
+    if(order.length <= 0) return res.status(404).send(errorMessage = errorResponse(404, "You have no Orders yet"));
+    const resource = resourceResponse(order);
+    return res.status(200).send(resource);
+})
 
 router.post('/', auth, async (req, res) => {
    const {rows: available} = await Orders.findProcessedOrder(parseInt(req.body.car_id));
@@ -72,14 +80,14 @@ router.post('/', auth, async (req, res) => {
 
 router.patch("/:order_id/price", auth, async (req, res) => {
     // validate request
-   const {error} = validateOrder(req.body);
+   const {error} = validateOrderByPrice(req.body);
    if (error) return res.status(400).send(clientError = errorResponse(400, error.details[0].message));   
   // get the id of the order you want to update
    const orderID = parseInt(req.params.order_id);
    //check the database if the order id is valid
    const {rows: order} = await Orders.findById(orderID);
    // bounce the user out if it is not a valid order
-   if(!order[0]) return res.status(404).send("This purchase order does not exist");
+   if(!order[0]) return res.status(404).send(errorMessage = errorResponse(404, "This purchase order does not exist"));
    let oldPriceOffered = order[0].amount; // set old_price_offered to order amount
    //only the order that is pending can be updated
    if(order[0].status != 'Pending') return res.status(400).send('You can only update the price, if the order is still pending');
@@ -101,9 +109,44 @@ router.patch("/:order_id/price", auth, async (req, res) => {
    }
 })
 
-const validateOrder = req => {
+router.patch("/:order_id/status", auth, async (req, res) => {
+     // validate request
+   const {error} = validateOrderByStatus(req.body);
+   if (error) return res.status(400).send(clientError = errorResponse(400, error.details[0].message));
+    // get the id of the order you want to update
+   const orderID = parseInt(req.params.order_id);
+   //check the database if the order id is valid
+   const {rows: order} = await Orders.findById(orderID);
+    if(!order[0]) return res.status(404).send(errorMessage = errorResponse(404, "This purchase order does not exist"));
+    //update the order status here
+   const {rows: updated} = await Orders.updateOrderStatus(orderID, req.body.status);
+   if(updated[0]) {
+    const {id, car_id, status, amount} = updated[0];
+    res.status(200).send({
+        status: 200,
+        data: {
+            id ,
+            message : "Successfully updated",
+            car_id,
+            status,
+            old_price_offered : oldPriceOffered,
+            new_price_offered : amount
+        }
+    })
+   }
+ })
+ 
+
+const validateOrderByPrice = req => {
     const schema = {
         new_price : Joi.number().required()
+    }
+    return Joi.validate(req, schema);
+}
+
+const validateOrderByStatus = req => {
+    const schema = {
+        status : Joi.string().required()
     }
     return Joi.validate(req, schema);
 }
