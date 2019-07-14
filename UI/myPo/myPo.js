@@ -83,13 +83,18 @@ const workWithResponse = res => {
             input.placeholder = "Enter New Price";
             input.className = "mr-2";
             input.id = "newPrice";
-            h6.className = "badge badge-info"
+            h6.className = "badge badge-info";
+            if(status === "Rejected") {
+                h6.className = "badge badge-danger";
+            }
+            else if(status === "Accepted") {
+                h6.className = "badge badge-success";
+            }
             b1.className = "float-right btn btn-outline-danger";
             b2.className = "btn btn-success mr-2";
             b3.className = "btn btn-danger";
-
-            // img.height = "200";
-            // img.width = "500";
+            img.height = "200";
+            img.width = "500";
             div2.className = "card-body";
             h5.className = "card-title";
             p1.className = "text-primary";
@@ -111,13 +116,11 @@ const workWithResponse = res => {
                 div3.append(b3);
             }
            
-           
-
-
             //bind values to the element
             img.src = car_image_url;
-            h5.innerHTML = manufacturer;
-            h6.innerHTML = status;
+            // h5.innerHTML = manufacturer;
+            h5.innerHTML = "";
+            h6.innerHTML = `Status: ${status}`;
             p1.innerHTML = `Amount: &#8358;${amount}`;
             if(status === "Pending") {
                 b1.innerHTML = "UPDATE PRICE";
@@ -140,7 +143,7 @@ const workWithResponse = res => {
                         spinner.style.display = "none";
                         alertSuc.style.display = "block";
                         alertSuc.innerHTML = "Price Successfully updated";
-                        window.location.reload();
+                        p1.innerHTML = `Amount: &#8358;${data.new_price_offered}`;
                         return;
                     }
                     else if (error){
@@ -176,10 +179,12 @@ const workWithResponse = res => {
                     spinner.style.display = "none";
                     alertSuc.style.display = "block";
                     alertSuc.innerHTML = data.message;
-                    b2.className = "badge badge-warning";
-                    b2.onclick = null;
-                    b2.style.cursor = "none";
-                    b2.innerHTML = res.data.status;
+                    h6.className = "badge badge-success";
+                    h6.innerHTML = `Status: ${data.status}`;
+                    b3.style.display = "none";
+                    b2.style.display = "none";
+                    input.style.display = "none";
+                    b1.style.display = "none";
                     return;
                  }
                 } catch (error) {
@@ -208,10 +213,12 @@ const workWithResponse = res => {
                     spinner.style.display = "none";
                     alertSuc.style.display = "block";
                     alertSuc.innerHTML = data.message;
-                    b2.className = "badge badge-warning";
-                    b2.onclick = null;
-                    b2.style.cursor = "none";
-                    b2.innerHTML = res.data.status;
+                    h6.className = "badge badge-danger";
+                    h6.innerHTML = `Status: ${data.status}`;
+                    b3.style.display = "none";
+                    b2.style.display = "none";
+                    input.style.display = "none";
+                    b1.style.display = "none";
                     return;
                  }
                 } catch (error) {
