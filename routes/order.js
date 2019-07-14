@@ -129,8 +129,7 @@ router.patch("/:order_id/status", auth, async (req, res) => {
             message : "Successfully updated",
             car_id,
             status,
-            old_price_offered : oldPriceOffered,
-            new_price_offered : amount
+            amount
         }
     })
    }
