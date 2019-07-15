@@ -18,11 +18,15 @@ const {flagTable} = require('./models/flag');
 
 //INITIATE CONNECTION TO THE DATABASE HERE, AND CREATE NECESSARY TABLES
 const sync = async () => {
+  try {
     await db.connect();
     await userTable(); // this has to be called first because it does not depend on any other table
     await carTable();
     await orderTable();
-    await flagTable();
+    await flagTable(); 
+  } catch (error) {
+      console.log(error);
+    }
 }
 sync();
 

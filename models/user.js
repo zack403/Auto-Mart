@@ -27,7 +27,7 @@ const userTable = async () => {
      password: Joi.string().min(7).alphanum().max(255).required(),
      confirm_password: Joi.string().valid(Joi.ref('password')).required().strict().min(7)
         .alphanum().max(255),
-     address : Joi.string(),
+     address : Joi.string().required(),
      created_at: Joi.date(),
      is_admin: Joi.boolean()
    };

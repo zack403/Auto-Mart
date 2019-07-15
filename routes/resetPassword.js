@@ -4,6 +4,7 @@ const nodemailer = require('nodemailer');
 const sgTransport = require('nodemailer-sendgrid-transport');
 const config = require('config');
 const bcrypt = require('bcrypt');
+const errorResponse =  require('../helper/errorResponse');
 const { User } = require('../models/user');
 
 
@@ -13,6 +14,9 @@ const transporter = nodemailer.createTransport(sgTransport({
   },
 }));
 
+let clientError;
+
+
 router.post('/:user_email/reset_password', async (req, res) => {
 
   const userEmail = req.params.user_email;
@@ -20,10 +24,12 @@ router.post('/:user_email/reset_password', async (req, res) => {
   if (!user[0]) return res.status(404).send('You do not have an account with us');
 
   // the user is a valid user set the user new password here..
-  const { oldPassword, newPassword } = req.body;
-  if (oldPassword != null && newPassword != null) {
+  const { password, confirm_password } = req.body;
+  if (password != null && confirm_password != null) {
+    const {error} = validatePassword(req.body);
+    if(error) return res.status(400).send(clientError = errorResponse(400, error.details[0].message))
     const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(newPassword, salt);
+    const hashedPassword = await bcrypt.hash(confirm_password, salt);
     const { rows: resetPassword } = await User.updateUser(user[0].id, hashedPassword);
     if (resetPassword[0]) return res.status(200).send('Password successfully changed');
   }
@@ -50,5 +56,14 @@ router.post('/:user_email/reset_password', async (req, res) => {
     res.status(500).send('Error while sending email');
   }
 });
+
+const validatePassword = req => {
+  const schema = {
+    password: Joi.string().min(7).alphanum().max(255).required(),
+    confirm_password: Joi.string().valid(Joi.ref('password')).required().strict().min(7)
+       .alphanum().max(255),
+  }
+  return Joi.validate(req, schema);
+}
 
 module.exports = router;
