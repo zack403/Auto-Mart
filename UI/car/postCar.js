@@ -49,7 +49,6 @@ const postAd = async () => {
 
     try {
     const response = await carService.postCar(formData);
-    console.log(response);
     workWithResponse(response);
     } catch (error) {
         errorAlert.style.display = 'block';

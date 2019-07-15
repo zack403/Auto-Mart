@@ -32,7 +32,6 @@ const fetchMyAds = async () => {
     document.getElementById("small").innerHTML = user.email;
     try {
     const response = await MyAdService.fetchMyAds(user.id);
-    console.log(response);
     workWithResponse(response);
     } catch (error) {
         spinner.style.display = 'none';
@@ -142,7 +141,6 @@ const workWithResponse = res => {
                         errorAlert.innerHTML = error;
                         return;
                     }
-                    console.log(result);
                 } catch (error) {
                      spinner.style.display = "none";
                     errorAlert.style.display = "block";
@@ -157,7 +155,6 @@ const workWithResponse = res => {
                 errorAlert.innerHTML = "";
                 try {
                  const res = await MyAdService.UpdateAdStatus(id);
-                 console.log(res);
                  if(res.data.id) {
                     spinner.style.display = "none";
                     alertSuc.style.display = "block";

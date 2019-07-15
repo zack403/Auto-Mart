@@ -23,6 +23,8 @@ const logout = () => {
 document.getElementById("logout").addEventListener("click", logout)
 
 const fetchReportedAds = async () => {
+    let user = JSON.parse(localStorage.getItem("user"));
+    document.getElementById("small").innerHTML = user.email;
     try {
     const response = await ReportAdService.fetchAllReportedAds();
     console.log(response);
@@ -44,7 +46,7 @@ const workWithResponse = res => {
             return alertInfo.innerHTML = "<h5>No Reported Ads yet...</h5>";
         }
         for(const flag of data) {
-            const {description, reason } = flag;
+            const {description, manufacturer, price, car_image_url, reason } = flag;
             spinner.style.display = "none";
             //create necessary element for the UI
             const div1 = document.createElement('div');
@@ -81,12 +83,12 @@ const workWithResponse = res => {
             div3.append(p3);
 
             //bind values to the element
-            img.src = flag.image_url;
-            h5.innerHTML = flag.manufacturer;
+            img.src = car_image_url;
+            h5.innerHTML = manufacturer;
             p1.innerHTML = `Reported ${reason}`;
             h6.innerHTML = description;
             p2.innerHTML = reason;
-            p3.innerHTML = flag.price;
+            p3.innerHTML = price;
             
             
          }

@@ -23,6 +23,8 @@ const logout = () => {
 document.getElementById("logout").addEventListener("click", logout);
 
 const fetchAllUnsoldCars = async () => {
+    let user = JSON.parse(localStorage.getItem("user"));
+    document.getElementById("small").innerHTML = user.email;
     try {
     const response = await carService.fetchAllUnsoldCars();
     console.log(response);

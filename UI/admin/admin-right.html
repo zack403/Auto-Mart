@@ -7,6 +7,7 @@
     <meta name="keywords" content="car, buy, sell, toyota, benz," />
     <meta name="author" content="Zack Aminu" />
     <link rel="stylesheet" href="../../UI/styles/index.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>AutoMart | Admin</title>
   </head>
 
@@ -19,14 +20,15 @@
         <div id="navbarNav">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item active">
-              <a class="nav-link" href="../../UI/home/home.html">Home</a>
+              <a class="nav-link" href="../../UI/home/home.html"><i class="fa fa-home"> Home</i></a>
             </li>
             <li class="nav-item dropdown active">
               <a class="nav-link" href=""><img id="user-image" src="../../UI/images/user-image.jpg" alt="user image"/></a>
               <div class="dropdown-content">
-                <a href="../../UI/myAd/my-ad.html">My Ads</a>
-                <a href="../../UI/myPo/my-po.html">My PO</a>
-                <a  id="logout">Logout</a>
+                  <p class="mb-0">Signed in as <small id="small"></small></p>
+                <a href="../../UI/myAd/my-ad.html"><i class="fa fa-list-ul"> My Ads</i></a>
+                <a href="../../UI/myPo/my-po.html"><i class="fa fa-list-ul"> My Purchase Orders</i></a>
+                <a  id="logout"><i class="fa fa-list-ul"> Logout</i></a>
               </div>
             </li> 
           </ul>
@@ -36,6 +38,7 @@
 
     <div class="mt-3 container">
       <h3 class="text-center mt-5">ADMIN PAGE</h3>
+      <div id="alert-danger" class="mt-5 alert alert-danger"></div>
       <div class="card-deck mt-5">
         <div class="card">
           <img class="card-img-top" src="images/honda.jpg" alt="Card image cap" />

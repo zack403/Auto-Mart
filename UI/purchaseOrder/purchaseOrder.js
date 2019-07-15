@@ -33,6 +33,8 @@ document.getElementById("logout").addEventListener("click", logout)
     }
 
     const getReportedAd = async () => {
+        let user = JSON.parse(localStorage.getItem("user"));
+        document.getElementById("small").innerHTML = user.email;
         const res = await ReportAdService.getReportAD(id);
         if(res.id) {
             reportBtn.style.color = "red";
@@ -60,7 +62,6 @@ document.getElementById("logout").addEventListener("click", logout)
 
     const disPlayCar = async () => {
             const res =  await getCarDetails(id);
-            console.log(res);
             if(res.id) {
                 spinner.style.display = 'none';
                 const div1 = document.createElement('div');
@@ -108,7 +109,6 @@ document.getElementById("logout").addEventListener("click", logout)
 
         try {
             const response = await ReportAdService.reportAD(formData);
-            console.log(response);
             if(response.id){
                 successAlert.style.display = 'block';
                 successAlert.innerHTML = response.message;
@@ -139,7 +139,6 @@ document.getElementById("logout").addEventListener("click", logout)
 
         try {
             const response = await OrderService.createPurchaseOrder(formData);
-            console.log(response);
             const {data, error} = response;
             if(data && data.id){
                 spinner.style.display = "none";

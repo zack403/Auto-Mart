@@ -5798,7 +5798,9 @@ img {
     overflow: hidden;
     outline: 0;
   }
-  
+  #logout {
+    cursor: pointer;
+  }
   .modal-dialog {
     position: relative;
     width: auto;

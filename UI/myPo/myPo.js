@@ -152,7 +152,6 @@ const workWithResponse = res => {
                         errorAlert.innerHTML = error;
                         return;
                     }
-                    console.log(result);
                 } catch (error) {
                      spinner.style.display = "none";
                     errorAlert.style.display = "block";
@@ -165,7 +164,6 @@ const workWithResponse = res => {
                 spinner.style.display = "block";
                 errorAlert.style.display = "none";
                 errorAlert.innerHTML = "";
-
                 let status = "Accepted";
                 const formData = {
                     status
@@ -173,7 +171,6 @@ const workWithResponse = res => {
 
                 try {
                  const res = await MyPoService.UpdatePoStatus(id, formData );
-                 console.log(res);
                  const {data} = res;
                  if(data && data.id) {
                     spinner.style.display = "none";
@@ -207,7 +204,6 @@ const workWithResponse = res => {
 
                 try {
                  const res = await MyPoService.UpdatePoStatus(id, formData);
-                 console.log(res);
                  const {data} = res;
                  if(data && data.id) {
                     spinner.style.display = "none";

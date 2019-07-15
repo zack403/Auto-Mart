@@ -1,214 +1,227 @@
 <!DOCTYPE html>
 <html>
 
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width">
-    <meta name="description" content="A web application marketplace for car">
-	  <meta name="keywords" content="car, buy, sell, toyota, benz,">
-    <meta name="author" content="Zack Aminu">
-    <link rel="stylesheet" href="../styles/index.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <title>AutoMart | Make Purchase</title>
-  </head>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <meta name="description" content="A web application marketplace for car">
+  <meta name="keywords" content="car, buy, sell, toyota, benz,">
+  <meta name="author" content="Zack Aminu">
+  <link rel="stylesheet" href="../styles/index.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <title>AutoMart | Make Purchase</title>
+</head>
 
-  <body>
-      <div class="spinner"></div>
-      <div class="shift-footer">
-        <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light">
-                <div class="container">
-                    <a  class="navbar-brand pl-5 " href="../../index.html"><img src="../images/am-logo.svg" alt="AutoMart logo"></a>
-                      <button class="navbar-toggler" type="button" data-toggle="collapse" 
-                        data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" 
-                        aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                      </button>
-                      <div class="collapse navbar-collapse" id="navbarNav">
-                        <ul class="navbar-nav ml-auto">
-                          <li class="nav-item active">
-                            <a class="nav-link" href="../../index.html">Home</a>
-                          </li>
-                                    <li class="nav-item dropdown active">
-                                            <a class="nav-link" href=""><img id="user-image" src="../images/user-image.jpg" alt="user image"></a>
-                                            <div class="dropdown-content">
-                                                    <a href="my-ad.html">My Ads</a>
-                                                    <a href="my-po.html">My PO</a>
-                                                    <a  id="logout">Logout</a>
-                                                  </div>
-                                    </li>
-                        </ul>
-                      </div>
-                </div>
-                    
-        </nav>
+<body>
+  <div class="spinner"></div>
+  <div class="shift-footer">
+    <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light">
+      <div class="container">
+        <a class="navbar-brand pl-5 " href="../../index.html"><img src="../images/am-logo.svg" alt="AutoMart logo"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="../../UI/home/home.html"><i class="fa fa-home"> Home</i></a>
+            </li>
+            <li class="nav-item dropdown active">
+              <a class="nav-link" href=""><img id="user-image" src="../images/user-image.jpg" alt="user image"></a>
+              <div class="dropdown-content">
+                  <p class="mb-0">Signed in as <small id="small"></small></p>
+                <a href="../../UI/myAd/my-ad.html"><i class="fa fa-list-ul"> My Ads</i></a>
+                <a href="../../UI/myPo/my-po.html"><i class="fa fa-list-ul"> My PO</i></a>
+                <a id="logout"><i class="fa fa-sign-out"> Logout</i></a>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
 
-         <div class="container mt-5">
-            <div class="row">
-                <div id="colMdSix" class="col-md-6">
-                    <div class="card">
-                    </div>
-                    <div class="card">
-                      <h6 class="text-center">AD Details</h6>
-                      <div class="ml-5">
-                        <P class="font-weight-bold">Posted By: <span class="font-weight-normal" id="by"></span></P>
-                        <P class="font-weight-bold">Seller Phone No: <span class="font-weight-normal" id="no"></span></P>
-                        <P class="font-weight-bold">Model: <span class="font-weight-normal" id="mode"></span></P>
-                        <P class="font-weight-bold">Manufacturer: <span class="font-weight-normal" id="manufac"></span></P>
-                        <P class="font-weight-bold">Body Type: <span class="font-weight-normal" id="type"></span></P>
-                      </div>
-                    </div>
-                    <p style="cursor: pointer; color: blue" id="report"></p>
+    </nav>
 
-                </div>
-                <div  class="col-md-3">
-                        <div class="card">
-                            <div class="card-body">
-                                  <div class="card-text">
-                                        <h6> Key Features</h6>
-                                        <div id="list">
-                                            <p class="text-muted">>Fast</p>
-                                            <p class="text-muted">>Durable</p>
-                                            <p class="text-muted">>Efficient</p>
-                                            <p class="text-muted">>Long Lasting</p>
-                                            <p class="text-muted">>Rugged</p>
-                                        </div>
-                                  </div>
-                            </div>
-                            <div class="card-footer">
-                            </div>
-                        </div>                
-                </div>
-                        <div class="col-md-3">
-                          <div id="alert">
-                              <div id="alert-success" class="alert alert-success"></div>
-                              <div id="alert-danger" class="alert alert-danger"></div>
-                          </div>
-                                        <h3>Make a Purchase</h3>
-                                        <form class="form">
-                                        
-                                        <div class="form-group">
-                                            <label for="fullname">
-                                            </label>
-                                            <input type="text" class="form-control" placeholder="Buyer Name" id="fullname" autofocus required>
-                                        </div>
-                                    
-                                        <div class="form-group">
-                                            <label for="phone">
-                                            </label>
-                                            <input type="text" class="form-control" placeholder="Buyer Phone Number" id="phone" required>
-                                        </div>
-                                        
-                                       
-                                        <div class="form-group">
-                                                <label for="price">
-                                                </label>
-                                                <input type="email" class="form-control" placeholder="Price in Naira" id="price" required>
-                                        </div>
-                                        <div class="form-group">
-                                                <button id="poBtn" type="button"  class="btn btn-primary">
-                                                   Make Purchase order
-                                                </button>
-                                        </div>
-                        </div>
-                        <div class="stand-out mt-5">
-                                <p>By clicking <mark>Make Purchase Order</mark>, you authorize AUTO-MART and its sellers/partners to contact you by texts/calls which may
-                                    include marketing and be by autodialer. Calls may be pre-recorded. You also agree to our 
-                                    Privacy statement. Consent is not required to purchase goods/services.
-                                </p>
-                       </div>
+    <div class="container mt-5">
+      <div class="row">
+        <div id="colMdSix" class="col-md-6">
+          <div class="card">
+          </div>
+          <div class="card">
+            <h6 class="text-center">AD Details</h6>
+            <div class="ml-5">
+              <P class="font-weight-bold">Posted By: <span class="font-weight-normal" id="by"></span></P>
+              <P class="font-weight-bold">Seller Phone No: <span class="font-weight-normal" id="no"></span></P>
+              <P class="font-weight-bold">Model: <span class="font-weight-normal" id="mode"></span></P>
+              <P class="font-weight-bold">Manufacturer: <span class="font-weight-normal" id="manufac"></span></P>
+              <P class="font-weight-bold">Body Type: <span class="font-weight-normal" id="type"></span></P>
             </div>
-        </div> 
+          </div>
+          <p style="cursor: pointer; color: blue" id="report"></p>
 
-
-              <!-- The Modal -->
-            
-        <div id="reportModal" class="modal" tabindex="-1" role="dialog">
-          
-                <div class="modal-dialog" role="document">
-                    <div id="alert-success" class="alert alert-success"></div>
-                    <div id="alert-danger" class="alert alert-danger"></div> 
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title">Report AD</h5>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label for="reason">Reason</label>
-                            <input type="text" id="reason" name="reason" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                                <label>Description</label><br>
-                                <textarea cols="20" rows="5" id="description" name="description" class="text-area form-control" required></textarea>
-                            </div>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" id="rptBtn"  class="btn btn-danger">Report</button>
-                      <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
-                    </div>
-                  </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card">
+            <div class="card-body">
+              <div class="card-text">
+                <h6> Key Features</h6>
+                <div id="list">
+                  <p class="text-muted">>Fast</p>
+                  <p class="text-muted">>Durable</p>
+                  <p class="text-muted">>Efficient</p>
+                  <p class="text-muted">>Long Lasting</p>
+                  <p class="text-muted">>Rugged</p>
                 </div>
               </div>
-
             </div>
-        <footer id="main-footer" class="mt-4 py-2">
-                <div class="container footer-container">
-                  <div>
-                    <img src="../images/am-logo.svg" alt="NewsGrid">
-                    <p>
-                        Auto Mart is an online marketplace for automobiles of diverse makes, 
-                        model or body type. With Auto Mart, 
-                        users can sell their cars or buy from trusted dealerships or private sellers.
-                    </p>
-                  </div>
-                  <div>
-                      <h2>Links</h2>
-                       <a href="#"><p>About Us</p></a> 
-                       <a href="#"><p>Contact</p></a> 
-                       <a href="#"><p>Help & Support</p></a> 
-            
-                    </div>
-                  <div>
-                    <h2>Join Our Blog</h2>
-                    <p>Join our blog to meet other car enthusiast</p>
-                    <a href="#" class="btn btn-primary">Join Now</a>
-                  </div>
-                  <div>
-                      <h2>Follow Us</h2>
-                       <a href="https://twitter.com"><p>Twitter</p></a> 
-                       <a href="https://linkedin.com"><p>LinkedIn</p></a> 
-            
-                    </div>
-                  <div>
-                    <p>
-                      Copyright &copy; 2019 AutoMart Ltd. All rights reserved
-                    </p>
-                  </div>
-                </div>
-        </footer>
-          
-            <script type="module" src="../purchaseOrder/purchaseOrder.js"></script>
-            <script>
-                // access the modal
-                let reportModal = document.getElementById("reportModal");
-                
-                // Get the span element that closes the modal
-                let span = document.getElementsByClassName("close")[0];
-                
-                
-                // When the user clicks on <span> (x), close the modal
-                span.onclick = function() {
-                    reportModal.style.display = "none";
-                }
-                
-                // When the user clicks anywhere outside of the modal, close it
-                window.onclick = function(event) {
-                  if (event.target == reportModal) {
-                    reportModal.style.display = "none";
-                  }
-                }
-                </script>
-  </body>
+            <div class="card-footer">
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div id="alert">
+            <div id="alert-success" class="alert alert-success"></div>
+            <div id="alert-danger" class="alert alert-danger"></div>
+          </div>
+          <h3>Make a Purchase</h3>
+          <form class="form">
+
+            <div class="form-group">
+              <label for="fullname">
+              </label>
+              <input type="text" class="form-control" placeholder="Buyer Name" id="fullname" autofocus required>
+            </div>
+
+            <div class="form-group">
+              <label for="phone">
+              </label>
+              <input type="text" class="form-control" placeholder="Buyer Phone Number" id="phone" required>
+            </div>
+
+
+            <div class="form-group">
+              <label for="price">
+              </label>
+              <input type="email" class="form-control" placeholder="Price in Naira" id="price" required>
+            </div>
+            <div class="form-group">
+              <button id="poBtn" type="button" class="btn btn-primary">
+                Make Purchase order
+              </button>
+            </div>
+        </div>
+        <div class="stand-out mt-5">
+          <p>By clicking <mark>Make Purchase Order</mark>, you authorize AUTO-MART and its sellers/partners to contact
+            you by texts/calls which may
+            include marketing and be by autodialer. Calls may be pre-recorded. You also agree to our
+            Privacy statement. Consent is not required to purchase goods/services.
+          </p>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- The Modal -->
+
+    <div id="reportModal" class="modal" tabindex="-1" role="dialog">
+
+      <div class="modal-dialog" role="document">
+        <div id="alert-success" class="alert alert-success"></div>
+        <div id="alert-danger" class="alert alert-danger"></div>
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Report AD</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="reason">Reason</label>
+              <input type="text" id="reason" name="reason" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label>Description</label><br>
+              <textarea cols="20" rows="5" id="description" name="description" class="text-area form-control"
+                required></textarea>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" id="rptBtn" class="btn btn-danger">Report</button>
+            <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <footer id="main-footer" class="mt-4 py-2">
+    <div class="container footer-container">
+      <div>
+        <img src="../images/am-logo.svg" alt="NewsGrid">
+        <p>
+          Auto Mart is an online marketplace for automobiles of diverse makes,
+          model or body type. With Auto Mart,
+          users can sell their cars or buy from trusted dealerships or private sellers.
+        </p>
+      </div>
+      <div>
+        <h2>Links</h2>
+        <a href="#">
+          <p>About Us</p>
+        </a>
+        <a href="#">
+          <p>Contact</p>
+        </a>
+        <a href="#">
+          <p>Help & Support</p>
+        </a>
+
+      </div>
+      <div>
+        <h2>Join Our Blog</h2>
+        <p>Join our blog to meet other car enthusiast</p>
+        <a href="#" class="btn btn-primary">Join Now</a>
+      </div>
+      <div>
+        <h2>Follow Us</h2>
+        <a href="https://twitter.com">
+          <p>Twitter</p>
+        </a>
+        <a href="https://linkedin.com">
+          <p>LinkedIn</p>
+        </a>
+
+      </div>
+      <div>
+        <p>
+          Copyright &copy; 2019 AutoMart Ltd. All rights reserved
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module" src="../purchaseOrder/purchaseOrder.js"></script>
+  <script>
+    // access the modal
+    let reportModal = document.getElementById("reportModal");
+
+    // Get the span element that closes the modal
+    let span = document.getElementsByClassName("close")[0];
+
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function () {
+      reportModal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+      if (event.target == reportModal) {
+        reportModal.style.display = "none";
+      }
+    }
+  </script>
+</body>
+
 </html>

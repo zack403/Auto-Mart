@@ -24,9 +24,10 @@ errorAlert.style.display = "none";
 alertInfo.style.display = "none";
 
 const fetchCars = async () => {
+    let user = JSON.parse(localStorage.getItem("user"));
+    document.getElementById("small").innerHTML = user.email;
     try {
     const response = await carService.fetchCars();
-    console.log(response);
     workWithResponse(response);
     } catch (error) {
         spinner.style.display = 'none';
