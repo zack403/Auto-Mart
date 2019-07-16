@@ -26,49 +26,56 @@
         </div>
       </div>
     </nav>
-    <div class="form-wrapper">
+    <div style="width: 650px" class="form-wrapper">
         <div id="alert-danger" class="alert alert-danger"></div>
         <div id="alert-success" class="alert alert-success"></div>
       <form>
-        <h1>Place a FREE Advert</h1>
-        <p class="text-center stand-out">
-          With over a million monthly visits, Auto Mart will find you a buyer!
-        </p>
-        <div class="form-group">
-          <label for="state">Car State</label>
-          <select id="car_state" name="car_state" class="form-control" required>
-            <option value="new"> New </option>
-            <option value="used"> Used </option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label for="manufucture">Make</label>
-          <input name="manufacturer" type="text" id="manufacturer" class="form-control" required />
-        </div>
-        <div class="form-group">
-          <label for="model">Model</label>
-          <input name="model" type="text" id="model" class="form-control" required />
-        </div>
-        <div class="form-group">
-            <label for="model">Body Type</label>
-            <input name="body_type" type="text" id="body_type" class="form-control" required />
+        <div class="row"> 
+            <h1>Place a FREE Advert</h1>
+            <p class="text-center stand-out">
+              With over a million monthly visits, Auto Mart will find you a buyer!
+            </p>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="state">Car State</label>
+              <select id="car_state" name="car_state" class="form-control" required>
+                <option disabled selected value=""> Select car state </option>
+                <option value="new"> New </option>
+                <option value="used"> Used </option>
+              </select>
+            </div>
+    
+            <div class="form-group">
+              <label for="manufucture">Make</label>
+              <input name="manufacturer" placeholder="Car Manufacturer" type="text" id="manufacturer" class="form-control" required />
+            </div>
+            <div class="form-group">
+              <label for="model">Model</label>
+              <input name="model" placeholder="Car Model" type="text" id="model" class="form-control" required />
+            </div>
+            <div class="form-group">
+                <label for="model">Body Type</label>
+                <input name="body_type" type="text" placeholder="Car Body Type" id="body_type" class="form-control" required />
+              </div>
           </div>
-        <div class="form-group">
-          <label for="price">Price<small>($)</small></label>
-          <input name="price" type="text" id="price" class="form-control" required />
-        </div>
-        <div class="form-group">
-          <label for="image">Image of the car</label>
-          <input name="image" type="file" id="image" accept="image/*" required/>
-        </div>
-        <div class="form-group">
-          <label for="">Seller Name</label>
-          <input type="text" id="seller_name" name="seller_name" class="form-control" required />
-        </div>
-        <div class="form-group">
-          <label for="">Phone</label>
-          <input type="text" id="phone_no" name="phone_no" class="form-control" required />
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="price">Price<small>(&#8358)</small></label>
+              <input name="price" placeholder="Price in Naira" type="text" id="price" class="form-control" required />
+            </div>
+            <div class="form-group">
+              <label for="image">Image of the car</label>
+              <input name="image" type="file" id="image" accept="image/*" required/>
+            </div>
+            <div class="form-group">
+              <label for="">Seller Name</label>
+              <input type="text" id="seller_name" name="seller_name" class="form-control" required />
+            </div>
+            <div class="form-group">
+              <label for="">Seller Phone No</label>
+              <input type="text" id="phone_no" name="phone_no" class="form-control" required />
+            </div>
+          </div>
         </div>
       </form>
       <div class="form-group text-center">
