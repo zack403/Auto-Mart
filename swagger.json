@@ -652,7 +652,13 @@
       "manufacturer": {
           "type": "string"
       },
+      "car_image_url": {
+        "type": "string"
+    },
       "seller_name": {
+        "type": "string"
+      },
+      "seller_email": {
         "type": "string"
       },
       "phone_no": {
@@ -664,6 +670,12 @@
       "type": "object",
     "properties": {
       "car_id": {
+        "type": "integer"
+      },
+      "buyer_name": {
+        "type": "integer"
+      },
+      "buyer_phone_no": {
         "type": "integer"
       },
       "amount": {

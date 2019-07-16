@@ -11,7 +11,6 @@ const userTable = async () => {
      email VARCHAR(128) NOT NULL,
      address VARCHAR(128) NOT NULL,
      is_admin BOOLEAN NOT NULL,
-     user_image_url VARCHAR,
      password  VARCHAR(128) NOT NULL,
      confirm_password VARCHAR(128) NOT NULL,
      created_at TIMESTAMP NOT NULL DEFAULT NOW(),
@@ -56,13 +55,11 @@ const userMethods =  {
     ];
     return await db.query(updateQuery, values);
   },
-  save: async (first_name, last_name, email, address, 
-        user_image_url, password, confirm_password
+  save: async (first_name, last_name, email, address, password, confirm_password
         ) => {
       const text = `INSERT INTO
-      users(first_name, last_name, email, address, is_admin, 
-        user_image_url, password, confirm_password)
-      VALUES($1, $2, $3, $4, $5, $6, $7, $8)
+      users(first_name, last_name, email, address, is_admin, password, confirm_password)
+      VALUES($1, $2, $3, $4, $5, $6, $7)
       returning id, first_name, last_name, email, created_at`;
       const values = [
         first_name,
@@ -70,7 +67,6 @@ const userMethods =  {
         email,
         address,
         false,
-        user_image_url,
         password,
         confirm_password
       ]

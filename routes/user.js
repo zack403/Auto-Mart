@@ -13,8 +13,7 @@ router.post('/', async (req, res) => {
     const clientError = errorResponse(400, error.details[0].message);
     return res.status(400).send(clientError);
   }
-  const {first_name, last_name, email, address, 
-    user_image_url, password} = req.body; 
+  const {first_name, last_name, email, address, password} = req.body; 
   const {rows: user} = await User.findByEmail(email);
   if (user[0]) {
     const userError = errorResponse(400, `An account with email ${email} already exist`);
@@ -22,8 +21,7 @@ router.post('/', async (req, res) => {
   } 
   const salt = await bcrypt.genSalt(10);
   const hashedPassword = await bcrypt.hash(password, salt);
-  const {rows: created} = await User.save(first_name, last_name, email, address, 
-    user_image_url, hashedPassword, hashedPassword);
+  const {rows: created} = await User.save(first_name, last_name, email, address, hashedPassword, hashedPassword);
       if ( created[0] ) {
         const {id, is_admin, first_name, last_name, email, created_at} = created[0];
         // const token = generateAuthToken(id, email, first_name, is_admin); 
