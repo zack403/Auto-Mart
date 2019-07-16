@@ -18,7 +18,6 @@ const logout = () => {
         return window.location.href = "../signin/sign-in.html";
     }
 }
-document.getElementById("logout").addEventListener("click", logout)
 
 const hideOrShowField = () => {
     spinner.style.display = 'block';
