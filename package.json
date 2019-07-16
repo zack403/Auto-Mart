@@ -7,6 +7,7 @@
     "start": "node index.js",
     "dev": "nodemon index.js",
     "test": "nyc --reporter=html --reporter=text jasmine",
+    "create": "node travisCreateTable.js",
     "coverage": "nyc npm test && nyc report --reporter=text-lcov | coveralls"
   },
   "engines": {
