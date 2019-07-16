@@ -13,7 +13,7 @@ addons:
 
 before_script:
   - travis_wait npm install
-  - psql -c 'create database AutoMartDB;' -U postgres
+  - psql -c 'create database automart_db;' -U postgres
 
 env:
   - automart_jwtPrivateKey="mysecureKey"
