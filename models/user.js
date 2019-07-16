@@ -65,7 +65,7 @@ const userMethods =  {
         last_name,
         email,
         address,
-        true,
+        false,
         password,
         confirm_password
       ]
