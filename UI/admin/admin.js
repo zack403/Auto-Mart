@@ -19,5 +19,5 @@ const logout = () => {
 
 document.getElementById("logout").addEventListener("click", logout);
 
-let userEmail = JSON.parse(localStorage.getItem("user"));
-document.getElementById("small").innerHTML = userEmail.email;
+let user = authService.getUserInfo();
+document.getElementById("small").innerHTML = user.email;

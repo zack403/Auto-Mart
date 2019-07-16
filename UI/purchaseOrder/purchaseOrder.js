@@ -33,7 +33,7 @@ document.getElementById("logout").addEventListener("click", logout)
     }
 
     const getReportedAd = async () => {
-        let user = JSON.parse(localStorage.getItem("user"));
+        let user = authService.getUserInfo();
         document.getElementById("small").innerHTML = user.email;
         const res = await ReportAdService.getReportAD(id);
         if(res.id) {

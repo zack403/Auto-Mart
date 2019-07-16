@@ -7,9 +7,12 @@ let spinner = document.querySelector(".spinner");
 let alertInfo =  document.getElementById("alert-info");
 
 
-const user = authService.getUserToken();
-if(user && !user.is_admin) {
-    document.getElementById("admin").style.display = "none"
+const user = authService.getUserInfo();
+if(user && user.is_admin) {
+    document.getElementById("admin").style.display = "block";
+}
+else {
+    document.getElementById("admin").style.display = "none";
 }
 
 const logout = () => {

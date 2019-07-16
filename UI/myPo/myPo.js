@@ -28,7 +28,7 @@ const logout = () => {
 document.getElementById("logout").addEventListener("click", logout);
 
 const fetchMyPos = async () => {
-    let user = JSON.parse(localStorage.getItem("user"));
+    let user = authService.getUserInfo();
     document.getElementById("small").innerHTML = user.email;
     try {
     const response = await MyPoService.fetchMyPos(user.id);

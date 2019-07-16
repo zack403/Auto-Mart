@@ -23,6 +23,14 @@ export class authService {
         
     }
 
+    static getUserInfo() {
+        const user = JSON.parse(localStorage.getItem("user"));
+        if(user){
+            return user;
+        }
+        
+    }
+
     static removeUserToken() {
         const user = localStorage.getItem("user");
         if(user) return localStorage.removeItem("user");

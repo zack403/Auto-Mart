@@ -28,7 +28,7 @@ const logout = () => {
 document.getElementById("logout").addEventListener("click", logout);
 
 const fetchMyAds = async () => {
-    let user = JSON.parse(localStorage.getItem("user"));
+    let user = authService.getUserInfo();
     document.getElementById("small").innerHTML = user.email;
     try {
     const response = await MyAdService.fetchMyAds(user.id);
