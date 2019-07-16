@@ -62,13 +62,9 @@ describe('/api/v1/order', () => {
             const res = await exec();
             expect(res.status).toBe(401);
           });
-               
-        it('should return 400 if amount is not provided', async () => {
-            amount = ''; 
-            const res = await exec();
-            expect(res.status).toBe(400);
-          });
+              
         it("should return 200 if we have a valid request", async () => {
+           await Orders.delete();
             const res = await request(server).post('/api/v1/order')
                .set('Authorization', token)
                .send({
@@ -76,7 +72,7 @@ describe('/api/v1/order', () => {
                 amount : 600,
                 status : "Pending",
                 buyer_name: "ojo",
-                buyer_phone_no: "0803566534653"
+                buyer_phone_no: "080356653465"
                 })
                expect(res.status).toBe(200);
         })

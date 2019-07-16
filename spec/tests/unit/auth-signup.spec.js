@@ -40,7 +40,6 @@ describe('/api/v1/auth/signup', () => {
                     last_name: 'Aminu',
                     email: "zackaminu@gmail.com",
                     password : "12345667890",
-                    confirm_password: "12345667890",
                     address : "112 road"
                 })
                 expect(res.status).toBe(201);
