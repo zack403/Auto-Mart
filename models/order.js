@@ -5,17 +5,17 @@ const orderTable = async () => {
   return await db.query(`
   CREATE TABLE IF NOT EXISTS
    orders(
-     id SERIAL NOT NULL,
+     id SERIAL PRIMARY KEY,
      buyer_id SERIAL NOT NULL,
      car_id SERIAL NOT NULL,
      buyer_name VARCHAR(128) NOT NULL,
      buyer_phone_no VARCHAR(128) NOT NULL,
      amount NUMERIC NOT NULL,
      status VARCHAR(128) NOT NULL,
-     created_on TIMESTAMP NOT NULL DEFAULT NOW(),
-     PRIMARY KEY (id),
-     FOREIGN KEY (car_id) REFERENCES cars (id),
-     FOREIGN KEY (buyer_id) REFERENCES users (id) ON DELETE CASCADE
+     created_on DATE NOT NULL DEFAULT CURRENT_DATE,
+     CONSTRAINT orders_car_id_fkey FOREIGN KEY (car_id) REFERENCES cars (id) ON DELETE CASCADE,
+     CONSTRAINT orders_buyer_id_fkey FOREIGN KEY (buyer_id) REFERENCES users (id) ON DELETE CASCADE
+
    )`);
  } 
  

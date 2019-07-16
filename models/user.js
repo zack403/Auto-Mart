@@ -5,7 +5,7 @@ const userTable = async () => {
   return await db.query(`
   CREATE TABLE IF NOT EXISTS
    users(
-     id SERIAL NOT NULL,
+     id SERIAL PRIMARY KEY,
      first_name VARCHAR(128) NOT NULL,
      last_name VARCHAR(128) NOT NULL,
      email VARCHAR(128) NOT NULL,
@@ -13,8 +13,7 @@ const userTable = async () => {
      is_admin BOOLEAN NOT NULL,
      password  VARCHAR(128) NOT NULL,
      confirm_password VARCHAR(128) NOT NULL,
-     created_at TIMESTAMP NOT NULL DEFAULT NOW(),
-     PRIMARY KEY (id)
+     created_at DATE NOT NULL DEFAULT CURRENT_DATE
    )`);
  } 
 

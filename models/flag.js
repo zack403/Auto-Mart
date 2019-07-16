@@ -5,15 +5,14 @@ const flagTable = async () => {
   return await db.query(`
   CREATE TABLE IF NOT EXISTS
    flags(
-     id SERIAL NOT NULL,
+     id SERIAL PRIMARY KEY,
      car_id SERIAL NOT NULL,
      reason VARCHAR(128) NOT NULL,
      description VARCHAR(128) NOT NULL,
      owner SERIAL NOT NULL,
-     created_on TIMESTAMP NOT NULL DEFAULT NOW(),
-     PRIMARY KEY (id),
-     FOREIGN KEY (car_id) REFERENCES cars (id) ON DELETE CASCADE,
-     FOREIGN KEY (owner) REFERENCES users (id) ON DELETE CASCADE
+     created_on DATE NOT NULL DEFAULT CURRENT_DATE,
+     CONSTRAINT flags_car_id_fkey FOREIGN KEY (car_id) REFERENCES cars (id) ON DELETE CASCADE,
+     CONSTRAINT flags_owner_fkey FOREIGN KEY (owner) REFERENCES users (id) ON DELETE CASCADE
    )`);
  } 
 
