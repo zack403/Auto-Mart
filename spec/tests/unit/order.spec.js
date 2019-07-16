@@ -64,7 +64,7 @@ describe('/api/v1/order', () => {
           });
               
         it("should return 200 if we have a valid request", async () => {
-           await Orders.delete();
+            await Orders.delete();
             const res = await request(server).post('/api/v1/order')
                .set('Authorization', token)
                .send({
@@ -91,14 +91,14 @@ describe('/api/v1/order', () => {
     });
     it("should return 404 if order was not found", async () => {
        const res = await request(server)
-        .patch('/api/v1/order/78/price')
+        .patch('/api/v1/order/10000000/price')
         .set('Authorization', token)
         .send({new_price : 200});
         expect(res.status).toBe(404);
     })
     it("should return 400 if order is not pending", async () => {
         const id = order.id;
-        Orders.updateOrderStatus(id, "Accepted");
+        await Orders.updateOrderStatus(id, "Accepted");
         const res = await request(server)
           .patch(`/api/v1/order/${id}/price`)
           .set('Authorization', token)
