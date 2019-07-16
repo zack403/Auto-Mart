@@ -24,8 +24,8 @@ const userTable = async () => {
      last_name: Joi.string().required(),
      email: Joi.string().required().email(),
      password: Joi.string().min(7).alphanum().max(255).required(),
-     confirm_password: Joi.string().valid(Joi.ref('password')).required().strict().min(7)
-        .alphanum().max(255),
+    //  confirm_password: Joi.string().valid(Joi.ref('password')).required().strict().min(7)
+    //     .alphanum().max(255),
      address : Joi.string().required(),
      created_at: Joi.date(),
      is_admin: Joi.boolean()
@@ -66,7 +66,7 @@ const userMethods =  {
         last_name,
         email,
         address,
-        false,
+        true,
         password,
         confirm_password
       ]
