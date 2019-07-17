@@ -126,8 +126,8 @@ router.patch("/:car_id/status", auth, async (req, res) => {
 //post a car ad endpoint
 router.post('/', [auth, upload.single('image')], async (req, res) => {
    console.log("file", req.file);
-   const {error} = validate(req.body);
-   if (error) return res.status(400).send(clientError = errorResponse(400, error.details[0].message));
+//    const {error} = validate(req.body);
+//    if (error) return res.status(400).send(clientError = errorResponse(400, error.details[0].message));
   //get the email and id of the logged in user
    const {email , id} = req.user;
    const {state, price, manufacturer, model, body_type, seller_name, phone_no} = req.body;
