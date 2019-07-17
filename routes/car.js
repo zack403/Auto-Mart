@@ -121,7 +121,7 @@ router.patch("/:car_id/status", auth, async (req, res) => {
    
    const {email} = req.user;
    const carID = parseInt(req.params.car_id);
-   if(!carID || req.user) {
+   if(!carID || !req.user) {
        return res.status(400).send({
            status: 400,
            error: "Bad Request"
