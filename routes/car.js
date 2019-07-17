@@ -12,6 +12,7 @@ const upload = require('../middleware/multer');
 const imageUpload = require('../helper/imageUpload');
 
 
+
 let updatedMessage = "Successfully updated";
 let errorMessage;
 let clientError;
@@ -124,24 +125,26 @@ router.patch("/:car_id/status", auth, async (req, res) => {
 })
 
 //post a car ad endpoint
-router.post('/', [ upload.single('image')], async (req, res) => {
+router.post('/', [ auth, upload.single('image')], async (req, res) => {
    console.log("file", req.file);
 //    const {error} = validate(req.body);
 //    if (error) return res.status(400).send(clientError = errorResponse(400, error.details[0].message));
   //get the email and id of the logged in user
-   const {email , id} = req.user;
-   const {state, price, manufacturer, model, body_type, seller_name, phone_no} = req.body;
-   const result = await imageUpload(req.file.path);
-   let imageUrl;
-   if(result) {
-     imageUrl = result.url;
-   }
-   else {
-       return res.status(500).send(clientError = errorResponse(500, "Error while trying to upload your image, try again..."));
-   }
+    const {email , id} = req.user;
+   const {token, state, price, manufacturer, model, body_type, phone_no} = req.body;
+
+
+//    const result = await imageUpload(req.file.path);
+//    let imageUrl;
+//    if(result) {
+//      imageUrl = result.url;
+//    }
+//    else {
+//        return res.status(500).send(clientError = errorResponse(500, "Error while trying to upload your image, try again..."));
+//    }
     //create the car here
-   const {rows: created} = await Cars.save(email, seller_name, phone_no, state, price, 
-        manufacturer, model, body_type, imageUrl, id);
+   const {rows: created} = await Cars.save(email, "firstName", "7432456988989", state, price, 
+        manufacturer, model, body_type, "imageUrl", id);
         if (created[0]) {
             let createdMessage = "Ad successfully posted";
             const {id, created_on, manufacturer, model, price, state, 
