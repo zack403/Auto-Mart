@@ -79,9 +79,9 @@ router.post('/', auth, async (req, res) => {
 })
 
 router.patch("/:order_id/price", auth, async (req, res) => {
-    // validate request
-   const {error} = validateOrderByPrice(req.body);
-   if (error) return res.status(400).send(clientError = errorResponse(400, error.details[0].message));   
+//     // validate request
+//    const {error} = validateOrderByPrice(req.body);
+//    if (error) return res.status(400).send(clientError = errorResponse(400, error.details[0].message));   
   // get the id of the order you want to update
    const orderID = parseInt(req.params.order_id);
    //check the database if the order id is valid
@@ -92,7 +92,9 @@ router.patch("/:order_id/price", auth, async (req, res) => {
    //only the order that is pending can be updated
    if(order[0].status != 'Pending') return res.status(400).send('You can only update the price, if the order is still pending');
    //update the order here
-   const {rows: updated} = await Orders.updateOrderPrice(orderID, req.body.new_price);
+//    const {rows: updated} = await Orders.updateOrderPrice(orderID, req.body.new_price);
+const {rows: updated} = await Orders.updateOrderPrice(orderID, req.body.price);
+
    if(updated[0]) {
     const {id, car_id, status, amount} = updated[0];
     res.status(200).send({

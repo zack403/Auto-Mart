@@ -115,8 +115,8 @@ router.patch("/:car_id/price", auth, async (req, res) => {
 })
 
 router.patch("/:car_id/status", auth, async (req, res) => {
-     const {error} = validateStatus(req.body);
-    if (error) return res.status(400).send(clientError = errorResponse(400, error.details[0].message));
+    //  const {error} = validateStatus(req.body);
+    // if (error) return res.status(400).send(clientError = errorResponse(400, error.details[0].message));
    //get the email and id of the logged in user
    const {email} = req.user;
    const carID = parseInt(req.params.car_id);
