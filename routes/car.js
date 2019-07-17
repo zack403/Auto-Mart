@@ -34,19 +34,36 @@ router.get("/:car_id", auth, async (req, res) => {
         body_type, seller_name, phone_no
     } = car[0];
     res.status(200).send({
-        id,
-        owner: userID,
-        created_on,
-        state,
-        status,
-        car_image_url,
-        price,
-        manufacturer,
-        model,
-        body_type,
-        seller_name,
-        phone_no
+        status: 200,
+        data: {
+            id,
+            owner: userID,
+            created_on,
+            state,
+            status,
+            car_image_url,
+            price,
+            manufacturer,
+            model,
+            body_type,
+            seller_name,
+            phone_no
+        }
     });
+    // res.status(200).send({
+    //     id,
+    //     owner: userID,
+    //     created_on,
+    //     state,
+    //     status,
+    //     car_image_url,
+    //     price,
+    //     manufacturer,
+    //     model,
+    //     body_type,
+    //     seller_name,
+    //     phone_no
+    // });
 })
 router.get("/myad/:id", auth, async (req, res) => {
     const {rows: car} = await Cars.findAd(parseInt(req.params.id));
@@ -69,8 +86,8 @@ router.delete("/:id", [auth, admin], async (req, res) => {
 })
 
 router.patch("/:car_id/price", auth, async (req, res) => {
-    const {error} = validatePrice(req.body);
-    if (error) return res.status(400).send(clientError = errorResponse(400, error.details[0].message));
+    // const {error} = validatePrice(req.body);
+    // if (error) return res.status(400).send(clientError = errorResponse(400, error.details[0].message));
     //get the email and id of the logged in user
     const {email} = req.user;
     const carID = parseInt(req.params.car_id);
@@ -98,6 +115,8 @@ router.patch("/:car_id/price", auth, async (req, res) => {
 })
 
 router.patch("/:car_id/status", auth, async (req, res) => {
+     const {error} = validateStatus(req.body);
+    if (error) return res.status(400).send(clientError = errorResponse(400, error.details[0].message));
    //get the email and id of the logged in user
    const {email} = req.user;
    const carID = parseInt(req.params.car_id);
@@ -172,6 +191,13 @@ router.post('/', [ auth, upload.single('image')], async (req, res) => {
 const validatePrice = req => {
     const schema = {
         price : Joi.number().required()
+    }
+    return Joi.validate(req, schema);
+}
+
+const validateStatus = req => {
+    const schema = {
+        status : Joi.string().required()
     }
     return Joi.validate(req, schema);
 }
