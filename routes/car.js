@@ -127,6 +127,12 @@ router.patch("/:car_id/status", auth, async (req, res) => {
            error: "Bad Request"
        });
    }
+   else if (!carID && !req.user){
+        return res.status(400).send({
+            status: 400,
+            error: "Bad Request"
+        });   
+    }
    const {rows: car} = await Cars.findById(carID);
    if(!car[0]) return res.status(404).send(errorMessage = errorResponse(404, notFoundCar));
    const {rows: carByStatus} = await Cars.updateStatus(carID);
