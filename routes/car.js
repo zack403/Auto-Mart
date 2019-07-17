@@ -124,7 +124,7 @@ router.patch("/:car_id/status", auth, async (req, res) => {
 })
 
 //post a car ad endpoint
-router.post('/', [auth, upload.single('image')], async (req, res) => {
+router.post('/', [ upload.single('image')], async (req, res) => {
    console.log("file", req.file);
 //    const {error} = validate(req.body);
 //    if (error) return res.status(400).send(clientError = errorResponse(400, error.details[0].message));
