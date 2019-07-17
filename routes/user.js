@@ -8,11 +8,11 @@ const generateAuthToken = require('../helper/generateAuthToken');
  
 //signup endpoint
 router.post('/', async (req, res) => {
-  const {error} = validate(req.body);
-  if (error){
-    const clientError = errorResponse(400, error.details[0].message);
-    return res.status(400).send(clientError);
-  }
+  // const {error} = validate(req.body);
+  // if (error){
+  //   const clientError = errorResponse(400, error.details[0].message);
+  //   return res.status(400).send(clientError);
+  // }
   const {first_name, last_name, email, address, password} = req.body; 
   const {rows: user} = await User.findByEmail(email);
   if (user[0]) {
