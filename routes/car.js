@@ -118,8 +118,12 @@ router.patch("/:car_id/status", auth, async (req, res) => {
     //  const {error} = validateStatus(req.body);
     // if (error) return res.status(400).send(clientError = errorResponse(400, error.details[0].message));
    //get the email and id of the logged in user
+   
    const {email} = req.user;
    const carID = parseInt(req.params.car_id);
+   if(!carID || req.user) {
+       return res.status(400).send("Bad request");
+   }
    const {rows: car} = await Cars.findById(carID);
    if(!car[0]) return res.status(404).send(errorMessage = errorResponse(404, notFoundCar));
    const {rows: carByStatus} = await Cars.updateStatus(carID);
