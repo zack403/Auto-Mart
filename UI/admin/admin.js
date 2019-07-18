@@ -93,11 +93,20 @@ const workWithResponse = res => {
                 errorAlert.innerHTML = "";
                 try {
                     const deleted = await carService.deleteCar(id);
-                    alertSuc.style.display = "block";
-                    alertSuc.innerHTML = deleted.data;
-                    spinner.style.display = "none";
                     console.log(deleted);
+                    const {error, data} = deleted;
+                    if(data) {
+                        spinner.style.display = "none";
+                        alertSuc.style.display = "block";
+                        alertSuc.innerHTML = data;
+                    }
+                    else if(error){
+                        spinner.style.display = "none";
+                        errorAlert.style.display = "block";
+                        errorAlert.innerHTML = error;
+                    }
                 } catch (error) {
+                    spinner.style.display = "none";
                     errorAlert.style.display = "block";
                     errorAlert.innerHTML = error;
                 }

@@ -14,6 +14,11 @@ export class authService {
         return response.json();
     }
 
+    static async resetPassword(email, formData) {
+        let url = apiUrl(`users/${email}/reset_password`);
+        const response = await fetch(url, authFetchService("POST", formData));
+        return response.json();
+    }
     static getUserToken() {
         const user = JSON.parse(localStorage.getItem("user"));
         if(user){
