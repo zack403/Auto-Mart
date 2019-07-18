@@ -67,9 +67,14 @@ export class carService {
         return response.json();
     }
 
-    static async deleteCar(formData) {
-        let url = apiUrl("car_id/car");
-        const response = await fetch(url, fetchService("DELETE", formData));
+    static async deleteCar(id) {
+        let url = apiUrl(`/car/${id}`);
+        const response = await fetch(url, {
+            method: "DELETE",
+            headers: {
+                'Authorization': authService.getUserToken()
+            }
+        });
         return response.json();
     }
 }
