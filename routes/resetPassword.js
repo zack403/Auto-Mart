@@ -18,7 +18,6 @@ const transporter = nodemailer.createTransport(sgTransport({
 }));
 
 let clientError;
-let message;
 
 
 router.post('/:user_email/reset_password', async (req, res) => {
@@ -35,7 +34,12 @@ router.post('/:user_email/reset_password', async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(confirm_password, salt);
     const { rows: resetPassword } = await User.updateUser(user[0].id, hashedPassword);
-    if (resetPassword[0]) return res.status(200).send(message = resourceResponse(200, 'Password successfully changed'));
+    if (resetPassword[0]){
+      return res.status(200).send({
+        status: 200,
+        data: 'Password successfully changed'
+     });
+    } 
   }
 
   // the user is a valid user, send an email containing the users password
