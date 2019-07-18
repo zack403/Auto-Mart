@@ -25,6 +25,7 @@ const resetPassword = async () => {
     let email = document.getElementById("email").value;
 
     const formData = {
+        email,
         password,
         confirm_password
     }
@@ -35,8 +36,9 @@ const resetPassword = async () => {
         if(data) {
             spinner.style.display = "none";
             alertSuc.style.display = "block";
-            alertSuc.innerHTML = data;
-            return window.location.href = "../signin/sign-in.html";
+            alertSuc.innerHTML = `${data} Click <a href="../signin/sign-in.html">Login</a> to sign in.`;
+
+            return 
         }
         else if(error){
             spinner.style.display = "none";
