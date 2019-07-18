@@ -22,21 +22,16 @@ let message;
 
 
 router.post('/:user_email/reset_password', async (req, res) => {
-  const email = req.params.user_email;
-  const {error: emailError} = validateEmail(email);
-  if(emailError) return res.status(400).send(clientError = errorResponse(400, emailError.details[0].message));
+  const {error} = validatePassword(req.body);
+  if(error) return res.status(400).send(clientError = errorResponse(400, error.details[0].message));
   
-  const {error: passwordError} = validatePassword(req.body);
-  if(passwordError) return res.status(400).send(clientError = errorResponse(400, passwordError.details[0].message));
-  
+  const userEmail = req.params.user_email;
   const { rows: user } = await User.findByEmail(userEmail);
   if (!user[0]) return res.status(404).send(clientError = errorResponse(400, 'The email you provided does not exist with us'));
 
   // the user is a valid user set the user new password here..
   const { password, confirm_password } = req.body;
   if (password != null && confirm_password != null) {
-    const {error} = validatePassword(req.body);
-    if(error) return res.status(400).send(clientError = errorResponse(400, error.details[0].message));
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(confirm_password, salt);
     const { rows: resetPassword } = await User.updateUser(user[0].id, hashedPassword);
@@ -68,15 +63,10 @@ router.post('/:user_email/reset_password', async (req, res) => {
 
 const validatePassword = req => {
   const schema = {
+    email: Joi.string().required().email(),
     password: Joi.string().min(7).alphanum().max(255).required(),
     confirm_password: Joi.string().valid(Joi.ref('password')).required().strict().min(7)
        .alphanum().max(255),
-  }
-  return Joi.validate(req, schema);
-}
-const validateEmail = req => {
-  const schema = {
-    email: Joi.string().required().email()
   }
   return Joi.validate(req, schema);
 }
