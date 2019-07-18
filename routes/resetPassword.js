@@ -24,10 +24,10 @@ let message;
 router.post('/:user_email/reset_password', async (req, res) => {
   const email = req.params.user_email;
   const {error: emailError} = validateEmail(email);
-  if(emailError) return res.status(400).send(clientError = errorResponse(400, error.details[0].message));
+  if(emailError) return res.status(400).send(clientError = errorResponse(400, emailError.details[0].message));
   
   const {error: passwordError} = validatePassword(req.body);
-  if(passwordError) return res.status(400).send(clientError = errorResponse(400, error.details[0].message));
+  if(passwordError) return res.status(400).send(clientError = errorResponse(400, passwordError.details[0].message));
   
   const { rows: user } = await User.findByEmail(userEmail);
   if (!user[0]) return res.status(404).send(clientError = errorResponse(400, 'The email you provided does not exist with us'));
