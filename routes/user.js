@@ -13,7 +13,9 @@ router.post('/', async (req, res) => {
   //   const clientError = errorResponse(400, error.details[0].message);
   //   return res.status(400).send(clientError);
   // }
-  const {first_name, last_name, email, address, password} = req.body; 
+  let {email} = req.body;
+  email = email.toLowerCase();
+  const {first_name, last_name, address, password} = req.body; 
   const {rows: user} = await User.findByEmail(email);
   if (user[0]) {
     const userError = errorResponse(400, `An account with email ${email} already exist`);

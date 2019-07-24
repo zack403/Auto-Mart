@@ -15,7 +15,9 @@ router.post('/', async (req, res) => {
         const clientError = errorResponse(400, error.details[0].message);
         return res.status(400).send(clientError);
     }  
-    const {rows: userEmail} = await User.findByEmail(req.body.email);
+    let clientEmail = req.body.email;
+    clientEmail = clientEmail.toLowerCase();
+    const {rows: userEmail} = await User.findByEmail(clientEmail);
     if (!userEmail[0]) return res.status(400).send(errMessage = errorResponse(400, 'Login Failed, invalid email or password.')); 
     const userPassword = await bcrypt.compare(req.body.password, userEmail[0].password);
     if (!userPassword) return res.status(400).send(errMessage = errorResponse(400, 'Login Failed, invalid email or password.')); 
