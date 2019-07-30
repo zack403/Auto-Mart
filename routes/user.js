@@ -8,11 +8,11 @@ const generateAuthToken = require('../helper/generateAuthToken');
  
 //signup endpoint
 router.post('/', async (req, res) => {
-  // const {error} = validate(req.body);
-  // if (error){
-  //   const clientError = errorResponse(400, error.details[0].message);
-  //   return res.status(400).send(clientError);
-  // }
+  const {error} = validate(req.body);
+  if (error){
+    const clientError = errorResponse(400, error.details[0].message);
+    return res.status(400).send(clientError);
+  }
   let {email} = req.body;
   email = email.toLowerCase();
   const {first_name, last_name, address, password} = req.body; 
@@ -26,11 +26,10 @@ router.post('/', async (req, res) => {
   const {rows: created} = await User.save(first_name, last_name, email, address, hashedPassword, hashedPassword);
       if ( created[0] ) {
         const {id, is_admin, first_name, last_name, email, created_at} = created[0];
-        const token = generateAuthToken(id, email, first_name, is_admin); 
+        // const token = generateAuthToken(id, email, first_name, is_admin); 
           res.status(201).send({
             status : 201,
             data : {
-                token,
                 message: "Account successfully created",
                 id,
                 first_name,

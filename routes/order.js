@@ -27,18 +27,17 @@ router.get("/:id", auth, async (req, res) => {
 })
 
 router.post('/', auth, async (req, res) => {
-//    const {rows: available} = await Orders.findProcessedOrder(parseInt(req.body.car_id));
-//    if(available[0]) return res.status(400).send(clientError = errorResponse(400, "This car is not available for purchase as it is been processed for a user"));
-//    const {error} = validate(req.body);
-//    if (error) return res.status(400).send(clientError = errorResponse(400, error.details[0].message));
-//         //get the email and id of the logged in user
+    const {rows: available} = await Orders.findProcessedOrder(parseInt(req.body.car_id));
+    if(available[0]) return res.status(400).send(clientError = errorResponse(400, "This car is not available for purchase as it is been processed for a user"));
+    const {error} = validate(req.body);
+    if (error) return res.status(400).send(clientError = errorResponse(400, error.details[0].message));         //get the email and id of the logged in user
     const {id} = req.user;
     let { car_id, amount, status, buyer_name, buyer_phone_no} = req.body;
     status = status ? status : 'Pending';
    //get the car user is trying to make purchase order for
    const {rows: car} = await Cars.findById(parseInt(car_id));
    if(!car[0]) return res.status(404).send(clientError = errorResponse(400, "The car you are trying to purchase does not exist"));
-    const {rows: created} = await Orders.save(id, car_id, amount, status, "lastName", "firstName");
+    const {rows: created} = await Orders.save(id, car_id, amount, status, buyer_name, buyer_phone_no);
     if (created[0]) {
         const {id, car_id, created_on, status, amount, buyer_name, buyer_phone_no} = created[0];
         const mailOptions = {
@@ -79,9 +78,9 @@ router.post('/', auth, async (req, res) => {
 })
 
 router.patch("/:order_id/price", auth, async (req, res) => {
-//     // validate request
-//    const {error} = validateOrderByPrice(req.body);
-//    if (error) return res.status(400).send(clientError = errorResponse(400, error.details[0].message));   
+     // validate request
+   const {error} = validateOrderByPrice(req.body);
+   if (error) return res.status(400).send(clientError = errorResponse(400, error.details[0].message));   
   // get the id of the order you want to update
    const orderID = parseInt(req.params.order_id);
    //check the database if the order id is valid
@@ -92,9 +91,7 @@ router.patch("/:order_id/price", auth, async (req, res) => {
    //only the order that is pending can be updated
    if(order[0].status != 'Pending') return res.status(400).send('You can only update the price, if the order is still pending');
    //update the order here
-//    const {rows: updated} = await Orders.updateOrderPrice(orderID, req.body.new_price);
-const {rows: updated} = await Orders.updateOrderPrice(orderID, req.body.price);
-
+   const {rows: updated} = await Orders.updateOrderPrice(orderID, req.body.new_price);
    if(updated[0]) {
     const {id, car_id, status, amount} = updated[0];
     res.status(200).send({

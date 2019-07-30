@@ -34,36 +34,19 @@ router.get("/:car_id", auth, async (req, res) => {
         body_type, seller_name, phone_no
     } = car[0];
     res.status(200).send({
-        status: 200,
-        data: {
-            id,
-            owner: userID,
-            created_on,
-            state,
-            status,
-            car_image_url,
-            price,
-            manufacturer,
-            model,
-            body_type,
-            seller_name,
-            phone_no
-        }
+        id,
+        owner: userID,
+        created_on,
+        state,
+        status,
+        car_image_url,
+        price,
+        manufacturer,
+        model,
+        body_type,
+        seller_name,
+        phone_no
     });
-    // res.status(200).send({
-    //     id,
-    //     owner: userID,
-    //     created_on,
-    //     state,
-    //     status,
-    //     car_image_url,
-    //     price,
-    //     manufacturer,
-    //     model,
-    //     body_type,
-    //     seller_name,
-    //     phone_no
-    // });
 })
 router.get("/myad/:id", auth, async (req, res) => {
     const {rows: car} = await Cars.findAd(parseInt(req.params.id));
@@ -86,8 +69,8 @@ router.delete("/:id", [auth, admin], async (req, res) => {
 })
 
 router.patch("/:car_id/price", auth, async (req, res) => {
-    // const {error} = validatePrice(req.body);
-    // if (error) return res.status(400).send(clientError = errorResponse(400, error.details[0].message));
+    const {error} = validatePrice(req.body);
+    if (error) return res.status(400).send(clientError = errorResponse(400, error.details[0].message));
     //get the email and id of the logged in user
     const {email} = req.user;
     const carID = parseInt(req.params.car_id);
@@ -115,14 +98,8 @@ router.patch("/:car_id/price", auth, async (req, res) => {
 })
 
 router.patch("/:car_id/status", auth, async (req, res) => {
-     const {error} = validateStatus(req.body);
-    if (!error) return res.status(400).send(clientError = errorResponse(400, error.details[0].message));
-    // if(req.body.status !== null || req.body.status !== undefined || req.body.status !== "") {
-    //     return res.status(400).send({
-    //         status: 400,
-    //         error: "Bad request"
-    //     })
-    // }
+   const {error} = validateStatus(req.body);
+   if (!error) return res.status(400).send(clientError = errorResponse(400, error.details[0].message));
    //get the email and id of the logged in user
    const {email} = req.user;
    const carID = parseInt(req.params.car_id);
@@ -152,24 +129,23 @@ router.patch("/:car_id/status", auth, async (req, res) => {
 //post a car ad endpoint
 router.post('/', [ auth, upload.single('image')], async (req, res) => {
    console.log("file", req.file);
-//    const {error} = validate(req.body);
-//    if (error) return res.status(400).send(clientError = errorResponse(400, error.details[0].message));
+    const {error} = validate(req.body);
+    if (error) return res.status(400).send(clientError = errorResponse(400, error.details[0].message));
   //get the email and id of the logged in user
     const {email , id} = req.user;
-   const {token, state, price, manufacturer, model, body_type, phone_no} = req.body;
+   const {seller_name, state, price, manufacturer, model, body_type, phone_no} = req.body;
 
-
-//    const result = await imageUpload(req.file.path);
-//    let imageUrl;
-//    if(result) {
-//      imageUrl = result.url;
-//    }
-//    else {
-//        return res.status(500).send(clientError = errorResponse(500, "Error while trying to upload your image, try again..."));
-//    }
+   const result = await imageUpload(req.file.path);
+   let imageUrl;
+   if(result) {
+     imageUrl = result.url;
+   }
+   else {
+       return res.status(500).send(clientError = errorResponse(500, "Error while trying to upload your image, try again..."));
+   }
     //create the car here
-   const {rows: created} = await Cars.save(email, "firstName", "7432456988989", state, price, 
-        manufacturer, model, body_type, "imageUrl", id);
+   const {rows: created} = await Cars.save(email, seller_name, phone_no, state, price, 
+        manufacturer, model, body_type, imageUrl, id);
         if (created[0]) {
             let createdMessage = "Ad successfully posted";
             const {id, created_on, manufacturer, model, price, state, 
