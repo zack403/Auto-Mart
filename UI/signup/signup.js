@@ -53,8 +53,7 @@ const workWithResponse = res => {
     spinner.style.display = 'none';
     if(data) {
         successAlert.style.display = 'block';
-        successAlert.innerHTML = data.message;
-        window.location.href = "../signin/sign-in.html";
+        successAlert.innerHTML = `${data.message} Click <a href="../signin/sign-in.html">Login</a> to sign in.`;
         return;
     }
     else if(error) {
