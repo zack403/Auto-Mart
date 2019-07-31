@@ -54,7 +54,7 @@ const workWithResponse = res => {
     if(data) {
         successAlert.style.display = 'block';
         successAlert.innerHTML = data.message;
-        window.location.href = "/UI/signin/sign-in.html";
+        window.location.href = "../signin/sign-in.html";
         return;
     }
     else if(error) {
