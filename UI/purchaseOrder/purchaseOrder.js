@@ -36,7 +36,12 @@ document.getElementById("logout").addEventListener("click", logout)
 
     const getReportedAd = async () => {
         let user = authService.getUserInfo();
-        document.getElementById("small").innerHTML = user.email;
+        if(user){
+            document.getElementById("small").innerHTML = user.email;
+        }
+        else {
+            return window.location.href = "../signin/sign-in.html";
+        }        
         const res = await ReportAdService.getReportAD(id);
         if(res.id) {
             reportBtn.style.color = "red";

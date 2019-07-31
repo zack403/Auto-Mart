@@ -29,8 +29,12 @@ document.getElementById("logout").addEventListener("click", logout);
 
 const fetchMyPos = async () => {
     let user = authService.getUserInfo();
-    document.getElementById("small").innerHTML = user.email;
-    try {
+    if(user){
+        document.getElementById("small").innerHTML = user.email;
+    }
+    else {
+        return window.location.href = "../signin/sign-in.html";
+    }    try {
     const response = await MyPoService.fetchMyPos(user.id);
     console.log(response);
     workWithResponse(response);

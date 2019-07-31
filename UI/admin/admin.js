@@ -24,8 +24,12 @@ document.getElementById("logout").addEventListener("click", logout);
 
 const fetchCars = async () => {
     let user = JSON.parse(localStorage.getItem("user"));
-    document.getElementById("small").innerHTML = user.email;
-    try {
+    if(user){
+        document.getElementById("small").innerHTML = user.email;
+    }
+    else {
+        return window.location.href = "../signin/sign-in.html";
+    }    try {
     const response = await carService.fetchCars();
     workWithResponse(response);
     } catch (error) {

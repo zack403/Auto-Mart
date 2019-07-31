@@ -29,7 +29,12 @@ document.getElementById("logout").addEventListener("click", logout);
 
 const fetchMyAds = async () => {
     let user = authService.getUserInfo();
-    document.getElementById("small").innerHTML = user.email;
+    if(user){
+        document.getElementById("small").innerHTML = user.email;
+    }
+    else {
+        return window.location.href = "../signin/sign-in.html";
+    }
     try {
     const response = await MyAdService.fetchMyAds(user.id);
     workWithResponse(response);
