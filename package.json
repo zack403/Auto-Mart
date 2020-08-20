@@ -25,7 +25,7 @@
   },
   "homepage": "https://github.com/zack403/Auto-Mart#readme",
   "dependencies": {
-    "bcrypt": "^3.0.6",
+    "bcrypt": "^5.0.0",
     "cloudinary": "^1.14.0",
     "compression": "^1.7.4",
     "config": "^3.1.0",
